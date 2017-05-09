@@ -1,1 +1,1 @@
-import Hello from './main/webapp/hello.jsx';
+import App from './main/webapp/App.jsx';
