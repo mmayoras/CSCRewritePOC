@@ -1,0 +1,1 @@
+import Hello from './main/webapp/hello.jsx';
