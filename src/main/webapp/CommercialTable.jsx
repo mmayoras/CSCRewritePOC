@@ -1,7 +1,7 @@
 import React from 'react';
 import CommercialApplication from './CommercialApplication.jsx';
 
-export default class CommercialTable extends React.Component() {
+class CommercialTable extends React.Component {
     render() {
         var rows = [];
         var tableStyle = {
@@ -31,3 +31,5 @@ export default class CommercialTable extends React.Component() {
             </div>);
     }
 }
+
+export default CommercialTable;

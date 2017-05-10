@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ConsumerTable from './ConsumerTable.jsx';
+import $ from 'jquery';
 import CommercialTable from './CommercialTable.jsx';
+import ConsumerTable from './ConsumerTable.jsx';
 
-class App extends React.Component() {
+class CSC extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {consumerApplications: [], commercialApplications: []};
+    }
 
     loadConsumerApplicationsFromServer() {
         var self = this;
@@ -21,10 +26,6 @@ class App extends React.Component() {
         }).then(function (data) {
             self.setState({commercialApplications: data._embedded.commercialApplications});
         });
-    }
-
-    getInitialState() {
-        return {consumerApplications: [], commercialApplications: []};
     }
 
     componentDidMount() {
@@ -56,4 +57,4 @@ class App extends React.Component() {
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<CSC/>, document.getElementById('csc'));

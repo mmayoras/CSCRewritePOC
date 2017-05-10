@@ -1,7 +1,7 @@
 import React from 'react';
 import ConsumerApplication from './ConsumerApplication.jsx';
 
-export default class ConsumerTable extends React.Component() {
+class ConsumerTable extends React.Component {
     render() {
         var rows = [];
         var tableStyle = {
@@ -31,3 +31,5 @@ export default class ConsumerTable extends React.Component() {
             </div>);
     }
 }
+
+export default ConsumerTable;

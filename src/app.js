@@ -1,1 +1,1 @@
-import App from './main/webapp/App.jsx';
+import CSC from './main/webapp/CSC.jsx';

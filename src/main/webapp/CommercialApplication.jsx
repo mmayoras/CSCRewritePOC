@@ -1,8 +1,11 @@
 import React from 'react';
+import $ from 'jquery';
+import toastr from 'toastr';
 
-export default class CommercialApplication extends React.Component() {
-    getInitialState() {
-        return {display: true };
+class CommercialApplication extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {display: true };
     }
 
     handleDelete() {
@@ -35,3 +38,5 @@ export default class CommercialApplication extends React.Component() {
         );
     }
 }
+
+export default CommercialApplication
