@@ -1,0 +1,3 @@
+/* eslint-disable import/prefer-default-export */
+export const UPDATE_AUTHORIZATION_IDENTIFICATION_RESPONSE =
+  'UPDATE_AUTHORIZATION_IDENTIFICATION_RESPONSE';

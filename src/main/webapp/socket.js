@@ -18,21 +18,12 @@ export function isConnecting() {
 }
 
 export const connect = Observable.create((observer) => {
-    if (process.env.NODE_ENV === 'test') {
-        socket = {
-            onopen: jest.fn(),
-            onerror: jest.fn(),
-            onmessage: jest.fn(),
-            onclose: jest.fn(),
-            send: jest.fn(),
-        };
-    } else {
-        socket = new WebSocket(`wss://saptpinpad.homedepot.com:8083/PS-DeviceManagerClient/ws/WebSocket?clientUUID=${sessionId}`);
-    }
+    
+    socket = new WebSocket(`wss://saptpinpad.homedepot.com:8083/PS-DeviceManagerClient/ws/WebSocket?clientUUID=${sessionId}`);
 
     socket.onopen = () => {
         console.info('Websocket connection established');
-        // socket.send(`<PinPadRequest sessionId="${sessionId}"><Action name="GetMSRData" waitForResponse="false"></Action></PinPadRequest>`);
+        socket.send(`<PinPadRequest sessionId="${sessionId}"><Action name="GetMSRData" waitForResponse="false"></Action></PinPadRequest>`);
     };
 
     socket.onerror = e => observer.error(e);
