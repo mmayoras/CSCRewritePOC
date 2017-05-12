@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import R from 'ramda';
 import { connect, sendMessage } from '../socket';
 import { dispatch, getState } from './dispatchIndex';
 import responseHandlers from './responseHandlers';
@@ -34,12 +33,3 @@ export function sendToPinPad(message) {
 //     console.warn('socket closed');
 //   });
 // }
-
-// Remove XML escape characters from input string
-export const sanitizeInput = R.pipe(
-    R.replace(/&/g, '&amp;'),
-    R.replace(/</g, '&lt;'),
-    R.replace(/>/g, '&gt;'),
-    R.replace(/'/g, '&apos;'),
-    R.replace(/"/g, '&quot;'),
-);

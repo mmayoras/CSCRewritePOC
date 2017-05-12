@@ -1,6 +1,5 @@
 /* eslint-disable max-len,no-console,new-cap */
 import { Map } from 'core-js/es6';
-import { sanitizeInput } from './index';
 
 export function welcomeRequest(sessionId) {
     return `<PinPadRequest sessionID="${sessionId}"><Action name="Welcome" waitForResponse="false"></Action></PinPadRequest>`;
@@ -73,28 +72,6 @@ export function msrApprovedRequest(sessionId, languageCode) {
     return pinPadInfoMessage(sessionId, approvedText);
 }
 
-
-export function invalidCardMessage(sessionId, languageCode) {
-    const invalidCardEnUs = 'Invalid card';
-    const invalidCardEnCa = 'Invalid card';
-    const invalidCardFrCa = 'Carte non valide';
-
-    let invalidCardText;
-    switch (languageCode) {
-        case 'en_CA':
-            invalidCardText = invalidCardEnCa;
-            break;
-        case 'fr_CA':
-            invalidCardText = invalidCardFrCa;
-            break;
-        case 'en_US':
-        default:
-            invalidCardText = invalidCardEnUs;
-    }
-    return pinPadInfoMessage(sessionId, invalidCardText);
-}
-
-
 export function cardSwipedInsertCardRequest(sessionId, languageCode) {
     const insertCardEnUs = 'Please Insert Card';
     const insertCardEnCa = 'Please Insert Card';
@@ -114,7 +91,6 @@ export function cardSwipedInsertCardRequest(sessionId, languageCode) {
     }
     return `<PinPadRequest sessionID="${sessionId}"><Action name="CardSwipedInsertCard" waitForResponse="false"><Form name="insertCard" padStatus="${insertCardText}"><dynamicText><Text text="${insertCardText}" rowIndex="0" align="center"/></dynamicText></Form></Action></PinPadRequest>`;
 }
-
 
 export function emvFailedSwipeCardRequest(sessionId, languageCode) {
     const swipeCardEnUs = 'Please Swipe Card';
@@ -199,12 +175,4 @@ export function emvFinalize(sessionId, languageCode, countryCode, authStatus) {
     const displayLanguage = languageCode.substring(0, 2);
     const displayCountry = countryCode;
     return `<PinPadRequest sessionID="${sessionId}"><Action displayCountry="${displayCountry}" displayLanguage="${displayLanguage}" name="FinalizeEMV" waitForResponse="false"><EMV EMVStatus="Proceed" Language="${languageCode}" PAD_STATUS="${authStatus}"/></Action></PinPadRequest>`;
-}
-
-
-export function displayTerms(sessionId, languageCode, countryCode, termsAndConditions) {
-    const displayLanguage = languageCode.substring(0, 2);
-    const displayCountry = countryCode;
-    const termsText = sanitizeInput(termsAndConditions);
-    return `<PinPadRequest sessionID="${sessionId}"><Action displayCountry="${displayCountry}" displayLanguage="${displayLanguage}" name="GetSignatureCancel" waitForResponse="false"><Signature enabled="true"><dynamicText><Text text="${termsText}" rowIndex="1" align="left"/></dynamicText></Signature></Action></PinPadRequest>`;
 }
