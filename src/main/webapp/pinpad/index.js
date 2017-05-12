@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import R from 'ramda';
 import { connect, sendMessage } from '../socket';
-import { dispatch, getState } from './../dispatchIndex';
+import { dispatch, getState } from './dispatchIndex';
 
 import { addAlertError } from './../reducers/alertMessage/actionCreators';
 

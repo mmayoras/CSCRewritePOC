@@ -4,13 +4,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { dispatch } from './dispatchIndex';
-import { isOpen } from './socket';
-import { sendPinPadMsrData, sendWelcome } from './pinpad/requestHandlers';
-import { resetPinPadData } from './reducers/pinpad/actionCreators';
-import { updateCreditAuthResponse } from './reducers/creditAuthResponse/actionCreators';
-import { resetCardType } from './reducers/cardType/actionCreators';
-import { updateAuthorizationIdentificationResponse } from './reducers/authorizationIdentificationResponse/actionCreators';
-import { englishCurrencyFilter } from './utils/formatters';
+import { isOpen } from '../socket';
+import { sendPinPadMsrData, sendWelcome } from './requestHandlers';
+import { resetPinPadData } from '../reducers/pinpad/actionCreators';
+import { updateCreditAuthResponse } from '../reducers/creditAuthResponse/actionCreators';
+import { resetCardType } from '../reducers/cardType/actionCreators';
+import { updateAuthorizationIdentificationResponse } from '../reducers/authorizationIdentificationResponse/actionCreators';
+import { englishCurrencyFilter } from '../utils/formatters';
 
 class ConnectToPinpadStarter extends React.Component {
     constructor(props) {

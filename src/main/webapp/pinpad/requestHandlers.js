@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { dispatch, getState } from './../dispatchIndex';
+import { dispatch, getState } from './dispatchIndex';
 import {
     updatePinPadRequestType,
     setSignatureApprovalStatus,

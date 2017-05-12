@@ -1,2 +1,2 @@
-import CSC from './main/webapp/CSC.jsx';
-import ConnectToPinpadStarter from './main/webapp/ConnectToPinpadStarter.jsx'
+import CSC from './main/webapp/CSC/CSC.jsx';
+import ConnectToPinpadStarter from './main/webapp/pinpad/ConnectToPinpadStarter.jsx'

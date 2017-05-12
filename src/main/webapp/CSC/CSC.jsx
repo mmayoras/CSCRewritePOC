@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import CommercialTable from './CommercialTable.jsx';
 import ConsumerTable from './ConsumerTable.jsx';
-import { connect } from './socket';
+import { connect } from '../socket';
 
 class CSC extends React.Component {
     constructor(props) {
