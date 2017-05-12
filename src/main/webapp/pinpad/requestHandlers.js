@@ -19,7 +19,6 @@ import {
     cardSwipedInsertCardRequest,
     emvFailedSwipeCardRequest,
     cardSwipeError,
-    promptForSignatureRequest,
     pinPadPrimaryAccountNumberManualEntry,
     pinPadExpirationDateManualEntry,
     pinPadSecurityCodeManualEntry,

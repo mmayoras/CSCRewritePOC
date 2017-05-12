@@ -23,7 +23,7 @@ export const connect = Observable.create((observer) => {
 
     socket.onopen = () => {
         console.info('Websocket connection established');
-        socket.send(`<PinPadRequest sessionId="${sessionId}"><Action name="GetMSRData" waitForResponse="false"></Action></PinPadRequest>`);
+        //socket.send(`<PinPadRequest sessionId="${sessionId}"><Action name="GetMSRData" waitForResponse="false"></Action></PinPadRequest>`);
     };
 
     socket.onerror = e => observer.error(e);

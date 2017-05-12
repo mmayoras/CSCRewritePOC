@@ -2,11 +2,14 @@
 import R from 'ramda';
 import { connect, sendMessage } from '../socket';
 import { dispatch, getState } from './dispatchIndex';
+import responseHandlers from './responseHandlers';
 
 import { addAlertError } from './../reducers/alertMessage/actionCreators';
 
 export const pinpad = connect.subscribe(({ data }) => {
     const { requestType } = getState().pinpad;
+    responseHandlers[requestType]({ data, dispatch });
+    // Add actions here
 }, (err) => {
     console.error('PIN pad connection error: ', err);
     dispatch(addAlertError('PIN Pad Offline'));

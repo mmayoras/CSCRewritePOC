@@ -10,7 +10,6 @@ import { resetPinPadData } from '../reducers/pinpad/actionCreators';
 import { updateCreditAuthResponse } from '../reducers/creditAuthResponse/actionCreators';
 import { resetCardType } from '../reducers/cardType/actionCreators';
 import { updateAuthorizationIdentificationResponse } from '../reducers/authorizationIdentificationResponse/actionCreators';
-import { englishCurrencyFilter } from '../utils/formatters';
 
 class ConnectToPinpadStarter extends React.Component {
     constructor(props) {
@@ -18,9 +17,13 @@ class ConnectToPinpadStarter extends React.Component {
 
         this.state = {
             pinPadConnected: false,
+            orderTotal: "$51.00",
+            updateReadyToPay: false,
+            updatePinPadConnected: false,
+            languageCode: "en_US"
         };
 
-        sendWelcome();
+        //sendWelcome();
 
         this.handlePayNow = this.handlePayNow.bind(this);
     }
@@ -42,41 +45,38 @@ class ConnectToPinpadStarter extends React.Component {
     }
 
     setPinPadConnected() {
-        const { updatePinPadConnected } = this.props;
-        updatePinPadConnected(true);
         this.setState({
-            pinPadConnected: true,
+            updatePinPadConnected: true,
+            pinPadConnected: true
         });
     }
 
     setPinPadNotConnected() {
         console.error('pinPad offline');
-        const { updatePinPadConnected } = this.props;
-        updatePinPadConnected(false);
         this.setState({
-            pinPadConnected: false,
+            updatePinPadConnected: false,
+            pinPadConnected: false
         });
     }
 
     initializePinPad() {
-        const { orderTotal, languageCode } = this.props;
-        sendPinPadMsrData(languageCode, orderTotal);
+        sendPinPadMsrData(this.state.languageCode, this.state.orderTotal);
     }
 
     handlePayNow() {
-        const { updateReadyToPay } = this.props;
         this.initializePinPad();
-        updateReadyToPay(true);
+        this.setState({
+            updateReadyToPay: true
+        });
     }
 
     render() {
-        const { orderTotal } = this.props;
         const pinPadConnected = this.state.pinPadConnected;
 
         return (
             <div className="card-panel__single-split">
                 <div className="card-panel__single-split-instructions">
-                    Ready to charge {englishCurrencyFilter(orderTotal)}
+                    Ready to charge {this.state.orderTotal}
                 </div>
                 <div className="card-panel__single-split-checkout-buttons">
                     <button

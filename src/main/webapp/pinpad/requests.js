@@ -1,25 +1,6 @@
 /* eslint-disable max-len,no-console,new-cap */
 import { Map } from 'core-js/es6';
-import padStart from 'lodash/padStart';
-import padEnd from 'lodash/padEnd';
-
-import {
-    pinPadEnglishCurrencyFilter,
-    pinPadFrenchCanadaCurrencyFilter,
-} from './../utils/formatters';
 import { sanitizeInput } from './index';
-
-const tenderTypes = new Map([
-    ['AX', 'AMEX'],
-    ['DS', 'DISCOVER'],
-    ['MA', 'MASTERCARD'],
-    ['VI', 'VISA'],
-    ['HC', 'CONSUMER'],
-    ['HR', 'COMMERCIAL'],
-    ['HP', 'PROX'],
-    ['HI', 'IMPROVER'],
-]);
-
 
 export function welcomeRequest(sessionId) {
     return `<PinPadRequest sessionID="${sessionId}"><Action name="Welcome" waitForResponse="false"></Action></PinPadRequest>`;
@@ -30,15 +11,10 @@ export function pinPadInfoMessage(sessionId, message) {
     return `<PinPadRequest sessionID="${sessionId}"><Action name="InfoMessage" waitForResponse="false"><Form padStatus="${message}" clearText="true"></Form></Action></PinPadRequest>`;
 }
 
-
 export function msrDataPinPadRequest(sessionId, languageCode, total) {
     const balanceDueEnUs = 'BALANCE DUE';
     const balanceDueEnCa = 'BALANCE DUE';
     const balanceDueFrCa = 'SOLDE À PAYER';
-
-    const formatter = languageCode === 'fr_CA' ? pinPadFrenchCanadaCurrencyFilter : pinPadEnglishCurrencyFilter;
-    const formattedTotal = formatter(total).replace(' $', '$');
-    const formattedBalance = formattedTotal;
 
     let balanceDueText;
     switch (languageCode) {
@@ -53,9 +29,8 @@ export function msrDataPinPadRequest(sessionId, languageCode, total) {
             balanceDueText = balanceDueEnUs;
     }
 
-    return `<PinPadRequest sessionID="${sessionId}"><Action name="GetMSRData" waitForResponse="false"><Txn totalLine="TOTAL  ${formattedTotal}" balanceLine="${balanceDueText} ${formattedBalance}"><headerLine><String value=""/></headerLine><itemLine><String value=""/></itemLine></Txn></Action></PinPadRequest>`;
+    return `<PinPadRequest sessionID="${sessionId}"><Action name="GetMSRData" waitForResponse="false"><Txn totalLine="TOTAL  ${total}" balanceLine="${balanceDueText}"><headerLine><String value=""/></headerLine><itemLine><String value=""/></itemLine></Txn></Action></PinPadRequest>`;
 }
-
 
 export function msrDeclineRequest(sessionId, languageCode) {
     const declinedEnUs = 'Declined';
@@ -171,17 +146,6 @@ export function processingMsrRequest(sessionId) {
 export function cardSwipeError(sessionId) {
     return `<PinPadRequest sessionID="${sessionId}"><Action name="MSRInvalidSwipeError"></Action></PinPadRequest>`;
 }
-
-
-export function promptForSignatureRequest(sessionId, languageCode, xref, orderTotal, rptPaymtMethCode) {
-    const lastFourOfCard = xref.substr(length - 4);
-    const formatter = languageCode === 'fr_CA' ? pinPadFrenchCanadaCurrencyFilter : pinPadEnglishCurrencyFilter;
-    let total = formatter(orderTotal).replace(' $', '$');
-    total = padStart(total, 12);
-    const tenderType = padEnd(tenderTypes.get(rptPaymtMethCode), 11); // This could potentially be refactored to use util.js/getFriendlyCardName
-    return `<PinPadRequest sessionID="${sessionId}"><Action name="GetSignature" waitForResponse="false"><Signature enabled="true"><dynamicText><Text text="xxxxxxxxxxxx${lastFourOfCard} ${tenderType}${total}" rowIndex="1" align="center"/></dynamicText></Signature></Action></PinPadRequest>`;
-}
-
 
 export function pinPadPrimaryAccountNumberManualEntry(sessionId) {
     return `<PinPadRequest sessionID="${sessionId}"><Action name="GetKeyedCardData" waitForResponse="false"><MSR expirationDate="1249" cvv2="123"></MSR></Action></PinPadRequest>`;
