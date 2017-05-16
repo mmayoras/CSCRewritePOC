@@ -39,16 +39,17 @@ class CSC extends React.Component {
             float: "left"
         };
         var divHeaderStyle = {
-            textAlign:"center"
+            textAlign:"center",
+            position: "relative"
         };
-        var divBodyStyle = {
-            clear: "left"
-        };
+
         return (
             <div>
-                <h1 style={divHeaderStyle}>Credit Services Center</h1>
-                <img src="images/Master_Depot_Logo.jpg" style={imageStyle}/>
-                <div style={divBodyStyle}>
+                <div>
+                    <img src="images/Master_Depot_Logo.jpg" style={imageStyle}/>
+                    <h1 style={divHeaderStyle}>Credit Services Center</h1>
+                </div>
+                <div style={{clear: 'both', display: "table"}}>
                     <ConsumerTable consumerApplications={this.state.consumerApplications} />
                     <CommercialTable commercialApplications={this.state.commercialApplications} />
                 </div>

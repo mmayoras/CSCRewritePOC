@@ -35868,23 +35868,26 @@ var CSC = function (_React$Component) {
                 float: "left"
             };
             var divHeaderStyle = {
-                textAlign: "center"
+                textAlign: "center",
+                position: "relative"
             };
-            var divBodyStyle = {
-                clear: "left"
-            };
+
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
-                    'h1',
-                    { style: divHeaderStyle },
-                    'Credit Services Center'
+                    'div',
+                    null,
+                    _react2.default.createElement('img', { src: 'images/Master_Depot_Logo.jpg', style: imageStyle }),
+                    _react2.default.createElement(
+                        'h1',
+                        { style: divHeaderStyle },
+                        'Credit Services Center'
+                    )
                 ),
-                _react2.default.createElement('img', { src: 'images/Master_Depot_Logo.jpg', style: imageStyle }),
                 _react2.default.createElement(
                     'div',
-                    { style: divBodyStyle },
+                    { style: { clear: 'both', display: "table" } },
                     _react2.default.createElement(_ConsumerTable2.default, { consumerApplications: this.state.consumerApplications }),
                     _react2.default.createElement(_CommercialTable2.default, { commercialApplications: this.state.commercialApplications })
                 )
