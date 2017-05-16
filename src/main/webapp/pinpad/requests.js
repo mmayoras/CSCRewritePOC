@@ -28,7 +28,7 @@ export function msrDataPinPadRequest(sessionId, languageCode, total) {
             balanceDueText = balanceDueEnUs;
     }
 
-    return `<PinPadRequest sessionID="${sessionId}"><Action name="GetMSRData" waitForResponse="false"><Txn totalLine="TOTAL  ${total}" balanceLine="${balanceDueText}"><headerLine><String value=""/></headerLine><itemLine><String value=""/></itemLine></Txn></Action></PinPadRequest>`;
+    return `<PinPadRequest sessionID="${sessionId}"><Action name="GetPostalCode" waitForResponse="false"><Txn totalLine="TOTAL  ${total}" balanceLine="${balanceDueText}"><headerLine><String value=""/></headerLine><itemLine><String value=""/></itemLine></Txn></Action></PinPadRequest>`;
 }
 
 export function msrDeclineRequest(sessionId, languageCode) {

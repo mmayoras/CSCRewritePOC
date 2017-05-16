@@ -11,7 +11,7 @@ class CommercialTable extends React.Component {
         };
 
         this.props.commercialApplications.forEach(function(commercialApplication) {
-            rows.push(<CommercialApplication commercialApplication={commercialApplication} />);
+            rows.push(<CommercialApplication key={commercialApplication.id.toString()} commercialApplication={commercialApplication} />);
         });
         return (
             <div className="container" name="CommercialApplication" style={tableStyle}>

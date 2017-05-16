@@ -42,12 +42,12 @@ class CSC extends React.Component {
             textAlign:"center"
         };
         var divBodyStyle = {
-            clear:"left"
+            clear: "left"
         };
         return (
             <div>
-                <img src="images/Master_Depot_Logo.jpg" style={imageStyle}/>
                 <h1 style={divHeaderStyle}>Credit Services Center</h1>
+                <img src="images/Master_Depot_Logo.jpg" style={imageStyle}/>
                 <div style={divBodyStyle}>
                     <ConsumerTable consumerApplications={this.state.consumerApplications} />
                     <CommercialTable commercialApplications={this.state.commercialApplications} />

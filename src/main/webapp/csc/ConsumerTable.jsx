@@ -11,7 +11,7 @@ class ConsumerTable extends React.Component {
         };
 
         this.props.consumerApplications.forEach(function(consumerApplication) {
-            rows.push(<ConsumerApplication consumerApplication={consumerApplication} />);
+            rows.push(<ConsumerApplication key={consumerApplication.id.toString()} consumerApplication={consumerApplication} />);
         });
         return (
             <div className="container" name="ConsumerApplication" style={tableStyle}>

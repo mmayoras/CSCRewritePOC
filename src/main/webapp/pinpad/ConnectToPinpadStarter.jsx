@@ -73,14 +73,18 @@ class ConnectToPinpadStarter extends React.Component {
     render() {
         const pinPadConnected = this.state.pinPadConnected;
 
+        // var divBodyStyle = {
+        //     height:"%50",
+        //     width:"%100"
+        // };
+
         return (
-            <div className="card-panel__single-split">
-                <div className="card-panel__single-split-instructions">
+            <div>
+                <div>
                     Ready to charge {this.state.orderTotal}
                 </div>
-                <div className="card-panel__single-split-checkout-buttons">
+                <div>
                     <button
-                        className="md-button primary"
                         disabled={pinPadConnected ? null : true}
                         onClick={this.handlePayNow}
                     >

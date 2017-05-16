@@ -18,12 +18,8 @@ import { setProxOnlyFalse } from '../reducers/proxOnly/actionCreators';
 import {
   sendPinPadMsrData,
   processingMsrScreen,
-  sendGetDebitPinData,
-  sendEMVStart,
-  // sendEMVComplete,
   sendEMVFinalize,
   sendCardSwipeError,
-  cardSwipedInsertCard,
   pinPadPANManualEntry,
   emvFailedSwipeCard,
   pinpadExpirationDateManualEntry,
@@ -44,7 +40,6 @@ import {
 
 import {
   isDebitOnlyCard,
-  isDualCard,
   validateYearAndMonth,
   switchMonthYear,
 } from './../utils/util';
@@ -55,10 +50,6 @@ if (process.env.NODE_ENV === 'qa') {
 } else {
   rootPath = '';
 }
-
-/* CONSTANTS */
-const SWIPE_ENTRY_METHOD = '1'; // indicates data came from card swipe
-const CHIP_ENTRY_METHOD = '4'; // Indicates data came from inserted card
 
 function parseXml(data) {
   const xmlDoc = $.parseXML(data);
@@ -161,133 +152,29 @@ export function processInfoMessageResponse({ data }) {
 }
 
 export function processGetMsrDataResponse({ data, dispatch }) {
-  processingMsrScreen(); // Send processing MSR screen to pinpad
+    console.log('processPostalCodeResponse');
+    const $xml = parseXml(data);
+    const keyedResponse = $xml.find('KeyPad');
+    processingMsrScreen();
+    // If an MSR element was not returned, we will not process the response
+    // This is being done because the MSRListener will sometimes fire an extra event
+    // that we do not want to process, or it breaks the pinpad flow.
+    if (keyedResponse.length === 0) {
+        return;
+    }
+    const keyedZipCode = keyedResponse.attr('keyedData') || null;
+    dispatch(pinPadCardActionCreators.updateZipCode(keyedZipCode));
 
-  if (process.env.NODE_ENV !== 'production') {
-    console.group('msr data response');
-    console.dirxml('MSR response: ', data);
-    console.groupEnd();
-  }
-
-  const $xml = parseXml(data);
-  if ($xml.find('EMVError').length > 0) {
-    processEMVErrorResponse({ data, dispatch });
-    return;
-  }
-  const cardResponse = $xml.find('MSR');
-  const entryMethod = cardResponse.attr('entryMethod');
-  dispatch(pinPadActionCreators.updateEntryMethod(entryMethod));
-
-  let state = getState();
-
-  // Remove all currently displayed alerts. This could potentially be improved by
-  //   only removing certian alerts rather than all of them.
-  if (state.alerts.length !== 0) {
-    console.log('state.alerts = ', state.alerts);
-    dispatch(removeAllAlerts());
-  }
-
-  if (entryMethod === SWIPE_ENTRY_METHOD) {
-    // If the service code starts with 2 or 6, the card is EMV capable and should be inserted.
-    // If the fallback counter is >= 3 though, we will allow swipe for EMV card.
-    if (/^(2|6).*$/.test(cardResponse.attr('serviceCode')) && state.pinpad.emvFallbackCounter < 3) {
-      cardSwipedInsertCard(getState().languageCode);
-      dispatch(addAlertError('Chip card cannot be swiped, it must be inserted'));
-      return;
+    if (keyedResponse.attr('buttonPressed') === '2') {
+        console.log('Customer pressed cancel while keying zip code');
+        dispatch(pinPadCardActionCreators.resetCardDetails());
+        dispatch(pinPadActionCreators.resetCardActionStatus());
+        if (process.env.NODE_ENV !== 'test') {
+            browserHistory.push(`${rootPath}card`);
+        }
+        return;
     }
 
-    dispatch(pinPadActionCreators.setCardSwipedTrue());
-    const etb = cardResponse.attr('ETB') || '';
-    const pan = cardResponse.attr('accountNumber') || '';
-    const track1Data = window.atob(cardResponse.attr('track1Data') || '');
-    const track2Data = window.atob(cardResponse.attr('track2Data') || '');
-    const expiry = switchMonthYear(cardResponse.attr('expirationDate') || ''); // YYMM to MMYY
-
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('ETB', etb);
-      console.log('pan ', pan);
-      console.groupEnd();
-    }
-
-    dispatch(pinPadCardActionCreators.updateEtbString(etb));
-    dispatch(pinPadCardActionCreators.updatePrimaryAccountNumber(pan));
-    dispatch(pinPadCardActionCreators.updateTrack1Data(track1Data));
-    dispatch(pinPadCardActionCreators.updateTrack2Data(track2Data));
-    dispatch(pinPadCardActionCreators.updateExpiryDate(expiry));
-    dispatch(pinPadCardActionCreators.updatePOSEntryMode('MAGNETIC_STRIPE'));
-
-    dispatch(fetchXref(pan, etb)).then(() => {
-      state = getState(); // Get new state values after fetchXref
-
-      if (!state.pinpadCardDetails.xref) {
-        resetCardDataAndPinPad(dispatch, state.languageCode, state.amountBreakdown.orderTotal.amount);
-        return;
-      }
-
-      // Handle disallowed prepaid cards
-      if (!state.prepaidCardsAllowed && state.pinpadCardDetails.isPrepaidCard) {
-        // This is a prepaid card, and prepaid cards are not allowed for this transaction.
-        dispatch(addAlertError('Prepaid card not valid for deposit.'));
-        resetCardDataAndPinPad(dispatch, state.languageCode, state.amountBreakdown.orderTotal.amount);
-        return;
-      }
-
-      // Handle dual cards
-      if (isDualCard(state.pinpadCardDetails.crHostId)) {
-        if (!state.debitCardsAllowed) {
-          // if Debit not allowed, default to credit
-          dispatch(setCardTypeCredit());
-          if (state.amountBreakdown.orderTotal.amount > 50.00) {
-            dispatch(pinPadActionCreators.setSignatureRequiredTrue());
-          } else {
-            dispatch(pinPadActionCreators.setSignatureRequiredFalse());
-          }
-          dispatch(doCreditAuth());
-          return;
-        }
-        dispatch(setCardTypeDebit());
-        sendGetDebitPinData(state.languageCode,
-                            state.amountBreakdown.orderTotal.amount,
-                            state.pinpadCardDetails.primaryAccountNumber,
-                            state.pinpad.track2Data);
-      } else if (isDebitOnlyCard(state.pinpadCardDetails.crHostId, state.pinpadCardDetails.paymtMethCode)) {
-        // Handle disallowed debit cards
-        if (!state.debitCardsAllowed) {
-          // If debit not allowed, display alert, cancel transaction.
-          dispatch(addAlertError('Debit only cards are not allowed.',
-                                 'Please use a card that has a Credit tender to complete the payment.'));
-          resetCardDataAndPinPad(dispatch, state.languageCode, state.amountBreakdown.orderTotal.amount);
-          return;
-        }
-
-        dispatch(setCardTypeDebit());
-        sendGetDebitPinData(state.languageCode,
-                            state.amountBreakdown.orderTotal.amount,
-                            state.pinpadCardDetails.primaryAccountNumber,
-                            state.pinpad.track2Data);
-      } else {
-        dispatch(setCardTypeCredit());
-        // Handle signature required for orders over $50 and all Pro Purchase (HA) cards
-        if (state.amountBreakdown.orderTotal.amount > 50.00 || state.pinpadCardDetails.rptPaymtMethCode === 'HA') {
-          dispatch(pinPadActionCreators.setSignatureRequiredTrue());
-        } else {
-          dispatch(pinPadActionCreators.setSignatureRequiredFalse());
-        }
-        dispatch(doCreditAuth());
-      }
-    });
-  } else if (entryMethod === CHIP_ENTRY_METHOD) {
-    console.log('Card inserted');
-    dispatch(pinPadActionCreators.setCardInsertedTrue());
-    dispatch(pinPadCardActionCreators.updatePOSEntryMode('INTEGERATED_CIRCUIT_CARD_READ_CVV_DATA_RELIABLE'));
-    sendEMVStart(state.languageCode, state.amountBreakdown.orderTotal.amount, state.countryCode);
-    // TODO: We will need to get these 3 values from CreditAuth response.
-    // let authStatusString;
-    // let emvTagsFromHostRaw;
-    // let authStatus;
-    // sendEMVComplete(state.languageCode, state.countryCode, authStatusString, emvTagsFromHostRaw);
-    // sendEMVFinalize(state.languageCode, state.countryCode, authStatus);
-  }
 }
 
 
