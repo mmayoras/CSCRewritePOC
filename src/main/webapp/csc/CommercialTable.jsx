@@ -6,7 +6,6 @@ class CommercialTable extends React.Component {
         var rows = [];
         var tableStyle = {
             float: "right",
-            textAlign: "center",
             width: "50%"
         };
 
@@ -15,7 +14,7 @@ class CommercialTable extends React.Component {
         });
         return (
             <div className="container" name="CommercialApplication" style={tableStyle}>
-                <h2>Commercial Accounts</h2>
+                <h2 style={{textAlign: "center"}}>Commercial Accounts</h2>
                 <table className="table table-striped">
                     <thead>
                     <tr>

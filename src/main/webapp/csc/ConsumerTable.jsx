@@ -6,7 +6,6 @@ class ConsumerTable extends React.Component {
         var rows = [];
         var tableStyle = {
             float: "left",
-            textAlign: "center",
             width: "50%"
         };
 
@@ -15,7 +14,7 @@ class ConsumerTable extends React.Component {
         });
         return (
             <div className="container" name="ConsumerApplication" style={tableStyle}>
-                <h2>Consumer Accounts</h2>
+                <h2 style={{textAlign: "center"}}>Consumer Accounts</h2>
                 <table className="table table-striped">
                     <thead>
                     <tr>

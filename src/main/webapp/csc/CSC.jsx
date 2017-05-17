@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import CommercialTable from './CommercialTable.jsx';
 import ConsumerTable from './ConsumerTable.jsx';
-import { connect } from '../socket';
 
 class CSC extends React.Component {
     constructor(props) {
@@ -49,7 +48,7 @@ class CSC extends React.Component {
                     <img src="images/Master_Depot_Logo.jpg" style={imageStyle}/>
                     <h1 style={divHeaderStyle}>Credit Services Center</h1>
                 </div>
-                <div style={{clear: 'both', display: "table"}}>
+                <div style={{clear: 'both', display: "table", width: "100%"}}>
                     <ConsumerTable consumerApplications={this.state.consumerApplications} />
                     <CommercialTable commercialApplications={this.state.commercialApplications} />
                 </div>
