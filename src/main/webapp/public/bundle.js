@@ -25195,13 +25195,14 @@ var CSC = function (_React$Component) {
         value: function render() {
             var imageStyle = {
                 paddingLeft: "20px",
+                paddingRight: "20px",
                 float: "left"
             };
             var divHeaderStyle = {
-                verticalAlign: "bottom",
+                verticalAlign: "middle",
                 fontSize: "3.5em",
-                textAlign: "center",
-                position: "relative"
+                position: "relative",
+                height: "84px"
             };
 
             return _react2.default.createElement(
