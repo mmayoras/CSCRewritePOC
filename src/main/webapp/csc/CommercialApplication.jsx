@@ -1,30 +1,17 @@
 import React from 'react';
-import $ from 'jquery';
-import toastr from 'toastr';
 
 class CommercialApplication extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {display: true };
+        this.deleteCommercialApplication = this.deleteCommercialApplication.bind(this);
     }
 
-    handleDelete() {
-        var self = this;
-        $.ajax({
-            url: self.props.commercialApplication._links.self.href,
-            type: 'DELETE',
-            success: function(result) {
-                self.setState({display: false});
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                toastr.error(xhr.responseJSON.message);
-            }
-        });
+    deleteCommercialApplication() {
+        this.props.deleteCommercialApplication(this.props.commercialApplication);
     }
 
     render() {
-        if (this.state.display==false) return null;
-        else return (
+        return (
             <tr>
                 <td>{this.props.commercialApplication.id}</td>
                 <td>{this.props.commercialApplication.firstName}</td>
@@ -32,7 +19,7 @@ class CommercialApplication extends React.Component {
                 <td>{this.props.commercialApplication.strNumber}</td>
                 <td>{this.props.commercialApplication.date}</td>
                 <td>
-                    <button className="btn btn-info" onClick={this.handleDelete}>Delete</button>
+                    <button className="btn btn-danger" onClick={this.deleteCommercialApplication}>Delete</button>
                 </td>
             </tr>
         );

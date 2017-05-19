@@ -1,30 +1,51 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
 import CommercialTable from './CommercialTable.jsx';
 import ConsumerTable from './ConsumerTable.jsx';
 
 class CSC extends React.Component {
     constructor(props) {
         super(props);
+        this.deleteConsumerApplication = this.deleteConsumerApplication.bind(this);
+        this.deleteCommercialApplication = this.deleteCommercialApplication.bind(this);
         this.state = {consumerApplications: [], commercialApplications: []};
     }
 
+    deleteConsumerApplication(consumerApplication) {
+        fetch (consumerApplication._links.self.href,
+            { method: 'DELETE',})
+            .then(
+                res => this.loadConsumerApplicationsFromServer()
+            )
+            .catch( err => console.error(err))
+    }
+
+    deleteCommercialApplication(commercialApplication) {
+        fetch (commercialApplication._links.self.href,
+            { method: 'DELETE',})
+            .then(
+                res => this.loadCommercialApplicationsFromServer()
+            )
+            .catch( err => console.error(err))
+    }
+
     loadConsumerApplicationsFromServer() {
-        var self = this;
-        $.ajax({
-            url: "http://localhost:8080/api/consumerApplications"
-        }).then(function (data) {
-            self.setState({consumerApplications: data._embedded.consumerApplications});
-        });
+        fetch('http://localhost:8080/api/consumerApplications')
+            .then((response) => response.json())
+            .then((responseData) => {
+                this.setState({
+                    consumerApplications: responseData._embedded.consumerApplications,
+                });
+            });
     }
 
     loadCommercialApplicationsFromServer() {
-        var self = this;
-        $.ajax({
-            url: "http://localhost:8080/api/commercialApplications"
-        }).then(function (data) {
-            self.setState({commercialApplications: data._embedded.commercialApplications});
+        fetch('http://localhost:8080/api/commercialApplications')
+            .then((response) => response.json())
+            .then((responseData) => {
+                this.setState({
+                    commercialApplications: responseData._embedded.commercialApplications,
+                });
         });
     }
 
@@ -35,10 +56,12 @@ class CSC extends React.Component {
 
     render() {
         var imageStyle = {
+            paddingLeft: "20px",
             float: "left"
         };
         var divHeaderStyle = {
-            textAlign:"center",
+            verticalAlign: "bottom",
+            fontSize: "3.5em",
             position: "relative"
         };
 
@@ -49,8 +72,8 @@ class CSC extends React.Component {
                     <h1 style={divHeaderStyle}>Credit Services Center</h1>
                 </div>
                 <div style={{clear: 'both', display: "table", width: "100%"}}>
-                    <ConsumerTable consumerApplications={this.state.consumerApplications} />
-                    <CommercialTable commercialApplications={this.state.commercialApplications} />
+                    <ConsumerTable deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
+                    <CommercialTable deleteCommercialApplication={this.deleteCommercialApplication} commercialApplications={this.state.commercialApplications} />
                 </div>
             </div>
         );

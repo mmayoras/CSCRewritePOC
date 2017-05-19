@@ -84,7 +84,7 @@ class ConnectToPinpadStarter extends React.Component {
                     Ready to charge {this.state.orderTotal}
                 </div>
                 <div>
-                    <button
+                    <button className="btn btn-info"
                         disabled={pinPadConnected ? null : true}
                         onClick={this.handlePayNow}
                     >

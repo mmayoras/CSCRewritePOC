@@ -2,19 +2,23 @@ import React from 'react';
 import ConsumerApplication from './ConsumerApplication.jsx';
 
 class ConsumerTable extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        var rows = [];
         var tableStyle = {
             float: "left",
             width: "50%"
         };
 
-        this.props.consumerApplications.forEach(function(consumerApplication) {
-            rows.push(<ConsumerApplication key={consumerApplication.id.toString()} consumerApplication={consumerApplication} />);
-        });
+        var consumerApplications = this.props.consumerApplications.map(consumerApplication =>
+            <ConsumerApplication key={consumerApplication._links.self.href} consumerApplication={consumerApplication} deleteConsumerApplication={this.props.deleteConsumerApplication} />);
+
         return (
             <div className="container" name="ConsumerApplication" style={tableStyle}>
-                <h2 style={{textAlign: "center"}}>Consumer Accounts</h2>
+                <b><p style={{textAlign: "center", marginBottom:"0px", fontSize:"2em"}}>Consumer Accounts</p></b>
+                <p style={{textAlign: "center", fontSize:"1.5em", color:"grey"}}>for your home</p>
                 <table className="table table-striped">
                     <thead>
                     <tr>
@@ -25,7 +29,7 @@ class ConsumerTable extends React.Component {
                         <th>Date</th>
                     </tr>
                     </thead>
-                    <tbody>{rows}</tbody>
+                    <tbody>{consumerApplications}</tbody>
                 </table>
             </div>);
     }
