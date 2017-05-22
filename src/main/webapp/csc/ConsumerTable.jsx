@@ -12,6 +12,15 @@ class ConsumerTable extends React.Component {
             width: "50%"
         };
 
+        var imageStyle = {
+            height: "225px",
+            width: "50%",
+            paddingLeft: "25px",
+            paddingRight: "25px",
+            paddingTop: "10px",
+            paddingBottom: "10px"
+        };
+
         var consumerApplications = this.props.consumerApplications.map(consumerApplication =>
             <ConsumerApplication key={consumerApplication._links.self.href} consumerApplication={consumerApplication} deleteConsumerApplication={this.props.deleteConsumerApplication} />);
 
@@ -19,6 +28,10 @@ class ConsumerTable extends React.Component {
             <div className="container" name="ConsumerApplication" style={tableStyle}>
                 <b><p style={{textAlign: "center", marginBottom:"0px", fontSize:"2em"}}>Consumer Accounts</p></b>
                 <p style={{textAlign: "center", fontSize:"1.5em", color:"grey"}}>for your home</p>
+                <div>
+                    <img src="images/rpl.gif" style={imageStyle} />
+                    <img src="images/projectloanNew02APR2014.gif" style={imageStyle} />
+                </div>
                 <table className="table table-striped">
                     <thead>
                     <tr>

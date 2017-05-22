@@ -58,6 +58,7 @@ class CSC extends React.Component {
         var imageStyle = {
             paddingLeft: "20px",
             paddingRight: "20px",
+            height: "60px",
             float: "left"
         };
         var divHeaderStyle = {
