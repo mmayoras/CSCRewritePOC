@@ -6,9 +6,41 @@ import ConsumerTable from './ConsumerTable.jsx';
 class CSC extends React.Component {
     constructor(props) {
         super(props);
+        this.createConsumer = this.createConsumer.bind(this);
+        this.createCommercial = this.createCommercial.bind(this);
         this.deleteConsumerApplication = this.deleteConsumerApplication.bind(this);
         this.deleteCommercialApplication = this.deleteCommercialApplication.bind(this);
         this.state = {consumerApplications: [], commercialApplications: []};
+    }
+
+    // Create new consumerApplication
+    createConsumer(consumerApplication) {
+        fetch('http://localhost:8080/api/consumerApplications', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(consumerApplication)
+        })
+            .then(
+                res => this.loadConsumerApplicationsFromServer()
+            )
+            .catch( err => console.error(err))
+    }
+
+    // Create new commercialApplication
+    createCommercial(commercialApplication) {
+        fetch('http://localhost:8080/api/commercialApplications', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(commercialApplication)
+        })
+            .then(
+                res => this.loadCommercialApplicationsFromServer()
+            )
+            .catch( err => console.error(err))
     }
 
     deleteConsumerApplication(consumerApplication) {
@@ -75,8 +107,12 @@ class CSC extends React.Component {
                     <h1 style={divHeaderStyle}>Credit Services Center</h1>
                 </div>
                 <div style={{clear: 'both', display: "table", width: "100%"}}>
-                    <ConsumerTable deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
-                    <CommercialTable deleteCommercialApplication={this.deleteCommercialApplication} commercialApplications={this.state.commercialApplications} />
+                    <div>
+                        <ConsumerTable createConsumer={this.createConsumer} deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
+                    </div>
+                    <div>
+                        <CommercialTable createCommercial={this.createCommercial} deleteCommercialApplication={this.deleteCommercialApplication} commercialApplications={this.state.commercialApplications} />
+                    </div>
                 </div>
             </div>
         );

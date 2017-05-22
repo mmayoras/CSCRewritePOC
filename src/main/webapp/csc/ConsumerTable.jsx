@@ -1,5 +1,6 @@
 import React from 'react';
 import ConsumerApplication from './ConsumerApplication.jsx';
+import ConsumerForm from "./ConsumerForm.jsx";
 
 class ConsumerTable extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class ConsumerTable extends React.Component {
             paddingLeft: "25px",
             paddingRight: "25px",
             paddingTop: "10px",
-            paddingBottom: "10px"
+            paddingBottom: "25px"
         };
 
         var consumerApplications = this.props.consumerApplications.map(consumerApplication =>
@@ -32,6 +33,7 @@ class ConsumerTable extends React.Component {
                     <img src="images/rpl.gif" style={imageStyle} />
                     <img src="images/projectloanNew02APR2014.gif" style={imageStyle} />
                 </div>
+                <ConsumerForm createConsumer={this.props.createConsumer} />
                 <table className="table table-striped">
                     <thead>
                     <tr>

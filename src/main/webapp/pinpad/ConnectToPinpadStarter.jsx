@@ -73,15 +73,15 @@ class ConnectToPinpadStarter extends React.Component {
     render() {
         const pinPadConnected = this.state.pinPadConnected;
 
-        // var divBodyStyle = {
-        //     height:"%50",
-        //     width:"%100"
-        // };
+        var divButtonStyle = {
+            padding: "10px",
+            textAlign: "center"
+        };
 
         return (
-            <div>
+            <div style={divButtonStyle}>
                 <div>
-                    Ready to charge {this.state.orderTotal}
+                    Click to Simulate Payment of {this.state.orderTotal}
                 </div>
                 <div>
                     <button className="btn btn-info"

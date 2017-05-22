@@ -26,4 +26,4 @@ class CommercialApplication extends React.Component {
     }
 }
 
-export default CommercialApplication
+export default CommercialApplication;

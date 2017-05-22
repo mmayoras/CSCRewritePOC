@@ -1,5 +1,6 @@
 import React from 'react';
 import CommercialApplication from './CommercialApplication.jsx';
+import CommercialForm from "./CommercialForm.jsx";
 
 class CommercialTable extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class CommercialTable extends React.Component {
             paddingLeft: "25px",
             paddingRight: "25px",
             paddingTop: "10px",
-            paddingBottom: "10px"
+            paddingBottom: "25px"
         };
 
         var commercialApplications = this.props.commercialApplications.map(commercialApplication =>
@@ -32,6 +33,7 @@ class CommercialTable extends React.Component {
                     <img src="images/crcNew02APR2014.gif" style={imageStyle} />
                     <img src="images/proxNew02APR2014.gif" style={imageStyle} />
                 </div>
+                <CommercialForm createCommercial={this.props.createCommercial} />
                 <table className="table table-striped">
                     <thead>
                     <tr>
