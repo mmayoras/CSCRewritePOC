@@ -1,4 +1,5 @@
 import React from 'react';
+import SkyLight from "react-skylight";
 
 class CommercialForm extends React.Component {
     constructor(props) {
@@ -18,8 +19,10 @@ class CommercialForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        var newCommercial = {firstName: this.state.firstName, lastName: this.state.lastName, strNumber: this.state.strNumber, date: this.state.date};
+
+        var newCommercial = {id: 0, firstName: this.state.firstName, lastName: this.state.lastName, strNumber: this.state.strNumber, date: this.state.date};
         this.createCommercial(newCommercial);
+        this.refs.simpleDialog.hide();
     }
 
     createCommercial(commercialApplication) {
@@ -28,26 +31,33 @@ class CommercialForm extends React.Component {
 
     render() {
         return (
-            <div className="panel panel-default">
-                <div className="panel-heading">Start Commercial Application</div>
-                <div className="panel-body">
-                    <form className="form-inline">
-                        <div className="col-md-2">
-                            <input type="text" placeholder="Firstname" className="form-control" name="firstName" onChange={this.handleChange}/>
+            <div>
+                <SkyLight hideOnOverlayClicked ref="simpleDialog">
+                    <div className="panel panel-default">
+                        <div className="panel-heading">Start Commercial Application</div>
+                        <div className="panel-body">
+                            <form className="form-inline">
+                                <div className="col-md-2">
+                                    <input type="text" placeholder="Firstname" className="form-control" name="firstName" onChange={this.handleChange}/>
+                                </div>
+                                <div className="col-md-2">
+                                    <input type="text" placeholder="Lastname" className="form-control" name="lastName" onChange={this.handleChange}/>
+                                </div>
+                                <div className="col-md-2">
+                                    <input type="text" placeholder="Store Number" className="form-control" name="strNumber" onChange={this.handleChange}/>
+                                </div>
+                                <div className="col-md-2">
+                                    <input type="text" placeholder="Date" className="form-control" name="date" onChange={this.handleChange}/>
+                                </div>
+                                <div className="col-md-2">
+                                    <button className="btn btn-success" onClick={this.handleSubmit}>Save</button>
+                                </div>
+                            </form>
                         </div>
-                        <div className="col-md-2">
-                            <input type="text" placeholder="Lastname" className="form-control" name="lastName" onChange={this.handleChange}/>
-                        </div>
-                        <div className="col-md-2">
-                            <input type="text" placeholder="Store Number" className="form-control" name="strNumber" onChange={this.handleChange}/>
-                        </div>
-                        <div className="col-md-2">
-                            <input type="text" placeholder="Date" className="form-control" name="date" onChange={this.handleChange}/>
-                        </div>
-                        <div className="col-md-2">
-                            <button className="btn btn-success" onClick={this.handleSubmit}>Save</button>
-                        </div>
-                    </form>
+                    </div>
+                </SkyLight>
+                <div style={{paddingBottom: "10px", textAlign: "center"}}>
+                    <button className="btn btn-primary" onClick={() => this.refs.simpleDialog.show()}>New Commercial Application</button>
                 </div>
             </div>
         );

@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CommercialTable from './CommercialTable.jsx';
 import ConsumerTable from './ConsumerTable.jsx';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
 class CSC extends React.Component {
     constructor(props) {
@@ -10,11 +13,17 @@ class CSC extends React.Component {
         this.createCommercial = this.createCommercial.bind(this);
         this.deleteConsumerApplication = this.deleteConsumerApplication.bind(this);
         this.deleteCommercialApplication = this.deleteCommercialApplication.bind(this);
-        this.state = {consumerApplications: [], commercialApplications: []};
+        this.state = {consumerApplications: [], commercialApplications: [], conId: 2, comId: 2};
     }
 
     // Create new consumerApplication
     createConsumer(consumerApplication) {
+        this.setState({
+            conId: this.state.conId + 1
+        });
+
+        consumerApplication.id = this.state.conId;
+
         fetch('http://localhost:8080/api/consumerApplications', {
             method: 'POST',
             headers: {
@@ -30,6 +39,12 @@ class CSC extends React.Component {
 
     // Create new commercialApplication
     createCommercial(commercialApplication) {
+        this.setState({
+            comId: this.state.comId + 1
+        });
+
+        commercialApplication.id = this.state.comId;
+
         fetch('http://localhost:8080/api/commercialApplications', {
             method: 'POST',
             headers: {
@@ -44,20 +59,46 @@ class CSC extends React.Component {
     }
 
     deleteConsumerApplication(consumerApplication) {
+        if (consumerApplication.id === (this.state.conId - 1))
+        {
+            this.setState({
+                conId: this.state.conId - 1
+            });
+        }
+
         fetch (consumerApplication._links.self.href,
             { method: 'DELETE',})
             .then(
                 res => this.loadConsumerApplicationsFromServer()
             )
+            .then(() => {
+                Alert.success('Consumer Application Deleted', {
+                    position: 'bottom-left',
+                    effect: 'slide'
+                });
+            })
             .catch( err => console.error(err))
     }
 
     deleteCommercialApplication(commercialApplication) {
+        if (commercialApplication.id === (this.state.comId - 1))
+        {
+            this.setState({
+                comId: this.state.comId - 1
+            });
+        }
+
         fetch (commercialApplication._links.self.href,
             { method: 'DELETE',})
             .then(
                 res => this.loadCommercialApplicationsFromServer()
             )
+            .then(() => {
+                Alert.success('Commercial Application Deleted', {
+                    position: 'bottom-left',
+                    effect: 'slide'
+                });
+            })
             .catch( err => console.error(err))
     }
 
@@ -107,12 +148,9 @@ class CSC extends React.Component {
                     <h1 style={divHeaderStyle}>Credit Services Center</h1>
                 </div>
                 <div style={{clear: 'both', display: "table", width: "100%"}}>
-                    <div>
-                        <ConsumerTable createConsumer={this.createConsumer} deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
-                    </div>
-                    <div>
-                        <CommercialTable createCommercial={this.createCommercial} deleteCommercialApplication={this.deleteCommercialApplication} commercialApplications={this.state.commercialApplications} />
-                    </div>
+                    <ConsumerTable createConsumer={this.createConsumer} deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
+                    <CommercialTable createCommercial={this.createCommercial} deleteCommercialApplication={this.deleteCommercialApplication} commercialApplications={this.state.commercialApplications} />
+                    <Alert stack={true} timeout={2000} />
                 </div>
             </div>
         );
