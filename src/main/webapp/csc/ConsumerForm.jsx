@@ -36,23 +36,23 @@ class ConsumerForm extends React.Component {
                     <div className="panel panel-default">
                         <div className="panel-heading">Start Consumer Application</div>
                         <div className="panel-body">
-                        <form className="form-inline">
-                            <div className="col-md-2">
-                                <input type="text" placeholder="Firstname" className="form-control" name="firstName" onChange={this.handleChange}/>
-                            </div>
-                            <div className="col-md-2">
-                                <input type="text" placeholder="Lastname" className="form-control" name="lastName" onChange={this.handleChange}/>
-                            </div>
-                            <div className="col-md-2">
-                                <input type="text" placeholder="Store Number" className="form-control" name="strNumber" onChange={this.handleChange}/>
-                            </div>
-                            <div className="col-md-2">
-                                <input type="text" placeholder="Date" className="form-control" name="date" onChange={this.handleChange}/>
-                            </div>
-                            <div className="col-md-2">
-                                <button className="btn btn-success" onClick={this.handleSubmit}>Save</button>
-                            </div>
-                        </form>
+                            <form style={{paddingLeft: ".5%", paddingRight:".5%"}} >
+                                <div className="col-sm-3">
+                                    <input type="text" placeholder="First Name" className="form-control" name="firstName" onChange={this.handleChange}/>
+                                </div>
+                                <div className="col-sm-3">
+                                    <input type="text" placeholder="Last Name" className="form-control" name="lastName" onChange={this.handleChange}/>
+                                </div>
+                                <div className="col-sm-3">
+                                    <input type="text" placeholder="Store Number" className="form-control" name="strNumber" onChange={this.handleChange}/>
+                                </div>
+                                <div className="col-sm-3">
+                                    <input type="text" placeholder="Date" className="form-control" name="date" onChange={this.handleChange}/>
+                                </div>
+                                <div className="col-sm-1">
+                                    <button className="btn btn-success" onClick={this.handleSubmit}>Save</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </SkyLight>
