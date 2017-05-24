@@ -30,26 +30,34 @@ class ConsumerForm extends React.Component {
     }
 
     render() {
+        var inputStyle = {
+            paddingLeft: "0.5%",
+            paddingRight: "0.5%",
+            position: "relative",
+            float: "left",
+            minHeight: "1px"
+        };
+
         return (
             <div>
                 <SkyLight hideOnOverlayClicked ref="simpleDialog">
                     <div className="panel panel-default">
                         <div className="panel-heading">Start Consumer Application</div>
                         <div className="panel-body">
-                            <form style={{paddingLeft: ".5%", paddingRight:".5%"}} >
-                                <div className="col-sm-3">
+                            <form>
+                                <div style={inputStyle}>
                                     <input type="text" placeholder="First Name" className="form-control" name="firstName" onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-sm-3">
+                                <div style={inputStyle}>
                                     <input type="text" placeholder="Last Name" className="form-control" name="lastName" onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-sm-3">
+                                <div style={inputStyle}>
                                     <input type="text" placeholder="Store Number" className="form-control" name="strNumber" onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-sm-3">
+                                <div style={inputStyle}>
                                     <input type="text" placeholder="Date" className="form-control" name="date" onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-sm-1">
+                                <div className="col-md-2">
                                     <button className="btn btn-success" onClick={this.handleSubmit}>Save</button>
                                 </div>
                             </form>

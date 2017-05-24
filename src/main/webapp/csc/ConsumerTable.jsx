@@ -14,7 +14,7 @@ class ConsumerTable extends React.Component {
         };
 
         var imageStyle = {
-            height: "225px",
+            height: "250px",
             width: "50%",
             paddingLeft: "25px",
             paddingRight: "25px",

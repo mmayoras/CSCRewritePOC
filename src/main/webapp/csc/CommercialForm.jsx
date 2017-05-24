@@ -30,23 +30,31 @@ class CommercialForm extends React.Component {
     }
 
     render() {
+        var inputStyle = {
+            paddingLeft: "0.5%",
+            paddingRight: "0.5%",
+            position: "relative",
+            float: "left",
+            minHeight: "1px"
+        };
+
         return (
             <div>
                 <SkyLight hideOnOverlayClicked ref="simpleDialog">
                     <div className="panel panel-default">
                         <div className="panel-heading">Start Commercial Application</div>
                         <div className="panel-body">
-                            <form className="form-inline">
-                                <div className="col-md-2">
-                                    <input type="text" placeholder="Firstname" className="form-control" name="firstName" onChange={this.handleChange}/>
+                            <form>
+                                <div style={inputStyle} >
+                                    <input type="text" placeholder="First Name" className="form-control" name="firstName" onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-md-2">
-                                    <input type="text" placeholder="Lastname" className="form-control" name="lastName" onChange={this.handleChange}/>
+                                <div style={inputStyle} >
+                                    <input type="text" placeholder="Last Name" className="form-control" name="lastName" onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-md-2">
+                                <div style={inputStyle} >
                                     <input type="text" placeholder="Store Number" className="form-control" name="strNumber" onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-md-2">
+                                <div style={inputStyle} >
                                     <input type="text" placeholder="Date" className="form-control" name="date" onChange={this.handleChange}/>
                                 </div>
                                 <div className="col-md-2">
