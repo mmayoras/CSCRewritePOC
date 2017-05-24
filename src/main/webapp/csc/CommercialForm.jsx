@@ -44,7 +44,7 @@ class CommercialForm extends React.Component {
                     <div className="panel panel-default">
                         <div className="panel-heading">Start Commercial Application</div>
                         <div className="panel-body">
-                            <form>
+                            <form className="form-inline">
                                 <div style={inputStyle} >
                                     <input type="text" placeholder="First Name" className="form-control" name="firstName" onChange={this.handleChange}/>
                                 </div>
@@ -57,7 +57,7 @@ class CommercialForm extends React.Component {
                                 <div style={inputStyle} >
                                     <input type="text" placeholder="Date" className="form-control" name="date" onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-md-2">
+                                <div style={inputStyle} >
                                     <button className="btn btn-success" onClick={this.handleSubmit}>Save</button>
                                 </div>
                             </form>
