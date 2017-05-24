@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-import uuid from 'uuid';
-
 export function isDebitOnlyCard(crHostId, paymtMethCode) {
   console.log('Determining if card is debit based off of crHostId:', crHostId,
     ', paymtMethCode:', paymtMethCode);
@@ -12,45 +9,6 @@ export function isDebitOnlyCard(crHostId, paymtMethCode) {
   }
   console.log('Card is NOT debit');
   return false;
-}
-
-export function isDualCard(crHostId) {
-  console.log('Determining if card is dual (debit and credit) based off crHostId');
-  if (/^.(D)$/.test(crHostId)) {
-    console.log('Card is dual');
-    return true;
-  }
-  return false;
-}
-
-export function resolveHostUrl(env) {
-  if (env === 'production') {
-    // return 'https://ps-gateway.apps.homedepot.com';
-    return 'https://thdapi.homedepot.com';
-  }
-  if (env === 'qa') {
-    // return 'https://ps-gateway.apps-np.homedepot.com';
-    return 'https://thdapiqae.homedepot.com/qa';
-  }
-  // return 'https://ps-gateway-dev.apps-np.homedepot.com';
-  return 'https://thdapiqae.homedepot.com/dev';
-}
-
-export function constructJsonHeaders(state) {
-  const headers = new Headers();
-  headers.append('Content-Type', 'application/json');
-  headers.append('Accept', 'application/json');
-  // TODO Refactor the hmacCredentials to remove it
-  headers.append('ps-client-id', state.hmacCredentials.clientId);
-  // headers.append('ps-client-token', state.hmacCredentials.clientToken);
-  // headers.append('ps-client-timestamp', String(state.hmacCredentials.clientTimestamp));
-  headers.append('Authorization', `Bearer ${state.authenticationData.accessToken}`);
-  headers.append('UUID', uuid.v4());
-  return headers;
-}
-
-export function verifyAccessTokenScope(scopeValue) {
-  return scopeValue.includes('orangePayServices');
 }
 
 export function validateYearAndMonth(keyedExpirationDate) {

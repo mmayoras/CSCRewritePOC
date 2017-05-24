@@ -56,10 +56,10 @@ function parseXml(data) {
   return $(xmlDoc);
 }
 
-export function resetCardDataAndPinPad(dispatch, languageCode, total) {
+export function resetCardDataAndPinPad(dispatch) {
   dispatch(pinPadCardActionCreators.resetCardDetails());
   dispatch(pinPadActionCreators.resetCardActionStatus());
-  sendPinPadMsrData(languageCode, total);
+  sendPinPadMsrData();
 }
 
 export function processEMVErrorResponse({ data, dispatch }) {
@@ -104,7 +104,7 @@ export function processEMVErrorResponse({ data, dispatch }) {
         dispatch(removeAllAlerts());
         dispatch(addAlertError('Chip card removed early', 'Please inform customer to try again'));
         const state = getState();
-        sendPinPadMsrData(state.languageCode, state.amountBreakdown.orderTotal.amount);
+        sendPinPadMsrData();
 
         // Perform credit auth reversal if transaction was 'APPROVED'.
         if (state.cardApprovalStatus === 'APPROVED') {
@@ -114,7 +114,7 @@ export function processEMVErrorResponse({ data, dispatch }) {
             dispatch(clearCardApprovalStatus());
           }, 3000);
         }
-        resetCardDataAndPinPad(dispatch, state.languageCode, state.amountBreakdown.orderTotal.amount);
+        resetCardDataAndPinPad(dispatch);
         break;
       }
       case 'EMVChipDataInAccessible':
@@ -367,7 +367,7 @@ export function processFinalizeEMV({ data, dispatch }) {
     dispatch(pinPadActionCreators.setEMVFallbackIndicatorTrue());
     emvFailedSwipeCard(state.languageCode);
   } else {
-    sendPinPadMsrData(state.languageCode, state.amountBreakdown.orderTotal.amount);
+    sendPinPadMsrData();
   }
   dispatch(pinPadActionCreators.setCardInsertedFalse());
 }
@@ -531,7 +531,7 @@ export function processSignatureResponse({ data, dispatch }) {
     console.log('Customer pressed cancel while signing');
     const state = getState();
     if (state.pinpad.isEmv || state.pinpad.cardSwiped) {
-      sendPinPadMsrData(state.languageCode, state.amountBreakdown.orderTotal.amount);
+      sendPinPadMsrData();
     }
     dispatch(doCreditAuthReversal());
     dispatch(pinPadCardActionCreators.resetCardDetails());

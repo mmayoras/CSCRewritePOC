@@ -5,91 +5,9 @@ export function welcomeRequest(sessionId) {
     return `<PinPadRequest sessionID="${sessionId}"><Action name="Welcome" waitForResponse="false"></Action></PinPadRequest>`;
 }
 
-/* generic info message to display on pin pad */
-export function pinPadInfoMessage(sessionId, message) {
-    return `<PinPadRequest sessionID="${sessionId}"><Action name="InfoMessage" waitForResponse="false"><Form padStatus="${message}" clearText="true"></Form></Action></PinPadRequest>`;
-}
-
-export function msrDataPinPadRequest(sessionId, languageCode, total) {
-    const balanceDueEnUs = 'BALANCE DUE';
-    const balanceDueEnCa = 'BALANCE DUE';
-    const balanceDueFrCa = 'SOLDE À PAYER';
-
-    let balanceDueText;
-    switch (languageCode) {
-        case 'en_CA':
-            balanceDueText = balanceDueEnCa;
-            break;
-        case 'fr_CA':
-            balanceDueText = balanceDueFrCa;
-            break;
-        case 'en_US':
-        default:
-            balanceDueText = balanceDueEnUs;
-    }
-
-    return `<PinPadRequest sessionID="${sessionId}"><Action name="GetPostalCode" waitForResponse="false"><Txn totalLine="TOTAL  ${total}" balanceLine="${balanceDueText}"><headerLine><String value=""/></headerLine><itemLine><String value=""/></itemLine></Txn></Action></PinPadRequest>`;
-}
-
-export function msrDeclineRequest(sessionId, languageCode) {
-    const declinedEnUs = 'Declined';
-    const declinedEnCa = 'Declined';
-    const declinedFrCa = 'Refusée';
-
-    let declinedText;
-    switch (languageCode) {
-        case 'en_CA':
-            declinedText = declinedEnCa;
-            break;
-        case 'fr_CA':
-            declinedText = declinedFrCa;
-            break;
-        case 'en_US':
-        default:
-            declinedText = declinedEnUs;
-    }
-    return pinPadInfoMessage(sessionId, declinedText);
-}
-
-
-export function msrApprovedRequest(sessionId, languageCode) {
-    const approvedEnUs = 'Approved';
-    const approvedEnCa = 'Approved';
-    const approvedFrCa = 'Approuvée';
-
-    let approvedText;
-    switch (languageCode) {
-        case 'en_CA':
-            approvedText = approvedEnCa;
-            break;
-        case 'fr_CA':
-            approvedText = approvedFrCa;
-            break;
-        case 'en_US':
-        default:
-            approvedText = approvedEnUs;
-    }
-    return pinPadInfoMessage(sessionId, approvedText);
-}
-
-export function cardSwipedInsertCardRequest(sessionId, languageCode) {
-    const insertCardEnUs = 'Please Insert Card';
-    const insertCardEnCa = 'Please Insert Card';
-    const insertCardFrCa = 'Veuillez insérer la carte';
-
-    let insertCardText;
-    switch (languageCode) {
-        case 'en_CA':
-            insertCardText = insertCardEnCa;
-            break;
-        case 'fr_CA':
-            insertCardText = insertCardFrCa;
-            break;
-        case 'en_US':
-        default:
-            insertCardText = insertCardEnUs;
-    }
-    return `<PinPadRequest sessionID="${sessionId}"><Action name="CardSwipedInsertCard" waitForResponse="false"><Form name="insertCard" padStatus="${insertCardText}"><dynamicText><Text text="${insertCardText}" rowIndex="0" align="center"/></dynamicText></Form></Action></PinPadRequest>`;
+export function msrDataPinPadRequest(sessionId)
+{
+    return `<PinPadRequest sessionID="${sessionId}"><Action name="GetPostalCode" waitForResponse="false"><headerLine><String value=""/></headerLine><itemLine><String value=""/></itemLine></Action></PinPadRequest>`;
 }
 
 export function emvFailedSwipeCardRequest(sessionId, languageCode) {
@@ -141,35 +59,6 @@ export function pinPadSecurityCodeManualEntry(sessionId) {
 export function pinPadZipPostalCodeManualEntry(sessionId) {
     return `<PinPadRequest sessionID="${sessionId}"><Action name="GetPostalCode" waitForResponse="false"></Action></PinPadRequest>`;
 }
-
-
-export function getDebitPinData(sessionId, languageCode, orderTotal, encryptedPan, rawTrack2PinPadData) {
-    const amount = orderTotal.toFixed(2);
-    const displayLanguage = languageCode;
-    const base64Encode = window.btoa;
-    const track2Data = base64Encode(rawTrack2PinPadData);
-    return `<PinPadRequest sessionID="${sessionId}"><Action name="GetPIN" waitForResponse="false"><MSR Amount="${amount}" Language="${displayLanguage}" TerminalID="terminal" accountNumber="${encryptedPan}" MerchantID="merchant" track2Data="${track2Data}"></MSR></Action></PinPadRequest>`;
-}
-
-
-export function emvStart(sessionId, languageCode, orderTotal, countryCode, creditOnlyFlag, emvTranSeqNumber) {
-    const amount = orderTotal.toFixed(2);
-    const displayLanguage = languageCode.substring(0, 2);
-    const displayCountry = countryCode;
-    // const emvTranSeqNumber = `0000${Math.floor(Math.random() * (9999))}`.slice(-4);
-    const toolRentalDepositTransCreditOnly = creditOnlyFlag;
-    return `<PinPadRequest sessionID="${sessionId}"><Action displayCountry="${displayCountry}" displayLanguage="${displayLanguage}" name="StartEMV" waitForResponse="false"><MSR Amount="${amount}" EMVTranSeqNumber="${emvTranSeqNumber}" EMVTransactionType="EMVPurchase" EMV_AMOUNT_CHANGE_FLAG="false" ToolRentalDepositTransCreditOnly="${toolRentalDepositTransCreditOnly}" entryMethod="4"/></Action></PinPadRequest>`;
-}
-
-
-export function emvComplete(sessionId, languageCode, countryCode, authStatusString, emvTagsFromHostRaw) {
-    const displayLanguage = languageCode.substring(0, 2);
-    const displayCountry = countryCode;
-    const authStatus = authStatusString === 'APPROVED' ? '1' : '2';
-    const emvTagsFromHost = (emvTagsFromHostRaw || '{}').split('"').join('&quot;');
-    return `<PinPadRequest sessionID="${sessionId}"><Action displayCountry="${displayCountry}" displayLanguage="${displayLanguage}" name="CompleteEMV" waitForResponse="false"><EMV AUTH_STATUS="${authStatus}" EMVTagsFromHost="${emvTagsFromHost}" Language="${languageCode}"/></Action></PinPadRequest>`;
-}
-
 
 export function emvFinalize(sessionId, languageCode, countryCode, authStatus) {
     const displayLanguage = languageCode.substring(0, 2);

@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import { dispatch } from './dispatchIndex';
 import { isOpen } from '../socket';
-import { sendPinPadMsrData, sendWelcome } from './requestHandlers';
+import { pinPadPostalCodeManualEntry, sendWelcome } from './requestHandlers';
 import { resetPinPadData } from '../reducers/pinpad/actionCreators';
 import { updateCreditAuthResponse } from '../reducers/creditAuthResponse/actionCreators';
 import { resetCardType } from '../reducers/cardType/actionCreators';
@@ -60,7 +60,7 @@ class ConnectToPinpadStarter extends React.Component {
     }
 
     initializePinPad() {
-        sendPinPadMsrData(this.state.languageCode, this.state.orderTotal);
+        pinPadPostalCodeManualEntry();
     }
 
     handlePayNow() {

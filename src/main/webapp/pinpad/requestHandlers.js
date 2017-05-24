@@ -1,14 +1,12 @@
 /* eslint-disable max-len */
-import { dispatch, getState } from './dispatchIndex';
-import { updatePinPadRequestType} from './../reducers/pinpad/actionCreators';
+import { dispatch } from './dispatchIndex';
+import { updatePinPadRequestType } from './../reducers/pinpad/actionCreators';
 import { sendToPinPad } from './index';
 import { sessionId } from './../socket';
 import {
     msrDataPinPadRequest,
-    getDebitPinData,
     processingMsrRequest,
     // invalidCardMessage,
-    emvStart,
     emvFinalize,
     emvFailedSwipeCardRequest,
     cardSwipeError,
@@ -25,9 +23,9 @@ export function sendWelcome() {
     sendToPinPad(welcomeRequest(sessionId));
 }
 
-export function sendPinPadMsrData(languageCode, total) {
+export function sendPinPadMsrData() {
     dispatch(updatePinPadRequestType('GetMSRData'));
-    sendToPinPad(msrDataPinPadRequest(sessionId, languageCode, total));
+    sendToPinPad(msrDataPinPadRequest(sessionId));
 }
 
 // TODO Uncomment functions as they need to be added to PIN pad functionality
@@ -36,29 +34,9 @@ export function sendCardSwipeError() {
     sendToPinPad(cardSwipeError(sessionId));
 }
 
-export function sendGetDebitPinData(languageCode, orderTotal, encryptedPan, rawTrack2PinPadData) {
-    dispatch(updatePinPadRequestType('GetPIN'));
-    sendToPinPad(getDebitPinData(sessionId, languageCode, orderTotal,
-        encryptedPan, rawTrack2PinPadData));
-}
-
 export function processingMsrScreen() {
     dispatch(updatePinPadRequestType('MSRProcessing'));
     sendToPinPad(processingMsrRequest(sessionId));
-}
-
-export function sendEMVStart(languageCode, orderTotal, countryCode) {
-    dispatch(updatePinPadRequestType('StartEMV'));
-    const state = getState();
-    // TODO: add argument values for emvStart function.
-    const emvTranSeqNumber = `0000${Math.floor(Math.random() * (9999))}`.slice(-4);
-    const creditOnlyFlag = !state.debitCardsAllowed;
-    sendToPinPad(emvStart(sessionId,
-        languageCode,
-        orderTotal,
-        countryCode,
-        creditOnlyFlag,
-        emvTranSeqNumber));
 }
 
 export function sendEMVFinalize(languageCode, countryCode, authStatus) {
