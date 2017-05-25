@@ -4,7 +4,7 @@ import SkyLight from "react-skylight";
 class ConsumerForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {firstName: '', lastName: '', strNumber: '', date: ''};
+        this.state = {firstName: '', lastName: '', strNumber: '', date: new Date()};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createConsumer = this.createConsumer.bind(this);

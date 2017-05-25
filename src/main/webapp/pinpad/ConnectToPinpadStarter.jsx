@@ -1,15 +1,11 @@
 /* eslint-disable no-console */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { dispatch } from './dispatchIndex';
+import { dispatch , getState} from './dispatchIndex';
 import { isOpen } from '../socket';
 import { pinPadPostalCodeManualEntry, sendWelcome } from './requestHandlers';
 import { resetPinPadData } from '../reducers/pinpad/actionCreators';
-import { updateCreditAuthResponse } from '../reducers/creditAuthResponse/actionCreators';
-import { resetCardType } from '../reducers/cardType/actionCreators';
-import { updateAuthorizationIdentificationResponse } from '../reducers/authorizationIdentificationResponse/actionCreators';
 
 class ConnectToPinpadStarter extends React.Component {
     constructor(props) {
@@ -17,16 +13,17 @@ class ConnectToPinpadStarter extends React.Component {
 
         this.state = {
             pinPadConnected: false,
-            orderTotal: "$51.00",
-            updateReadyToPay: false,
             updatePinPadConnected: false,
-            languageCode: "en_US"
+            localZipCode: "12345"
         };
 
-        //sendWelcome();
-
-        this.handlePayNow = this.handlePayNow.bind(this);
+        this.getZipCode = this.getZipCode.bind(this);
+        this.updateZipCode = this.updateZipCode.bind(this);
     }
+
+    // componentWillMount() {
+    //     sendWelcome();
+    // }
 
     componentDidMount() {
         const setup = setInterval(() => {
@@ -38,10 +35,8 @@ class ConnectToPinpadStarter extends React.Component {
                 this.setPinPadNotConnected();
             }
         }, 50);
+
         dispatch(resetPinPadData());
-        dispatch(updateCreditAuthResponse({}));
-        dispatch(resetCardType());
-        dispatch(updateAuthorizationIdentificationResponse(''));
     }
 
     setPinPadConnected() {
@@ -59,36 +54,48 @@ class ConnectToPinpadStarter extends React.Component {
         });
     }
 
-    initializePinPad() {
+    getZipCode() {
         pinPadPostalCodeManualEntry();
     }
 
-    handlePayNow() {
-        this.initializePinPad();
+    updateZipCode() {
+        const ret = getState().pinpadCardDetails.zipCode;
+
         this.setState({
-            updateReadyToPay: true
+            localZipCode: ret
         });
     }
 
     render() {
         const pinPadConnected = this.state.pinPadConnected;
+        const zipCode = this.state.localZipCode;
 
         var divButtonStyle = {
             padding: "10px",
             textAlign: "center"
         };
 
+        var buttonStyle = {
+            padding: "5px"
+        };
+
         return (
             <div style={divButtonStyle}>
                 <div>
-                    Click to Simulate Payment of {this.state.orderTotal}
+                    Current Zip Code: {zipCode}
                 </div>
-                <div>
+                <div style={buttonStyle} >
                     <button className="btn btn-info"
-                        disabled={pinPadConnected ? null : true}
-                        onClick={this.handlePayNow}
+                            disabled={pinPadConnected ? null : true}
+                            onClick={this.getZipCode}
                     >
-                        Pay Now
+                        Get Data
+                    </button>
+                    <button className="btn btn-info"
+                            disabled={pinPadConnected ? null : true}
+                            onClick={this.updateZipCode}
+                    >
+                        Refresh Zip Code
                     </button>
                     <br />
                 </div>

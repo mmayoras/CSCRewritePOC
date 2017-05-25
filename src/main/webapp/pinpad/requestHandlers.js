@@ -4,7 +4,6 @@ import { updatePinPadRequestType } from './../reducers/pinpad/actionCreators';
 import { sendToPinPad } from './index';
 import { sessionId } from './../socket';
 import {
-    msrDataPinPadRequest,
     processingMsrRequest,
     // invalidCardMessage,
     emvFinalize,
@@ -21,11 +20,6 @@ import {
 export function sendWelcome() {
     dispatch(updatePinPadRequestType('Welcome'));
     sendToPinPad(welcomeRequest(sessionId));
-}
-
-export function sendPinPadMsrData() {
-    dispatch(updatePinPadRequestType('GetMSRData'));
-    sendToPinPad(msrDataPinPadRequest(sessionId));
 }
 
 // TODO Uncomment functions as they need to be added to PIN pad functionality

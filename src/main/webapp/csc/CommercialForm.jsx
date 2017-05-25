@@ -4,7 +4,7 @@ import SkyLight from "react-skylight";
 class CommercialForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {firstName: '', lastName: '', strNumber: '', date: ''};
+        this.state = {firstName: '', lastName: '', strNumber: '', date: new Date()};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createCommercial = this.createCommercial.bind(this);

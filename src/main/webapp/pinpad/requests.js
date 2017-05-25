@@ -5,11 +5,6 @@ export function welcomeRequest(sessionId) {
     return `<PinPadRequest sessionID="${sessionId}"><Action name="Welcome" waitForResponse="false"></Action></PinPadRequest>`;
 }
 
-export function msrDataPinPadRequest(sessionId)
-{
-    return `<PinPadRequest sessionID="${sessionId}"><Action name="GetPostalCode" waitForResponse="false"><headerLine><String value=""/></headerLine><itemLine><String value=""/></itemLine></Action></PinPadRequest>`;
-}
-
 export function emvFailedSwipeCardRequest(sessionId, languageCode) {
     const swipeCardEnUs = 'Please Swipe Card';
     const swipeCardEnCa = 'Please Swipe Card';
@@ -29,7 +24,6 @@ export function emvFailedSwipeCardRequest(sessionId, languageCode) {
     }
     return `<PinPadRequest sessionID="${sessionId}"><Action name="InfoBigLine"><Form name="infoBigLine" padStatus="${swipeCardText}"><dynamicText><Text text="${swipeCardText}" rowIndex="0" align="center"/></dynamicText></Form><MSR enabled="true"/></Action></PinPadRequest>`;
 }
-
 
 // export const pinPadPleaseMessageRequest = `<PinPadRequest sessionId="${sessionId}"><Action name="InfoMessage" waitForResponse="false"><Form padStatus="Please Fill Out Required Fields" clearText="true"></Form></Action></PinPadRequest>`; // Please note that if this is uncommented it needs to be updated to use the locale message in 'general', 'alerts', 'enterRequiredFields - MKW6889 06/17/2016
 export function processingMsrRequest(sessionId) {

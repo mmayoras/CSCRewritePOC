@@ -16,7 +16,6 @@ import {
 } from './../reducers/cardApprovalStatus/actionCreators';
 import { setProxOnlyFalse } from '../reducers/proxOnly/actionCreators';
 import {
-  sendPinPadMsrData,
   processingMsrScreen,
   sendEMVFinalize,
   sendCardSwipeError,
@@ -45,11 +44,6 @@ import {
 } from './../utils/util';
 
 let rootPath;
-if (process.env.NODE_ENV === 'qa') {
-  rootPath = 'qa/ps-orangepay/';
-} else {
-  rootPath = '';
-}
 
 function parseXml(data) {
   const xmlDoc = $.parseXML(data);
@@ -59,7 +53,6 @@ function parseXml(data) {
 export function resetCardDataAndPinPad(dispatch) {
   dispatch(pinPadCardActionCreators.resetCardDetails());
   dispatch(pinPadActionCreators.resetCardActionStatus());
-  sendPinPadMsrData();
 }
 
 export function processEMVErrorResponse({ data, dispatch }) {
@@ -104,7 +97,6 @@ export function processEMVErrorResponse({ data, dispatch }) {
         dispatch(removeAllAlerts());
         dispatch(addAlertError('Chip card removed early', 'Please inform customer to try again'));
         const state = getState();
-        sendPinPadMsrData();
 
         // Perform credit auth reversal if transaction was 'APPROVED'.
         if (state.cardApprovalStatus === 'APPROVED') {
@@ -169,9 +161,7 @@ export function processGetMsrDataResponse({ data, dispatch }) {
         console.log('Customer pressed cancel while keying zip code');
         dispatch(pinPadCardActionCreators.resetCardDetails());
         dispatch(pinPadActionCreators.resetCardActionStatus());
-        if (process.env.NODE_ENV !== 'test') {
-            browserHistory.push(`${rootPath}card`);
-        }
+
         return;
     }
 
@@ -366,9 +356,8 @@ export function processFinalizeEMV({ data, dispatch }) {
     dispatch(addAlertInfo('Please swipe chip card'));
     dispatch(pinPadActionCreators.setEMVFallbackIndicatorTrue());
     emvFailedSwipeCard(state.languageCode);
-  } else {
-    sendPinPadMsrData();
   }
+
   dispatch(pinPadActionCreators.setCardInsertedFalse());
 }
 
@@ -496,9 +485,7 @@ export function processKeyedCardDataResponse({ data, dispatch }) {
     dispatch(removeAllAlerts());
     dispatch(pinPadCardActionCreators.resetCardDetails());
     dispatch(pinPadActionCreators.resetCardActionStatus());
-    if (process.env.NODE_ENV !== 'test') {
-      browserHistory.push(`${rootPath}card`);
-    }
+
     return;
   }
 
@@ -529,20 +516,14 @@ export function processSignatureResponse({ data, dispatch }) {
 
   if (keyedResponse.attr('buttonPressed') === '59') {
     console.log('Customer pressed cancel while signing');
-    const state = getState();
-    if (state.pinpad.isEmv || state.pinpad.cardSwiped) {
-      sendPinPadMsrData();
-    }
-    dispatch(doCreditAuthReversal());
+
     dispatch(pinPadCardActionCreators.resetCardDetails());
     dispatch(pinPadActionCreators.resetCardActionStatus());
     dispatch(clearCardApprovalStatus());
     dispatch(pinPadActionCreators.updateSignatureArray([]));
     dispatch(pinPadActionCreators.showWaitingForSignatureScreen(false));
     dispatch(setProxOnlyFalse());
-    if (process.env.NODE_ENV !== 'test') {
-      browserHistory.push('card');
-    }
+
     return;
   }
 
@@ -572,9 +553,7 @@ export function processExpirationDateResponse({ data, dispatch }) {
     console.log('Customer pressed cancel while keying expiration date');
     dispatch(pinPadCardActionCreators.resetCardDetails());
     dispatch(pinPadActionCreators.resetCardActionStatus());
-    if (process.env.NODE_ENV !== 'test') {
-      browserHistory.push(`${rootPath}card`);
-    }
+
     return;
   }
   dispatch(removeAllAlerts());
@@ -603,9 +582,7 @@ export function processSecurityCodeResponse({ data, dispatch }) {
     console.log('Customer pressed cancel while keying security code');
     dispatch(pinPadCardActionCreators.resetCardDetails());
     dispatch(pinPadActionCreators.resetCardActionStatus());
-    if (process.env.NODE_ENV !== 'test') {
-      browserHistory.push(`${rootPath}card`);
-    }
+
     return;
   }
 
@@ -659,12 +636,9 @@ export function processPostalCodeResponse({ data, dispatch }) {
     console.log('Customer pressed cancel while keying zip code');
     dispatch(pinPadCardActionCreators.resetCardDetails());
     dispatch(pinPadActionCreators.resetCardActionStatus());
-    if (process.env.NODE_ENV !== 'test') {
-      browserHistory.push(`${rootPath}card`);
-    }
-    return;
   }
-  dispatch(doCreditAuth());
+
+  return;
 }
 
 export default {
