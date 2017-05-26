@@ -26233,12 +26233,9 @@ var ConnectToPinpadStarter = function (_React$Component) {
 
         _this.getZipCode = _this.getZipCode.bind(_this);
         _this.updateZipCode = _this.updateZipCode.bind(_this);
+        _this.sendWelcomeMessage = _this.sendWelcomeMessage.bind(_this);
         return _this;
     }
-
-    // componentWillMount() {
-    //     sendWelcome();
-    // }
 
     _createClass(ConnectToPinpadStarter, [{
         key: 'componentDidMount',
@@ -26248,31 +26245,26 @@ var ConnectToPinpadStarter = function (_React$Component) {
             var setup = setInterval(function () {
                 if ((0, _socket.isOpen)()) {
                     clearInterval(setup);
-                    _this2.setPinPadConnected();
+                    _this2.setState({
+                        updatePinPadConnected: true,
+                        pinPadConnected: true
+                    });
                 } else {
                     clearInterval(setup);
-                    _this2.setPinPadNotConnected();
+                    console.error('pinPad offline');
+                    _this2.setState({
+                        updatePinPadConnected: false,
+                        pinPadConnected: false
+                    });
                 }
             }, 50);
 
             (0, _dispatchIndex.dispatch)((0, _actionCreators.resetPinPadData)());
         }
     }, {
-        key: 'setPinPadConnected',
-        value: function setPinPadConnected() {
-            this.setState({
-                updatePinPadConnected: true,
-                pinPadConnected: true
-            });
-        }
-    }, {
-        key: 'setPinPadNotConnected',
-        value: function setPinPadNotConnected() {
-            console.error('pinPad offline');
-            this.setState({
-                updatePinPadConnected: false,
-                pinPadConnected: false
-            });
+        key: 'sendWelcomeMessage',
+        value: function sendWelcomeMessage() {
+            (0, _requestHandlers.sendWelcome)();
         }
     }, {
         key: 'getZipCode',
@@ -26319,9 +26311,16 @@ var ConnectToPinpadStarter = function (_React$Component) {
                         'button',
                         { className: 'btn btn-info',
                             disabled: pinPadConnected ? null : true,
+                            onClick: this.sendWelcomeMessage },
+                        'Home'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { className: 'btn btn-info',
+                            disabled: pinPadConnected ? null : true,
                             onClick: this.getZipCode
                         },
-                        'Get Data'
+                        'Get Zip Code'
                     ),
                     _react2.default.createElement(
                         'button',
@@ -26329,7 +26328,7 @@ var ConnectToPinpadStarter = function (_React$Component) {
                             disabled: pinPadConnected ? null : true,
                             onClick: this.updateZipCode
                         },
-                        'Refresh Zip Code'
+                        'Refresh Page'
                     ),
                     _react2.default.createElement('br', null)
                 )

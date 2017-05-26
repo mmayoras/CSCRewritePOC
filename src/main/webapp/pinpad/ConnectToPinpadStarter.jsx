@@ -19,39 +19,32 @@ class ConnectToPinpadStarter extends React.Component {
 
         this.getZipCode = this.getZipCode.bind(this);
         this.updateZipCode = this.updateZipCode.bind(this);
+        this.sendWelcomeMessage = this.sendWelcomeMessage.bind(this);
     }
-
-    // componentWillMount() {
-    //     sendWelcome();
-    // }
 
     componentDidMount() {
         const setup = setInterval(() => {
             if (isOpen()) {
                 clearInterval(setup);
-                this.setPinPadConnected();
+                this.setState({
+                    updatePinPadConnected: true,
+                    pinPadConnected: true
+                });
             } else {
                 clearInterval(setup);
-                this.setPinPadNotConnected();
+                console.error('pinPad offline');
+                this.setState({
+                    updatePinPadConnected: false,
+                    pinPadConnected: false
+                });
             }
         }, 50);
 
         dispatch(resetPinPadData());
     }
 
-    setPinPadConnected() {
-        this.setState({
-            updatePinPadConnected: true,
-            pinPadConnected: true
-        });
-    }
-
-    setPinPadNotConnected() {
-        console.error('pinPad offline');
-        this.setState({
-            updatePinPadConnected: false,
-            pinPadConnected: false
-        });
+    sendWelcomeMessage() {
+        sendWelcome();
     }
 
     getZipCode() {
@@ -87,15 +80,20 @@ class ConnectToPinpadStarter extends React.Component {
                 <div style={buttonStyle} >
                     <button className="btn btn-info"
                             disabled={pinPadConnected ? null : true}
+                            onClick={this.sendWelcomeMessage}>
+                        Home
+                    </button>
+                    <button className="btn btn-info"
+                            disabled={pinPadConnected ? null : true}
                             onClick={this.getZipCode}
                     >
-                        Get Data
+                        Get Zip Code
                     </button>
                     <button className="btn btn-info"
                             disabled={pinPadConnected ? null : true}
                             onClick={this.updateZipCode}
                     >
-                        Refresh Zip Code
+                        Refresh Page
                     </button>
                     <br />
                 </div>
