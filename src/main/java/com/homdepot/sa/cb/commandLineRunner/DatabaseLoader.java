@@ -30,9 +30,13 @@ public class DatabaseLoader implements CommandLineRunner
     public void run(String... strings) throws Exception
     {
         // Save ConsumerApplication records in DB
-        this.conRepository.save(new ConsumerApplication(new Long(1),"Marques", "Mayoras", "9741", new Date()));
+        this.conRepository.save(new ConsumerApplication(new Long(1),"Homer", "A",
+            "Depot", "9741", new Date(), "Smyrna", "GA", "3375 SpringHill Pkwy",
+            "Apt 325", "GA12345", "test@test.com"));
 
         // Save CommercialApplication records in DB
-        this.comRepository.save(new CommercialApplication(new Long(1),"Marques", "Mayoras", "1234", new Date()));
+        this.comRepository.save(new CommercialApplication(new Long(1),"Homer", "A",
+            "Depot", "1234", new Date(), "Smyrna", "GA", "3375 SpringHill Pkwy",
+            "Apt 325", "GA12345", "test2@test.com"));
     }
 }
