@@ -4,7 +4,7 @@ import SkyLight from "react-skylight";
 class CommercialForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {firstName: '', lastName: '', strNumber: '', date: new Date()};
+        this.state = {firstName: '', middleInitial: '', lastName: '', strNumber: '', date: new Date(), addressLine1: '', addressLine2: '', city: '', state: ''};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createCommercial = this.createCommercial.bind(this);
@@ -20,8 +20,24 @@ class CommercialForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        var newCommercial = {id: 0, firstName: this.state.firstName, lastName: this.state.lastName, strNumber: this.state.strNumber, date: this.state.date};
+        var newCommercial = {id: 0, firstName: this.state.firstName, middleInitial: this.state.middleInitial,
+            lastName: this.state.lastName, strNumber: this.state.strNumber, date: this.state.date, addressLine1: this.state.addressLine1,
+            addressLine2: this.state.addressLine2, city: this.state.city, state: this.state.state};
+
         this.createCommercial(newCommercial);
+
+        this.setState({
+            firstName: '',
+            middleInitial: '',
+            lastName: '',
+            strNumber: '',
+            date: new Date(),
+            addressLine1: '',
+            addressLine2: '',
+            city: '',
+            state: ''
+        });
+
         this.refs.simpleDialog.hide();
     }
 
@@ -45,17 +61,32 @@ class CommercialForm extends React.Component {
                         <div className="panel-heading">Start Commercial Application</div>
                         <div className="panel-body">
                             <form className="form-inline">
-                                <div style={inputStyle} >
+                                <div style={inputStyle}>
                                     <input type="text" placeholder="First Name" className="form-control" name="firstName" onChange={this.handleChange}/>
                                 </div>
-                                <div style={inputStyle} >
+                                <div style={inputStyle}>
+                                    <input type="text" placeholder="Middle Initial" className="form-control" name="middleInitial" onChange={this.handleChange}/>
+                                </div>
+                                <div style={inputStyle}>
                                     <input type="text" placeholder="Last Name" className="form-control" name="lastName" onChange={this.handleChange}/>
                                 </div>
-                                <div style={inputStyle} >
+                                <div style={inputStyle}>
                                     <input type="text" placeholder="Store Number" className="form-control" name="strNumber" onChange={this.handleChange}/>
                                 </div>
-                                <div style={inputStyle} >
+                                <div style={inputStyle}>
                                     <input type="text" placeholder="Date" className="form-control" name="date" onChange={this.handleChange}/>
+                                </div>
+                                <div style={inputStyle}>
+                                    <input type="text" placeholder="Address Line 1" className="form-control" name="addressLine1" onChange={this.handleChange}/>
+                                </div>
+                                <div style={inputStyle}>
+                                    <input type="text" placeholder="Address Line 2" className="form-control" name="addressLine2" onChange={this.handleChange}/>
+                                </div>
+                                <div style={inputStyle}>
+                                    <input type="text" placeholder="City" className="form-control" name="city" onChange={this.handleChange}/>
+                                </div>
+                                <div style={inputStyle}>
+                                    <input type="text" placeholder="State" className="form-control" name="state" onChange={this.handleChange}/>
                                 </div>
                                 <div style={inputStyle} >
                                     <button className="btn btn-success" onClick={this.handleSubmit}>Save</button>

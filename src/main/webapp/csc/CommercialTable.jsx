@@ -39,9 +39,14 @@ class CommercialTable extends React.Component {
                     <tr>
                         <th>ID</th>
                         <th>FirstName</th>
+                        <th>Middle Initial</th>
                         <th>LastName</th>
                         <th>StoreNumber</th>
                         <th>Date</th>
+                        <th>Address Line 1</th>
+                        <th>Address Line 2</th>
+                        <th>City</th>
+                        <th>State</th>
                     </tr>
                     </thead>
                     <tbody>{commercialApplications}</tbody>
