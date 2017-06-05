@@ -128,30 +128,45 @@ class CSC extends React.Component {
     }
 
     render() {
-        var imageStyle = {
-            paddingLeft: "20px",
-            paddingRight: "20px",
-            height: "60px",
-            float: "left"
-        };
-        var divHeaderStyle = {
-            verticalAlign: "middle",
-            fontSize: "3.5em",
-            position: "relative",
-            height: "84px"
-        };
+      var divMainStyle = {
+        marginLeft: "25%",
+        paddingTop:"1px",
+        paddingRigt: "16px"
+      };
+
+      var imageStyle = {
+        paddingLeft: "20px",
+        paddingRight: "20px",
+        height: "60px",
+        float: "left"
+      };
+
+      var divHeaderStyle = {
+        verticalAlign: "middle",
+        fontSize: "3.5em",
+        position: "relative",
+        height: "84px"
+      };
 
         return (
             <div>
+              <ul>
+                <li><a class="active" href="#home">Home</a></li>
+                <li><a href="#consumer">Consumer Credit App</a></li>
+                <li><a href="#commercial">Commercial Credit App</a></li>
+                <li><a href="#about">About</a></li>
+              </ul>
+              <div style={divMainStyle}>
                 <div>
-                    <img src="images/Master_Depot_Logo.jpg" style={imageStyle}/>
-                    <h1 style={divHeaderStyle}>Credit Services Center</h1>
+                  <img src="images/Master_Depot_Logo.jpg" style={imageStyle}/>
+                  <h1 style={divHeaderStyle}>Credit Services Center</h1>
                 </div>
                 <div style={{clear: 'both', display: "table", width: "100%"}}>
-                    <ConsumerTable createConsumer={this.createConsumer} deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
-                    <CommercialTable createCommercial={this.createCommercial} deleteCommercialApplication={this.deleteCommercialApplication} commercialApplications={this.state.commercialApplications} />
-                    <Alert stack={true} timeout={2000} />
+                  <ConsumerTable createConsumer={this.createConsumer} deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
+                  <CommercialTable createCommercial={this.createCommercial} deleteCommercialApplication={this.deleteCommercialApplication} commercialApplications={this.state.commercialApplications} />
+                  <Alert stack={true} timeout={2000} />
                 </div>
+              </div>
             </div>
         );
     }

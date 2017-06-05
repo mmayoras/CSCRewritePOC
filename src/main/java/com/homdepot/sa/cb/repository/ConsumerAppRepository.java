@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Created by MXM6930 on 5/5/2017.
  */
-public interface ConsumerAppRepository extends CrudRepository<ConsumerApplication, Long> {}
+public interface ConsumerAppRepository extends CrudRepository<ConsumerApplication, Long> {
+
+}
