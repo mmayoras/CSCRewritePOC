@@ -16,8 +16,7 @@ class CSC extends React.Component {
   render() {
     const divMainStyle = {
       marginLeft: "20%",
-      paddingTop: "1px",
-      paddingRight: "16px"
+      paddingTop: "1px"
     };
 
     return (

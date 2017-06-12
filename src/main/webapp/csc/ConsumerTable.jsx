@@ -27,6 +27,7 @@ class ConsumerTable extends React.Component {
         <div className="container" name="ConsumerApplication">
           <b><p style={{
             textAlign: "center",
+            marginTop: "20px",
             marginBottom: "0px",
             fontSize: "2em"
           }}>Consumer Accounts</p></b>

@@ -27021,8 +27021,7 @@ var CSC = function (_React$Component) {
     value: function render() {
       var divMainStyle = {
         marginLeft: "20%",
-        paddingTop: "1px",
-        paddingRight: "16px"
+        paddingTop: "1px"
       };
 
       return _react2.default.createElement(
@@ -27501,6 +27500,7 @@ var CommercialTable = function (_React$Component) {
             'p',
             { style: {
                 textAlign: "center",
+                marginTop: "20px",
                 marginBottom: "0px",
                 fontSize: "2em"
               } },
@@ -28028,6 +28028,7 @@ var ConsumerTable = function (_React$Component) {
             'p',
             { style: {
                 textAlign: "center",
+                marginTop: "20px",
                 marginBottom: "0px",
                 fontSize: "2em"
               } },

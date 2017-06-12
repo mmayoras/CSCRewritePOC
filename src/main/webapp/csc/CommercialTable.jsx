@@ -27,6 +27,7 @@ class CommercialTable extends React.Component {
         <div className="container" name="CommercialApplication">
           <b><p style={{
             textAlign: "center",
+            marginTop: "20px",
             marginBottom: "0px",
             fontSize: "2em"
           }}>Commercial Accounts</p></b>
