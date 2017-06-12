@@ -1,5 +1,6 @@
 import React from 'react';
 import ConsumerTable from './ConsumerTable.jsx';
+import ConnectToPinpadStarter from '../pinpad/ConnectToPinpadStarter.jsx'
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
@@ -72,7 +73,10 @@ class Consumer extends React.Component {
   render() {
 
     return (
-        <ConsumerTable createConsumer={this.createConsumer} deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
+        <div>
+          <ConsumerTable createConsumer={this.createConsumer} deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
+          <ConnectToPinpadStarter/>
+        </div>
     );
   }
 }
