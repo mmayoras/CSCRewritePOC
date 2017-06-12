@@ -41,19 +41,18 @@ class Consumer extends React.Component {
     .then(
         res => this.loadConsumerApplicationsFromServer()
     )
-    .catch( err => console.error(err))
+    .catch(err => console.error(err))
   }
 
   deleteConsumerApplication(consumerApplication) {
-    if (consumerApplication.id === (this.state.conId - 1))
-    {
+    if (consumerApplication.id === (this.state.conId - 1)) {
       this.setState({
         conId: this.state.conId - 1
       });
     }
 
-    fetch (consumerApplication._links.self.href,
-        { method: 'DELETE',})
+    fetch(consumerApplication._links.self.href,
+        {method: 'DELETE',})
     .then(
         res => this.loadConsumerApplicationsFromServer()
     )
@@ -63,7 +62,7 @@ class Consumer extends React.Component {
         effect: 'slide'
       });
     })
-    .catch( err => console.error(err))
+    .catch(err => console.error(err))
   }
 
   componentDidMount() {
@@ -74,7 +73,9 @@ class Consumer extends React.Component {
 
     return (
         <div>
-          <ConsumerTable createConsumer={this.createConsumer} deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
+          <ConsumerTable createConsumer={this.createConsumer}
+                         deleteConsumerApplication={this.deleteConsumerApplication}
+                         consumerApplications={this.state.consumerApplications}/>
           <ConnectToPinpadStarter/>
         </div>
     );

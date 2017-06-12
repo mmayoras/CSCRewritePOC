@@ -9,7 +9,8 @@ class Commercial extends React.Component {
   constructor(props) {
     super(props);
     this.createCommercial = this.createCommercial.bind(this);
-    this.deleteCommercialApplication = this.deleteCommercialApplication.bind(this);
+    this.deleteCommercialApplication = this.deleteCommercialApplication.bind(
+        this);
     this.state = {commercialApplications: [], comId: 2};
   }
 
@@ -41,19 +42,18 @@ class Commercial extends React.Component {
     .then(
         res => this.loadCommercialApplicationsFromServer()
     )
-    .catch( err => console.error(err))
+    .catch(err => console.error(err))
   }
 
   deleteCommercialApplication(commercialApplication) {
-    if (commercialApplication.id === (this.state.comId - 1))
-    {
+    if (commercialApplication.id === (this.state.comId - 1)) {
       this.setState({
         comId: this.state.comId - 1
       });
     }
 
-    fetch (commercialApplication._links.self.href,
-        { method: 'DELETE',})
+    fetch(commercialApplication._links.self.href,
+        {method: 'DELETE',})
     .then(
         res => this.loadCommercialApplicationsFromServer()
     )
@@ -63,7 +63,7 @@ class Commercial extends React.Component {
         effect: 'slide'
       });
     })
-    .catch( err => console.error(err))
+    .catch(err => console.error(err))
   }
 
   componentDidMount() {
@@ -74,7 +74,9 @@ class Commercial extends React.Component {
 
     return (
         <div>
-          <CommercialTable createCommercial={this.createCommercial} deleteCommercialApplication={this.deleteCommercialApplication} commercialApplications={this.state.commercialApplications} />
+          <CommercialTable createCommercial={this.createCommercial}
+                           deleteCommercialApplication={this.deleteCommercialApplication}
+                           commercialApplications={this.state.commercialApplications}/>
           <ConnectToPinpadStarter/>
         </div>
     );

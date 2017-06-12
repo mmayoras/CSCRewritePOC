@@ -10663,7 +10663,7 @@ function resetPinPadData() {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.connect = exports.sessionId = undefined;
 exports.isOpen = isOpen;
@@ -10684,51 +10684,51 @@ var CONNECTING = 0;
 var OPEN = 1;
 
 function isOpen() {
-    return socket.readyState === OPEN;
+  return socket.readyState === OPEN;
 }
 
 function isConnecting() {
-    return socket.readyState === CONNECTING;
+  return socket.readyState === CONNECTING;
 }
 
 var connect = exports.connect = _Rx.Observable.create(function (observer) {
 
-    socket = new WebSocket('wss://saptpinpad.homedepot.com:8083/PS-DeviceManagerClient/ws/WebSocket?clientUUID=' + sessionId);
+  socket = new WebSocket('wss://saptpinpad.homedepot.com:8083/PS-DeviceManagerClient/ws/WebSocket?clientUUID=' + sessionId);
 
-    socket.onopen = function () {
-        console.info('Websocket connection established');
-        //socket.send(`<PinPadRequest sessionId="${sessionId}"><Action name="GetMSRData" waitForResponse="false"></Action></PinPadRequest>`);
-    };
+  socket.onopen = function () {
+    console.info('Websocket connection established');
+    //socket.send(`<PinPadRequest sessionId="${sessionId}"><Action name="GetMSRData" waitForResponse="false"></Action></PinPadRequest>`);
+  };
 
-    socket.onerror = function (e) {
-        return observer.error(e);
-    };
+  socket.onerror = function (e) {
+    return observer.error(e);
+  };
 
-    socket.onmessage = function (e) {
-        observer.next(e);
-    };
+  socket.onmessage = function (e) {
+    observer.next(e);
+  };
 
-    socket.onclose = function () {
-        console.info('Socket closed');
-    };
+  socket.onclose = function () {
+    console.info('Socket closed');
+  };
 
-    return function () {
-        socket.close();
-    };
+  return function () {
+    socket.close();
+  };
 }).share();
 
 function sendMessage(data) {
-    socket.send(data);
+  socket.send(data);
 }
 
 function closeSocket() {
-    console.log('In close socket');
-    if (process.env.NODE_ENV === 'test') {
-        console.log('In test environment, returning');
-        return;
-    }
-    console.log('Closing socket');
-    socket.close();
+  console.log('In close socket');
+  if (process.env.NODE_ENV === 'test') {
+    console.log('In test environment, returning');
+    return;
+  }
+  console.log('Closing socket');
+  socket.close();
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
@@ -15626,7 +15626,7 @@ exports.default = ConnectToPinpadStarter;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.sendWelcome = sendWelcome;
 exports.sendCardSwipeError = sendCardSwipeError;
@@ -15649,52 +15649,52 @@ var _socket = __webpack_require__(170);
 var _requests = __webpack_require__(423);
 
 function sendWelcome() {
-    (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('Welcome'));
-    (0, _index.sendToPinPad)((0, _requests.welcomeRequest)(_socket.sessionId));
+  (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('Welcome'));
+  (0, _index.sendToPinPad)((0, _requests.welcomeRequest)(_socket.sessionId));
 }
 
 // TODO Uncomment functions as they need to be added to PIN pad functionality
 /* eslint-disable max-len */
 function sendCardSwipeError() {
-    (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetMSRData'));
-    (0, _index.sendToPinPad)((0, _requests.cardSwipeError)(_socket.sessionId));
+  (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetMSRData'));
+  (0, _index.sendToPinPad)((0, _requests.cardSwipeError)(_socket.sessionId));
 }
 
 function processingMsrScreen() {
-    (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('MSRProcessing'));
-    (0, _index.sendToPinPad)((0, _requests.processingMsrRequest)(_socket.sessionId));
+  (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('MSRProcessing'));
+  (0, _index.sendToPinPad)((0, _requests.processingMsrRequest)(_socket.sessionId));
 }
 
 function sendEMVFinalize(languageCode, countryCode, authStatus) {
-    (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('FinalizeEMV'));
-    (0, _index.sendToPinPad)((0, _requests.emvFinalize)(_socket.sessionId, languageCode, countryCode, authStatus));
+  (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('FinalizeEMV'));
+  (0, _index.sendToPinPad)((0, _requests.emvFinalize)(_socket.sessionId, languageCode, countryCode, authStatus));
 }
 
 function emvFailedSwipeCard(languageCode) {
-    // The request type is set to 'GetMSRData' because the screen prompt enables
-    // the MSR reader, so we want to fall into the MSR response handler
-    (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetMSRData'));
-    (0, _index.sendToPinPad)((0, _requests.emvFailedSwipeCardRequest)(_socket.sessionId, languageCode));
+  // The request type is set to 'GetMSRData' because the screen prompt enables
+  // the MSR reader, so we want to fall into the MSR response handler
+  (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetMSRData'));
+  (0, _index.sendToPinPad)((0, _requests.emvFailedSwipeCardRequest)(_socket.sessionId, languageCode));
 }
 
 function pinPadPANManualEntry() {
-    (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetKeyedCardData'));
-    (0, _index.sendToPinPad)((0, _requests.pinPadPrimaryAccountNumberManualEntry)(_socket.sessionId));
+  (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetKeyedCardData'));
+  (0, _index.sendToPinPad)((0, _requests.pinPadPrimaryAccountNumberManualEntry)(_socket.sessionId));
 }
 
 function pinpadExpirationDateManualEntry() {
-    (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetExpirationDate'));
-    (0, _index.sendToPinPad)((0, _requests.pinPadExpirationDateManualEntry)(_socket.sessionId));
+  (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetExpirationDate'));
+  (0, _index.sendToPinPad)((0, _requests.pinPadExpirationDateManualEntry)(_socket.sessionId));
 }
 
 function pinPadCVV2ManualEntry() {
-    (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetCVV2'));
-    (0, _index.sendToPinPad)((0, _requests.pinPadSecurityCodeManualEntry)(_socket.sessionId));
+  (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetCVV2'));
+  (0, _index.sendToPinPad)((0, _requests.pinPadSecurityCodeManualEntry)(_socket.sessionId));
 }
 
 function pinPadPostalCodeManualEntry() {
-    (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetPostalCode'));
-    (0, _index.sendToPinPad)((0, _requests.pinPadZipPostalCodeManualEntry)(_socket.sessionId));
+  (0, _dispatchIndex.dispatch)((0, _actionCreators.updatePinPadRequestType)('GetPostalCode'));
+  (0, _index.sendToPinPad)((0, _requests.pinPadZipPostalCodeManualEntry)(_socket.sessionId));
 }
 
 /***/ }),
@@ -26678,7 +26678,9 @@ var Commercial = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_CommercialTable2.default, { createCommercial: this.createCommercial, deleteCommercialApplication: this.deleteCommercialApplication, commercialApplications: this.state.commercialApplications }),
+        _react2.default.createElement(_CommercialTable2.default, { createCommercial: this.createCommercial,
+          deleteCommercialApplication: this.deleteCommercialApplication,
+          commercialApplications: this.state.commercialApplications }),
         _react2.default.createElement(_ConnectToPinpadStarter2.default, null)
       );
     }
@@ -26817,7 +26819,9 @@ var Consumer = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_ConsumerTable2.default, { createConsumer: this.createConsumer, deleteConsumerApplication: this.deleteConsumerApplication, consumerApplications: this.state.consumerApplications }),
+        _react2.default.createElement(_ConsumerTable2.default, { createConsumer: this.createConsumer,
+          deleteConsumerApplication: this.deleteConsumerApplication,
+          consumerApplications: this.state.consumerApplications }),
         _react2.default.createElement(_ConnectToPinpadStarter2.default, null)
       );
     }
@@ -27016,7 +27020,7 @@ var CSC = function (_React$Component) {
     key: 'render',
     value: function render() {
       var divMainStyle = {
-        marginLeft: "25%",
+        marginLeft: "20%",
         paddingTop: "1px",
         paddingRight: "16px"
       };
@@ -27062,13 +27066,9 @@ var CSC = function (_React$Component) {
             'div',
             { style: divMainStyle },
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
-            _react2.default.createElement(
-              'div',
-              { style: { clear: 'both', display: "table", width: "100%" } },
-              _react2.default.createElement(_reactRouterDom.Route, { path: '/consumer', component: _Consumer2.default }),
-              _react2.default.createElement(_reactRouterDom.Route, { path: '/commercial', component: _Commercial2.default }),
-              _react2.default.createElement(_reactSAlert2.default, { stack: true, timeout: 2000 })
-            )
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/consumer', component: _Consumer2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/commercial', component: _Commercial2.default }),
+            _react2.default.createElement(_reactSAlert2.default, { stack: true, timeout: 2000 })
           )
         )
       );
@@ -27088,7 +27088,7 @@ _reactDom2.default.render(_react2.default.createElement(CSC, null), document.get
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -27106,92 +27106,93 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CommercialApplication = function (_React$Component) {
-    _inherits(CommercialApplication, _React$Component);
+  _inherits(CommercialApplication, _React$Component);
 
-    function CommercialApplication(props) {
-        _classCallCheck(this, CommercialApplication);
+  function CommercialApplication(props) {
+    _classCallCheck(this, CommercialApplication);
 
-        var _this = _possibleConstructorReturn(this, (CommercialApplication.__proto__ || Object.getPrototypeOf(CommercialApplication)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (CommercialApplication.__proto__ || Object.getPrototypeOf(CommercialApplication)).call(this, props));
 
-        _this.deleteCommercialApplication = _this.deleteCommercialApplication.bind(_this);
-        return _this;
+    _this.deleteCommercialApplication = _this.deleteCommercialApplication.bind(_this);
+    return _this;
+  }
+
+  _createClass(CommercialApplication, [{
+    key: "deleteCommercialApplication",
+    value: function deleteCommercialApplication() {
+      this.props.deleteCommercialApplication(this.props.commercialApplication);
     }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "tr",
+        null,
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.commercialApplication.id
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.commercialApplication.firstName
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.commercialApplication.middleInitial
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.commercialApplication.lastName
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.commercialApplication.strNumber
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.commercialApplication.date
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.commercialApplication.addressLine1
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.commercialApplication.addressLine2
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.commercialApplication.city
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.commercialApplication.state
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          _react2.default.createElement(
+            "button",
+            { className: "btn btn-danger",
+              onClick: this.deleteCommercialApplication },
+            "Delete"
+          )
+        )
+      );
+    }
+  }]);
 
-    _createClass(CommercialApplication, [{
-        key: "deleteCommercialApplication",
-        value: function deleteCommercialApplication() {
-            this.props.deleteCommercialApplication(this.props.commercialApplication);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement(
-                "tr",
-                null,
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.commercialApplication.id
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.commercialApplication.firstName
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.commercialApplication.middleInitial
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.commercialApplication.lastName
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.commercialApplication.strNumber
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.commercialApplication.date
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.commercialApplication.addressLine1
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.commercialApplication.addressLine2
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.commercialApplication.city
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.commercialApplication.state
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    _react2.default.createElement(
-                        "button",
-                        { className: "btn btn-danger", onClick: this.deleteCommercialApplication },
-                        "Delete"
-                    )
-                )
-            );
-        }
-    }]);
-
-    return CommercialApplication;
+  return CommercialApplication;
 }(_react2.default.Component);
 
 exports.default = CommercialApplication;
@@ -27436,7 +27437,7 @@ exports.default = CommercialForm;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -27462,133 +27463,146 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CommercialTable = function (_React$Component) {
-    _inherits(CommercialTable, _React$Component);
+  _inherits(CommercialTable, _React$Component);
 
-    function CommercialTable(props) {
-        _classCallCheck(this, CommercialTable);
+  function CommercialTable(props) {
+    _classCallCheck(this, CommercialTable);
 
-        return _possibleConstructorReturn(this, (CommercialTable.__proto__ || Object.getPrototypeOf(CommercialTable)).call(this, props));
+    return _possibleConstructorReturn(this, (CommercialTable.__proto__ || Object.getPrototypeOf(CommercialTable)).call(this, props));
+  }
+
+  _createClass(CommercialTable, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var imageStyle = {
+        height: "200px",
+        width: "300px",
+        paddingLeft: "25px",
+        paddingRight: "25px",
+        paddingTop: "10px",
+        paddingBottom: "25px"
+      };
+
+      var commercialApplications = this.props.commercialApplications.map(function (commercialApplication) {
+        return _react2.default.createElement(_CommercialApplication2.default, { key: commercialApplication._links.self.href,
+          commercialApplication: commercialApplication,
+          deleteCommercialApplication: _this2.props.deleteCommercialApplication });
+      });
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'container', name: 'CommercialApplication' },
+        _react2.default.createElement(
+          'b',
+          null,
+          _react2.default.createElement(
+            'p',
+            { style: {
+                textAlign: "center",
+                marginBottom: "0px",
+                fontSize: "2em"
+              } },
+            'Commercial Accounts'
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          { style: { textAlign: "center", fontSize: "1.5em", color: "grey" } },
+          'for your business'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: { display: "table", width: "100%" } },
+          _react2.default.createElement(
+            'div',
+            { style: { width: "50%", float: "left" } },
+            _react2.default.createElement(
+              'div',
+              { style: { float: "right" } },
+              _react2.default.createElement('img', { src: 'images/crcNew02APR2014.gif', style: imageStyle })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { style: { width: "50%", float: "right" } },
+            _react2.default.createElement('img', { src: 'images/proxNew02APR2014.gif', style: imageStyle })
+          )
+        ),
+        _react2.default.createElement(_CommercialForm2.default, { createCommercial: this.props.createCommercial }),
+        _react2.default.createElement(
+          'table',
+          { className: 'table table-striped' },
+          _react2.default.createElement(
+            'thead',
+            null,
+            _react2.default.createElement(
+              'tr',
+              null,
+              _react2.default.createElement(
+                'th',
+                null,
+                'ID'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'FirstName'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'Middle Initial'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'LastName'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'StoreNumber'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'Date'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'Address Line 1'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'Address Line 2'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'City'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'State'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'tbody',
+            null,
+            commercialApplications
+          )
+        )
+      );
     }
+  }]);
 
-    _createClass(CommercialTable, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var tableStyle = {
-                float: "right",
-                width: "50%"
-            };
-
-            var imageStyle = {
-                height: "250px",
-                width: "50%",
-                paddingLeft: "25px",
-                paddingRight: "25px",
-                paddingTop: "10px",
-                paddingBottom: "25px"
-            };
-
-            var commercialApplications = this.props.commercialApplications.map(function (commercialApplication) {
-                return _react2.default.createElement(_CommercialApplication2.default, { key: commercialApplication._links.self.href, commercialApplication: commercialApplication, deleteCommercialApplication: _this2.props.deleteCommercialApplication });
-            });
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'container', name: 'CommercialApplication', style: tableStyle },
-                _react2.default.createElement(
-                    'b',
-                    null,
-                    _react2.default.createElement(
-                        'p',
-                        { style: { textAlign: "center", marginBottom: "0px", fontSize: "2em" } },
-                        'Commercial Accounts'
-                    )
-                ),
-                _react2.default.createElement(
-                    'p',
-                    { style: { textAlign: "center", fontSize: "1.5em", color: "grey" } },
-                    'for your business'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement('img', { src: 'images/crcNew02APR2014.gif', style: imageStyle }),
-                    _react2.default.createElement('img', { src: 'images/proxNew02APR2014.gif', style: imageStyle })
-                ),
-                _react2.default.createElement(_CommercialForm2.default, { createCommercial: this.props.createCommercial }),
-                _react2.default.createElement(
-                    'table',
-                    { className: 'table table-striped' },
-                    _react2.default.createElement(
-                        'thead',
-                        null,
-                        _react2.default.createElement(
-                            'tr',
-                            null,
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'ID'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'FirstName'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'Middle Initial'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'LastName'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'StoreNumber'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'Date'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'Address Line 1'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'Address Line 2'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'City'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'State'
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'tbody',
-                        null,
-                        commercialApplications
-                    )
-                )
-            );
-        }
-    }]);
-
-    return CommercialTable;
+  return CommercialTable;
 }(_react2.default.Component);
 
 exports.default = CommercialTable;
@@ -27601,7 +27615,7 @@ exports.default = CommercialTable;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -27619,92 +27633,93 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ConsumerApplication = function (_React$Component) {
-    _inherits(ConsumerApplication, _React$Component);
+  _inherits(ConsumerApplication, _React$Component);
 
-    function ConsumerApplication(props) {
-        _classCallCheck(this, ConsumerApplication);
+  function ConsumerApplication(props) {
+    _classCallCheck(this, ConsumerApplication);
 
-        var _this = _possibleConstructorReturn(this, (ConsumerApplication.__proto__ || Object.getPrototypeOf(ConsumerApplication)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ConsumerApplication.__proto__ || Object.getPrototypeOf(ConsumerApplication)).call(this, props));
 
-        _this.deleteConsumerApplication = _this.deleteConsumerApplication.bind(_this);
-        return _this;
+    _this.deleteConsumerApplication = _this.deleteConsumerApplication.bind(_this);
+    return _this;
+  }
+
+  _createClass(ConsumerApplication, [{
+    key: "deleteConsumerApplication",
+    value: function deleteConsumerApplication() {
+      this.props.deleteConsumerApplication(this.props.consumerApplication);
     }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "tr",
+        null,
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.consumerApplication.id
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.consumerApplication.firstName
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.consumerApplication.middleInitial
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.consumerApplication.lastName
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.consumerApplication.strNumber
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.consumerApplication.date
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.consumerApplication.addressLine1
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.consumerApplication.addressLine2
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.consumerApplication.city
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.consumerApplication.state
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          _react2.default.createElement(
+            "button",
+            { className: "btn btn-danger",
+              onClick: this.deleteConsumerApplication },
+            "Delete"
+          )
+        )
+      );
+    }
+  }]);
 
-    _createClass(ConsumerApplication, [{
-        key: "deleteConsumerApplication",
-        value: function deleteConsumerApplication() {
-            this.props.deleteConsumerApplication(this.props.consumerApplication);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement(
-                "tr",
-                null,
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.consumerApplication.id
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.consumerApplication.firstName
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.consumerApplication.middleInitial
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.consumerApplication.lastName
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.consumerApplication.strNumber
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.consumerApplication.date
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.consumerApplication.addressLine1
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.consumerApplication.addressLine2
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.consumerApplication.city
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.consumerApplication.state
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    _react2.default.createElement(
-                        "button",
-                        { className: "btn btn-danger", onClick: this.deleteConsumerApplication },
-                        "Delete"
-                    )
-                )
-            );
-        }
-    }]);
-
-    return ConsumerApplication;
+  return ConsumerApplication;
 }(_react2.default.Component);
 
 exports.default = ConsumerApplication;
@@ -27949,7 +27964,7 @@ exports.default = ConsumerForm;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -27975,133 +27990,146 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ConsumerTable = function (_React$Component) {
-    _inherits(ConsumerTable, _React$Component);
+  _inherits(ConsumerTable, _React$Component);
 
-    function ConsumerTable(props) {
-        _classCallCheck(this, ConsumerTable);
+  function ConsumerTable(props) {
+    _classCallCheck(this, ConsumerTable);
 
-        return _possibleConstructorReturn(this, (ConsumerTable.__proto__ || Object.getPrototypeOf(ConsumerTable)).call(this, props));
+    return _possibleConstructorReturn(this, (ConsumerTable.__proto__ || Object.getPrototypeOf(ConsumerTable)).call(this, props));
+  }
+
+  _createClass(ConsumerTable, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var imageStyle = {
+        height: "200px",
+        width: "300px",
+        paddingLeft: "25px",
+        paddingRight: "25px",
+        paddingTop: "10px",
+        paddingBottom: "25px"
+      };
+
+      var consumerApplications = this.props.consumerApplications.map(function (consumerApplication) {
+        return _react2.default.createElement(_ConsumerApplication2.default, { key: consumerApplication._links.self.href,
+          consumerApplication: consumerApplication,
+          deleteConsumerApplication: _this2.props.deleteConsumerApplication });
+      });
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'container', name: 'ConsumerApplication' },
+        _react2.default.createElement(
+          'b',
+          null,
+          _react2.default.createElement(
+            'p',
+            { style: {
+                textAlign: "center",
+                marginBottom: "0px",
+                fontSize: "2em"
+              } },
+            'Consumer Accounts'
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          { style: { textAlign: "center", fontSize: "1.5em", color: "grey" } },
+          'for your home'
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: { display: "table", width: "100%" } },
+          _react2.default.createElement(
+            'div',
+            { style: { width: "50%", float: "left" } },
+            _react2.default.createElement(
+              'div',
+              { style: { float: "right" } },
+              _react2.default.createElement('img', { src: 'images/rpl.gif', style: imageStyle })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { style: { width: "50%", float: "right" } },
+            _react2.default.createElement('img', { src: 'images/projectloanNew02APR2014.gif', style: imageStyle })
+          )
+        ),
+        _react2.default.createElement(_ConsumerForm2.default, { createConsumer: this.props.createConsumer }),
+        _react2.default.createElement(
+          'table',
+          { className: 'table table-striped' },
+          _react2.default.createElement(
+            'thead',
+            null,
+            _react2.default.createElement(
+              'tr',
+              null,
+              _react2.default.createElement(
+                'th',
+                null,
+                'ID'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'FirstName'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'Middle Initial'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'LastName'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'StoreNumber'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'Date'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'Address Line 1'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'Address Line 2'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'City'
+              ),
+              _react2.default.createElement(
+                'th',
+                null,
+                'State'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'tbody',
+            null,
+            consumerApplications
+          )
+        )
+      );
     }
+  }]);
 
-    _createClass(ConsumerTable, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var tableStyle = {
-                float: "left",
-                width: "50%"
-            };
-
-            var imageStyle = {
-                height: "250px",
-                width: "50%",
-                paddingLeft: "25px",
-                paddingRight: "25px",
-                paddingTop: "10px",
-                paddingBottom: "25px"
-            };
-
-            var consumerApplications = this.props.consumerApplications.map(function (consumerApplication) {
-                return _react2.default.createElement(_ConsumerApplication2.default, { key: consumerApplication._links.self.href, consumerApplication: consumerApplication, deleteConsumerApplication: _this2.props.deleteConsumerApplication });
-            });
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'container', name: 'ConsumerApplication', style: tableStyle },
-                _react2.default.createElement(
-                    'b',
-                    null,
-                    _react2.default.createElement(
-                        'p',
-                        { style: { textAlign: "center", marginBottom: "0px", fontSize: "2em" } },
-                        'Consumer Accounts'
-                    )
-                ),
-                _react2.default.createElement(
-                    'p',
-                    { style: { textAlign: "center", fontSize: "1.5em", color: "grey" } },
-                    'for your home'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement('img', { src: 'images/rpl.gif', style: imageStyle }),
-                    _react2.default.createElement('img', { src: 'images/projectloanNew02APR2014.gif', style: imageStyle })
-                ),
-                _react2.default.createElement(_ConsumerForm2.default, { createConsumer: this.props.createConsumer }),
-                _react2.default.createElement(
-                    'table',
-                    { className: 'table table-striped' },
-                    _react2.default.createElement(
-                        'thead',
-                        null,
-                        _react2.default.createElement(
-                            'tr',
-                            null,
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'ID'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'FirstName'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'Middle Initial'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'LastName'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'StoreNumber'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'Date'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'Address Line 1'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'Address Line 2'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'City'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'State'
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'tbody',
-                        null,
-                        consumerApplications
-                    )
-                )
-            );
-        }
-    }]);
-
-    return ConsumerTable;
+  return ConsumerTable;
 }(_react2.default.Component);
 
 exports.default = ConsumerTable;
@@ -28114,7 +28142,7 @@ exports.default = ConsumerTable;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.pinpad = undefined;
 exports.sendToPinPad = sendToPinPad;
@@ -28133,20 +28161,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /* eslint-disable no-console */
 var pinpad = exports.pinpad = _socket.connect.subscribe(function (_ref) {
-    var data = _ref.data;
-    var requestType = (0, _dispatchIndex.getState)().pinpad.requestType;
+  var data = _ref.data;
+  var requestType = (0, _dispatchIndex.getState)().pinpad.requestType;
 
-    _responseHandlers2.default[requestType]({ data: data, dispatch: _dispatchIndex.dispatch });
-    // Add actions here
+  _responseHandlers2.default[requestType]({ data: data, dispatch: _dispatchIndex.dispatch });
+  // Add actions here
 }, function (err) {
-    console.error('PIN pad connection error: ', err);
-    (0, _dispatchIndex.dispatch)((0, _actionCreators.addAlertError)('PIN Pad Offline'));
+  console.error('PIN pad connection error: ', err);
+  (0, _dispatchIndex.dispatch)((0, _actionCreators.addAlertError)('PIN Pad Offline'));
 }, function () {
-    console.warn('PIN pad socket closed');
+  console.warn('PIN pad socket closed');
 });
 
 function sendToPinPad(message) {
-    (0, _socket.sendMessage)(message);
+  (0, _socket.sendMessage)(message);
 }
 
 // export function pinPadConnect() {
@@ -28171,7 +28199,7 @@ function sendToPinPad(message) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.welcomeRequest = welcomeRequest;
 exports.emvFailedSwipeCardRequest = emvFailedSwipeCardRequest;
@@ -28186,57 +28214,57 @@ exports.emvFinalize = emvFinalize;
 var _es = __webpack_require__(480);
 
 function welcomeRequest(sessionId) {
-    return '<PinPadRequest sessionID="' + sessionId + '"><Action name="Welcome" waitForResponse="false"></Action></PinPadRequest>';
+  return '<PinPadRequest sessionID="' + sessionId + '"><Action name="Welcome" waitForResponse="false"></Action></PinPadRequest>';
 } /* eslint-disable max-len,no-console,new-cap */
 function emvFailedSwipeCardRequest(sessionId, languageCode) {
-    var swipeCardEnUs = 'Please Swipe Card';
-    var swipeCardEnCa = 'Please Swipe Card';
-    var swipeCardFrCa = 'Veuillez glisser la carte';
+  var swipeCardEnUs = 'Please Swipe Card';
+  var swipeCardEnCa = 'Please Swipe Card';
+  var swipeCardFrCa = 'Veuillez glisser la carte';
 
-    var swipeCardText = void 0;
-    switch (languageCode) {
-        case 'en_CA':
-            swipeCardText = swipeCardEnCa;
-            break;
-        case 'fr_CA':
-            swipeCardText = swipeCardFrCa;
-            break;
-        case 'en_US':
-        default:
-            swipeCardText = swipeCardEnUs;
-    }
-    return '<PinPadRequest sessionID="' + sessionId + '"><Action name="InfoBigLine"><Form name="infoBigLine" padStatus="' + swipeCardText + '"><dynamicText><Text text="' + swipeCardText + '" rowIndex="0" align="center"/></dynamicText></Form><MSR enabled="true"/></Action></PinPadRequest>';
+  var swipeCardText = void 0;
+  switch (languageCode) {
+    case 'en_CA':
+      swipeCardText = swipeCardEnCa;
+      break;
+    case 'fr_CA':
+      swipeCardText = swipeCardFrCa;
+      break;
+    case 'en_US':
+    default:
+      swipeCardText = swipeCardEnUs;
+  }
+  return '<PinPadRequest sessionID="' + sessionId + '"><Action name="InfoBigLine"><Form name="infoBigLine" padStatus="' + swipeCardText + '"><dynamicText><Text text="' + swipeCardText + '" rowIndex="0" align="center"/></dynamicText></Form><MSR enabled="true"/></Action></PinPadRequest>';
 }
 
 // export const pinPadPleaseMessageRequest = `<PinPadRequest sessionId="${sessionId}"><Action name="InfoMessage" waitForResponse="false"><Form padStatus="Please Fill Out Required Fields" clearText="true"></Form></Action></PinPadRequest>`; // Please note that if this is uncommented it needs to be updated to use the locale message in 'general', 'alerts', 'enterRequiredFields - MKW6889 06/17/2016
 function processingMsrRequest(sessionId) {
-    return '<PinPadRequest sessionID="' + sessionId + '"><Action name="MSRProcessing" waitForResponse="false"></Action></PinPadRequest>';
+  return '<PinPadRequest sessionID="' + sessionId + '"><Action name="MSRProcessing" waitForResponse="false"></Action></PinPadRequest>';
 }
 
 function cardSwipeError(sessionId) {
-    return '<PinPadRequest sessionID="' + sessionId + '"><Action name="MSRInvalidSwipeError"></Action></PinPadRequest>';
+  return '<PinPadRequest sessionID="' + sessionId + '"><Action name="MSRInvalidSwipeError"></Action></PinPadRequest>';
 }
 
 function pinPadPrimaryAccountNumberManualEntry(sessionId) {
-    return '<PinPadRequest sessionID="' + sessionId + '"><Action name="GetKeyedCardData" waitForResponse="false"><MSR expirationDate="1249" cvv2="123"></MSR></Action></PinPadRequest>';
+  return '<PinPadRequest sessionID="' + sessionId + '"><Action name="GetKeyedCardData" waitForResponse="false"><MSR expirationDate="1249" cvv2="123"></MSR></Action></PinPadRequest>';
 }
 
 function pinPadExpirationDateManualEntry(sessionId) {
-    return '<PinPadRequest sessionID="' + sessionId + '"><Action name="GetExpirationDate" waitForResponse="false"></Action></PinPadRequest>';
+  return '<PinPadRequest sessionID="' + sessionId + '"><Action name="GetExpirationDate" waitForResponse="false"></Action></PinPadRequest>';
 }
 
 function pinPadSecurityCodeManualEntry(sessionId) {
-    return '<PinPadRequest sessionID="' + sessionId + '"><Action name="GetCVV2" waitForResponse="false"></Action></PinPadRequest>';
+  return '<PinPadRequest sessionID="' + sessionId + '"><Action name="GetCVV2" waitForResponse="false"></Action></PinPadRequest>';
 }
 
 function pinPadZipPostalCodeManualEntry(sessionId) {
-    return '<PinPadRequest sessionID="' + sessionId + '"><Action name="GetPostalCode" waitForResponse="false"></Action></PinPadRequest>';
+  return '<PinPadRequest sessionID="' + sessionId + '"><Action name="GetPostalCode" waitForResponse="false"></Action></PinPadRequest>';
 }
 
 function emvFinalize(sessionId, languageCode, countryCode, authStatus) {
-    var displayLanguage = languageCode.substring(0, 2);
-    var displayCountry = countryCode;
-    return '<PinPadRequest sessionID="' + sessionId + '"><Action displayCountry="' + displayCountry + '" displayLanguage="' + displayLanguage + '" name="FinalizeEMV" waitForResponse="false"><EMV EMVStatus="Proceed" Language="' + languageCode + '" PAD_STATUS="' + authStatus + '"/></Action></PinPadRequest>';
+  var displayLanguage = languageCode.substring(0, 2);
+  var displayCountry = countryCode;
+  return '<PinPadRequest sessionID="' + sessionId + '"><Action displayCountry="' + displayCountry + '" displayLanguage="' + displayLanguage + '" name="FinalizeEMV" waitForResponse="false"><EMV EMVStatus="Proceed" Language="' + languageCode + '" PAD_STATUS="' + authStatus + '"/></Action></PinPadRequest>';
 }
 
 /***/ }),
@@ -30878,7 +30906,7 @@ function uuidReducer() {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _reduxThunk = __webpack_require__(965);
@@ -30910,27 +30938,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // initial state is optional
 /* eslint-disable global-require, no-underscore-dangle */
 function configureStore(initialState) {
-    var middleware = function (env) {
-        if (env === 'test') {
-            return (0, _applyMiddleware2.default)(_reduxThunk2.default);
-        }
-        return (0, _applyMiddleware2.default)(_reduxLogger2.default, _reduxThunk2.default);
-    }(process.env.NODE_ENV);
-
-    var createStoreWithMiddleware = (0, _compose2.default)(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : function (f) {
-        return f;
-    });
-
-    var store = createStoreWithMiddleware(_createStore2.default)(_rootReducer2.default, initialState);
-
-    if (false) {
-        module.hot.accept('./../reducers/rootReducer', function () {
-            var nextRootReducer = require('./../reducers/rootReducer');
-            store.replaceReducer(nextRootReducer);
-        });
+  var middleware = function (env) {
+    if (env === 'test') {
+      return (0, _applyMiddleware2.default)(_reduxThunk2.default);
     }
+    return (0, _applyMiddleware2.default)(_reduxLogger2.default, _reduxThunk2.default);
+  }(process.env.NODE_ENV);
 
-    return store;
+  var createStoreWithMiddleware = (0, _compose2.default)(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : function (f) {
+    return f;
+  });
+
+  var store = createStoreWithMiddleware(_createStore2.default)(_rootReducer2.default, initialState);
+
+  if (false) {
+    module.hot.accept('./../reducers/rootReducer', function () {
+      var nextRootReducer = require('./../reducers/rootReducer');
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
+  return store;
 }
 
 exports.default = configureStore;
@@ -30963,7 +30991,9 @@ function isDebitOnlyCard(crHostId, paymtMethCode) {
 
 function validateYearAndMonth(keyedExpirationDate) {
   // if not 4 digits, return false
-  if (!/^\d{4}$/.test(keyedExpirationDate)) return false;
+  if (!/^\d{4}$/.test(keyedExpirationDate)) {
+    return false;
+  }
 
   var expiry = String(keyedExpirationDate);
   var formattedMonth = parseInt(expiry.substring(0, 2), 10);
@@ -30974,13 +31004,19 @@ function validateYearAndMonth(keyedExpirationDate) {
   var currentYear = date.getFullYear() - 2000;
 
   // checking for past years and checking for not a number for year.
-  if (formattedYear < currentYear) return false;
+  if (formattedYear < currentYear) {
+    return false;
+  }
 
   // checking for valid range of months.
-  if (formattedMonth > 12 || formattedMonth <= 0) return false;
+  if (formattedMonth > 12 || formattedMonth <= 0) {
+    return false;
+  }
   // when the input year matches the current year, then validate past month.
 
-  if (formattedYear === currentYear && formattedMonth < currentMonth) return false;
+  if (formattedYear === currentYear && formattedMonth < currentMonth) {
+    return false;
+  }
   return true;
 }
 

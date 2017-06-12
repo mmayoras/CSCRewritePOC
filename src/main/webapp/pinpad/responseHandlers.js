@@ -1,8 +1,8 @@
 /* global PIE, ProtectPANandCVV */
 /* eslint-disable new-cap,no-console,max-len, no-shadow */
 import $ from 'jquery';
-import { browserHistory } from 'react-router';
-import { getState } from './dispatchIndex';
+import {browserHistory} from 'react-router';
+import {getState} from './dispatchIndex';
 
 import * as pinPadActionCreators from './../reducers/pinpad/actionCreators';
 import * as pinPadCardActionCreators from '../reducers/pinpadCardDetails/actionCreators';
@@ -14,7 +14,7 @@ import {
   setCardApprovalStatusDeclined,
   clearCardApprovalStatus,
 } from './../reducers/cardApprovalStatus/actionCreators';
-import { setProxOnlyFalse } from '../reducers/proxOnly/actionCreators';
+import {setProxOnlyFalse} from '../reducers/proxOnly/actionCreators';
 import {
   processingMsrScreen,
   sendEMVFinalize,
@@ -55,13 +55,14 @@ export function resetCardDataAndPinPad(dispatch) {
   dispatch(pinPadActionCreators.resetCardActionStatus());
 }
 
-export function processEMVErrorResponse({ data, dispatch }) {
+export function processEMVErrorResponse({data, dispatch}) {
   const $xml = parseXml(data);
   const cardResponse = $xml.find('EMVError');
   const isMSRError = parseInt(cardResponse.attr('SwipeCount'), 10) > 0;
   const errorCode = cardResponse.attr('ErrorCode');
   if (isMSRError) {
-    console.log(`An MSR error occured. ErrorCode ${cardResponse.attr('ErrorCode')}`);
+    console.log(
+        `An MSR error occured. ErrorCode ${cardResponse.attr('ErrorCode')}`);
     if (errorCode === '111') {
       // TODO: Fallback logic
       console.log('A PIN pad error occured on MSR swipe');
@@ -70,7 +71,8 @@ export function processEMVErrorResponse({ data, dispatch }) {
       if (getState().pinpad.msrFallbackCounter >= 2) {
         dispatch(pinPadActionCreators.setMSRFallbackIndicatorTrue());
         dispatch(removeAllAlerts());
-        dispatch(addAlertError('Error Reading Card', 'Please use PIN pad to manually enter card information'));
+        dispatch(addAlertError('Error Reading Card',
+            'Please use PIN pad to manually enter card information'));
         sendCardSwipeError();
         dispatch(clearCardApprovalStatus());
         setTimeout(() => {
@@ -79,7 +81,8 @@ export function processEMVErrorResponse({ data, dispatch }) {
         }, 3000);
       } else {
         dispatch(removeAllAlerts());
-        dispatch(addAlertError('Error Reading Card', 'Please inform customer to swipe again'));
+        dispatch(addAlertError('Error Reading Card',
+            'Please inform customer to swipe again'));
         sendCardSwipeError();
       }
     }
@@ -95,7 +98,8 @@ export function processEMVErrorResponse({ data, dispatch }) {
         dispatch(pinPadActionCreators.setCardInsertedFalse());
         dispatch(pinPadActionCreators.setEMVCardRemovedEarlyTrue());
         dispatch(removeAllAlerts());
-        dispatch(addAlertError('Chip card removed early', 'Please inform customer to try again'));
+        dispatch(addAlertError('Chip card removed early',
+            'Please inform customer to try again'));
         const state = getState();
 
         // Perform credit auth reversal if transaction was 'APPROVED'.
@@ -112,12 +116,14 @@ export function processEMVErrorResponse({ data, dispatch }) {
       case 'EMVChipDataInAccessible':
         dispatch(pinPadActionCreators.incrementEMVFallbackCounter());
         dispatch(removeAllAlerts());
-        dispatch(addAlertError('Error reading chip card', 'Please inform customer to remove and reinsert'));
+        dispatch(addAlertError('Error reading chip card',
+            'Please inform customer to remove and reinsert'));
         console.log('EMV Chip Data Inaccessible');
         break; // Go to EMVFinalize
       case 'EMVNoAIDMatch':
         dispatch(removeAllAlerts());
-        dispatch(addAlertError('Chip card not supported', 'Please inform customer to remove card'));
+        dispatch(addAlertError('Chip card not supported',
+            'Please inform customer to remove card'));
         console.log('EMV No AID Match');
         break; // Go to EMVFinalize
       default:
@@ -129,46 +135,46 @@ export function processEMVErrorResponse({ data, dispatch }) {
     if (sendToEMVFinalize) {
       console.log('Going to EMVFinalize...');
       const state = getState();
-      sendEMVFinalize(state.languageCode, state.countryCode, state.cardApprovalStatus);
+      sendEMVFinalize(state.languageCode, state.countryCode,
+          state.cardApprovalStatus);
     }
   }
 }
 
-export function processProcessingScreenResponse({ data }) {
+export function processProcessingScreenResponse({data}) {
   console.log('Debugging: in processProcessingScreenResponse()');
   console.log('processing auth screen:', data);
 }
 
-export function processInfoMessageResponse({ data }) {
+export function processInfoMessageResponse({data}) {
   console.log('processed auth result:', data);
 }
 
-export function processGetMsrDataResponse({ data, dispatch }) {
-    console.log('processPostalCodeResponse');
-    const $xml = parseXml(data);
-    const keyedResponse = $xml.find('KeyPad');
-    processingMsrScreen();
-    // If an MSR element was not returned, we will not process the response
-    // This is being done because the MSRListener will sometimes fire an extra event
-    // that we do not want to process, or it breaks the pinpad flow.
-    if (keyedResponse.length === 0) {
-        return;
-    }
-    const keyedZipCode = keyedResponse.attr('keyedData') || null;
-    dispatch(pinPadCardActionCreators.updateZipCode(keyedZipCode));
+export function processGetMsrDataResponse({data, dispatch}) {
+  console.log('processPostalCodeResponse');
+  const $xml = parseXml(data);
+  const keyedResponse = $xml.find('KeyPad');
+  processingMsrScreen();
+  // If an MSR element was not returned, we will not process the response
+  // This is being done because the MSRListener will sometimes fire an extra event
+  // that we do not want to process, or it breaks the pinpad flow.
+  if (keyedResponse.length === 0) {
+    return;
+  }
+  const keyedZipCode = keyedResponse.attr('keyedData') || null;
+  dispatch(pinPadCardActionCreators.updateZipCode(keyedZipCode));
 
-    if (keyedResponse.attr('buttonPressed') === '2') {
-        console.log('Customer pressed cancel while keying zip code');
-        dispatch(pinPadCardActionCreators.resetCardDetails());
-        dispatch(pinPadActionCreators.resetCardActionStatus());
+  if (keyedResponse.attr('buttonPressed') === '2') {
+    console.log('Customer pressed cancel while keying zip code');
+    dispatch(pinPadCardActionCreators.resetCardDetails());
+    dispatch(pinPadActionCreators.resetCardActionStatus());
 
-        return;
-    }
+    return;
+  }
 
 }
 
-
-export function processGetMsrDataResponseEMV({ data, dispatch }) {
+export function processGetMsrDataResponseEMV({data, dispatch}) {
   console.log('In processGetMsrDataResponseEMV');
   console.log(`data = ${data}`);
   console.log(`dispatch = ${dispatch}`);
@@ -179,7 +185,7 @@ export function processGetMsrDataResponseEMV({ data, dispatch }) {
   const emvResponse = $xml.find('EMV');
   if ($xml.find('EMVError').length > 0) {
     console.log('EMVError found');
-    processEMVErrorResponse({ data, dispatch });
+    processEMVErrorResponse({data, dispatch});
     return;
   }
 
@@ -194,7 +200,8 @@ export function processGetMsrDataResponseEMV({ data, dispatch }) {
 
   const cardSequenceNumber = emv.attr('PANSequenceNumber') || '';
   if (cardSequenceNumber.length > 0) {
-    dispatch(pinPadCardActionCreators.updateCardSequenceNumber(cardSequenceNumber));
+    dispatch(
+        pinPadCardActionCreators.updateCardSequenceNumber(cardSequenceNumber));
   }
 
   if (emv.attr('EMVStatus') === 'EMVPinEntry') {
@@ -237,7 +244,7 @@ export function processGetMsrDataResponseEMV({ data, dispatch }) {
     } else {
       dispatch(setCardTypeCredit());
       if (state.amountBreakdown.orderTotal.amount > 50.00 &&
-        emv.attr('EMVSignatureRequired') === 'true') {
+          emv.attr('EMVSignatureRequired') === 'true') {
         dispatch(pinPadActionCreators.setSignatureRequiredTrue());
       } else {
         dispatch(pinPadActionCreators.setSignatureRequiredFalse());
@@ -252,15 +259,17 @@ export function processGetMsrDataResponseEMV({ data, dispatch }) {
         dispatch(pinPadCardActionCreators.resetCardDetails());
         sendEMVFinalize(state.languageCode, state.countryCode, 'DECLINED');
         return;
-      } else if (isDebitOnlyCard(state.pinpadCardDetails.crHostId, state.pinpadCardDetails.paymtMethCode)) {
+      } else if (isDebitOnlyCard(state.pinpadCardDetails.crHostId,
+              state.pinpadCardDetails.paymtMethCode)) {
         // Handle disallowed debit cards
         if (!state.debitCardsAllowed) {
           // This is a debit card, and debit cards are not allowed for this transaction.
           dispatch(addAlertError('Debit only cards are not allowed.',
-                                 'Please use a card that has a Credit tender to complete the payment.'));
+              'Please use a card that has a Credit tender to complete the payment.'));
           dispatch(pinPadCardActionCreators.resetCardDetails());
           // EMV Finalize will reset card action status
-          sendEMVFinalize(state.languageCode, state.countryCode, state.cardApprovalStatus);
+          sendEMVFinalize(state.languageCode, state.countryCode,
+              state.cardApprovalStatus);
           return;
         }
       }
@@ -276,7 +285,8 @@ export function processGetMsrDataResponseEMV({ data, dispatch }) {
         dispatch(addAlertError('Prepaid card not valid for deposit.'));
         dispatch(pinPadCardActionCreators.resetCardDetails());
         // EMV Finalize will reset card action status
-        sendEMVFinalize(state.languageCode, state.countryCode, state.cardApprovalStatus);
+        sendEMVFinalize(state.languageCode, state.countryCode,
+            state.cardApprovalStatus);
         return;
       }
 
@@ -285,11 +295,11 @@ export function processGetMsrDataResponseEMV({ data, dispatch }) {
   }
 }
 
-export function processCompleteEMV({ data, dispatch }) {
+export function processCompleteEMV({data, dispatch}) {
   console.log(`CompleteEMV Data: ${data}, ${dispatch}`);
   const $xml = parseXml(data);
   if ($xml.find('EMVError').length > 0) {
-    processEMVErrorResponse({ data, dispatch });
+    processEMVErrorResponse({data, dispatch});
     return;
   }
   const emv = $xml.find('EMV');
@@ -320,17 +330,18 @@ export function processCompleteEMV({ data, dispatch }) {
   const state = getState();
   if (state.cardApprovalStatus === 'DECLINED') {
     dispatch(addAlertError('Card Declined',
-      'Please try a different card.'));
+        'Please try a different card.'));
   }
-  sendEMVFinalize(state.languageCode, state.countryCode, state.cardApprovalStatus);
+  sendEMVFinalize(state.languageCode, state.countryCode,
+      state.cardApprovalStatus);
 }
 
-export function processFinalizeEMV({ data, dispatch }) {
+export function processFinalizeEMV({data, dispatch}) {
   console.log(`FinalizeEMV Data: ${data}, ${dispatch}`);
   const $xml = parseXml(data);
 
   if ($xml.find('EMVError').length > 0) {
-    processEMVErrorResponse({ data, dispatch });
+    processEMVErrorResponse({data, dispatch});
     return;
   }
 
@@ -361,7 +372,7 @@ export function processFinalizeEMV({ data, dispatch }) {
   dispatch(pinPadActionCreators.setCardInsertedFalse());
 }
 
-export function processGetMsrDataResponseDebit({ data, dispatch }) {
+export function processGetMsrDataResponseDebit({data, dispatch}) {
   console.log('processGetMsrDataResponseDebit');
   console.log(`data = ${data}`);
   console.log(`dispatch = ${dispatch}`);
@@ -415,7 +426,8 @@ function handleProxCardData(dispatch, keyedPan) {
       dispatch(pinPadCardActionCreators.updatePrimaryAccountNumber(pan));
       pinPadCVV2ManualEntry();
     } else {
-      dispatch(addAlertError('Invalid Card Number', 'Please inform customer to enter again'));
+      dispatch(addAlertError('Invalid Card Number',
+          'Please inform customer to enter again'));
       pinPadPANManualEntry();
     }
   });
@@ -434,14 +446,17 @@ function handleNonProxCardData(dispatch, keyedPan, etb) {
     }
     const rptPaymtMethCode = state.pinpadCardDetails.rptPaymtMethCode;
     // If proxOnly true and this isnt a prox card, do not proceed unless msrFallback true
-    if (state.proxOnly && rptPaymtMethCode !== 'HP' && !state.pinpad.msrFallbackIndicator) {
+    if (state.proxOnly && rptPaymtMethCode !== 'HP'
+        && !state.pinpad.msrFallbackIndicator) {
       // If we made it here, then we need to disallow further execution
-      dispatch(addAlertError('Please enter a Prox card or press the cancel button.'));
+      dispatch(addAlertError(
+          'Please enter a Prox card or press the cancel button.'));
       dispatch(pinPadCardActionCreators.resetCardDetails());
       pinPadPANManualEntry();
       return;
     }
-    if (isDebitOnlyCard(state.pinpadCardDetails.crHostId, state.pinpadCardDetails.paymtMethCode)) {
+    if (isDebitOnlyCard(state.pinpadCardDetails.crHostId,
+            state.pinpadCardDetails.paymtMethCode)) {
       dispatch(addAlertError('Card must be swiped or inserted.'));
       dispatch(pinPadCardActionCreators.resetCardDetails());
       dispatch(pinPadActionCreators.resetCardActionStatus());
@@ -453,9 +468,11 @@ function handleNonProxCardData(dispatch, keyedPan, etb) {
     }
     dispatch(setCardTypeCredit());
     const isCardValid = rptPaymtMethCode !== '';
-    const triggerSecurityCodeFlow = isCardValid && !/^HA/.test(rptPaymtMethCode);
+    const triggerSecurityCodeFlow = isCardValid && !/^HA/.test(
+            rptPaymtMethCode);
     // if rptPaymtMethCode is not HD card (i.e., PLCC), then show expiry date component
-    const triggerExpirationDateFlow = isCardValid && !/^H/.test(rptPaymtMethCode);
+    const triggerExpirationDateFlow = isCardValid && !/^H/.test(
+            rptPaymtMethCode);
     const triggerZipCodeFlow = isCardValid && !/^H[RP]$/.test(rptPaymtMethCode);
     if (isCardValid) {
       dispatch(pinPadCardActionCreators.updatePrimaryAccountNumber(keyedPan));
@@ -467,13 +484,14 @@ function handleNonProxCardData(dispatch, keyedPan, etb) {
         pinPadPostalCodeManualEntry();
       }
     } else {
-      dispatch(addAlertError('Invalid Card Number', 'Please inform customer to enter again'));
+      dispatch(addAlertError('Invalid Card Number',
+          'Please inform customer to enter again'));
       pinPadPANManualEntry();
     }
   });
 }
 
-export function processKeyedCardDataResponse({ data, dispatch }) {
+export function processKeyedCardDataResponse({data, dispatch}) {
   console.log('processPrimaryAccountNumberManualEntry');
   dispatch(pinPadActionCreators.setSignatureRequiredTrue()); // Signature required regardless of amount for manual entry
   dispatch(pinPadCardActionCreators.updatePOSEntryMode('KEY_ENTRY'));
@@ -509,7 +527,7 @@ export function processKeyedCardDataResponse({ data, dispatch }) {
   }
 }
 
-export function processSignatureResponse({ data, dispatch }) {
+export function processSignatureResponse({data, dispatch}) {
   console.log('process signature response:', data);
   const $xml = parseXml(data);
   const keyedResponse = $xml.find('Signature');
@@ -531,13 +549,13 @@ export function processSignatureResponse({ data, dispatch }) {
   $xml.find('Point').each((index, point) => {
     const xCoordinate = parseFloat(point.attributes.x.value);
     const yCoordinate = parseFloat(point.attributes.y.value);
-    sigArray[index] = { x: xCoordinate, y: yCoordinate };
+    sigArray[index] = {x: xCoordinate, y: yCoordinate};
   });
 
   dispatch(pinPadActionCreators.updateSignatureArray(sigArray));
 }
 
-export function processExpirationDateResponse({ data, dispatch }) {
+export function processExpirationDateResponse({data, dispatch}) {
   console.log('processExpirationDateResponse');
   const $xml = parseXml(data);
   const keyedResponse = $xml.find('KeyPad');
@@ -561,12 +579,13 @@ export function processExpirationDateResponse({ data, dispatch }) {
     dispatch(pinPadCardActionCreators.updateExpiryDate(keyedExpirationDate));
     pinPadCVV2ManualEntry();
   } else {
-    dispatch(addAlertError('Invalid Expiration Date', 'Please inform customer to enter again'));
+    dispatch(addAlertError('Invalid Expiration Date',
+        'Please inform customer to enter again'));
     pinpadExpirationDateManualEntry();
   }
 }
 
-export function processSecurityCodeResponse({ data, dispatch }) {
+export function processSecurityCodeResponse({data, dispatch}) {
   console.log('processSecurityCodeResponse');
   const $xml = parseXml(data);
   const keyedResponse = $xml.find('KeyPad');
@@ -613,12 +632,13 @@ export function processSecurityCodeResponse({ data, dispatch }) {
     dispatch(doCreditAuth());
     console.log('CreditAuth Successful');
   } else {
-    dispatch(addAlertError('Invalid Security Code', 'Please inform customer to enter again'));
+    dispatch(addAlertError('Invalid Security Code',
+        'Please inform customer to enter again'));
     pinPadCVV2ManualEntry();
   }
 }
 
-export function processPostalCodeResponse({ data, dispatch }) {
+export function processPostalCodeResponse({data, dispatch}) {
   console.log('processPostalCodeResponse');
   const $xml = parseXml(data);
   const keyedResponse = $xml.find('KeyPad');

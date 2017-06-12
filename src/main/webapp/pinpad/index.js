@@ -1,23 +1,23 @@
 /* eslint-disable no-console */
-import { connect, sendMessage } from '../socket';
-import { dispatch, getState } from './dispatchIndex';
+import {connect, sendMessage} from '../socket';
+import {dispatch, getState} from './dispatchIndex';
 import responseHandlers from './responseHandlers';
 
-import { addAlertError } from './../reducers/alertMessage/actionCreators';
+import {addAlertError} from './../reducers/alertMessage/actionCreators';
 
-export const pinpad = connect.subscribe(({ data }) => {
-    const { requestType } = getState().pinpad;
-    responseHandlers[requestType]({ data, dispatch });
-    // Add actions here
+export const pinpad = connect.subscribe(({data}) => {
+  const {requestType} = getState().pinpad;
+  responseHandlers[requestType]({data, dispatch});
+  // Add actions here
 }, (err) => {
-    console.error('PIN pad connection error: ', err);
-    dispatch(addAlertError('PIN Pad Offline'));
+  console.error('PIN pad connection error: ', err);
+  dispatch(addAlertError('PIN Pad Offline'));
 }, () => {
-    console.warn('PIN pad socket closed');
+  console.warn('PIN pad socket closed');
 });
 
 export function sendToPinPad(message) {
-    sendMessage(message);
+  sendMessage(message);
 }
 
 // export function pinPadConnect() {

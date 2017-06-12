@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Route, Link } from 'react-router-dom'
+import {HashRouter, Route, Link} from 'react-router-dom'
 import Commercial from './main/webapp/csc/Commercial.jsx';
 import Consumer from './main/webapp/csc/Consumer.jsx';
 import Home from './main/webapp/csc/Home.jsx';
@@ -15,8 +15,8 @@ class CSC extends React.Component {
 
   render() {
     const divMainStyle = {
-      marginLeft: "25%",
-      paddingTop:"1px",
+      marginLeft: "20%",
+      paddingTop: "1px",
       paddingRight: "16px"
     };
 
@@ -30,13 +30,11 @@ class CSC extends React.Component {
               {/*<li><a href="#about">About</a></li>*/}
             </ul>
             <div style={divMainStyle}>
+              {/* add the routes here */}
               <Route exact path="/" component={Home}/>
-              <div style={{clear: 'both', display: "table", width: "100%"}}>
-                {/* add the routes here */}
-                <Route path="/consumer" component={Consumer}/>
-                <Route path="/commercial" component={Commercial}/>
-                <Alert stack={true} timeout={2000} />
-              </div>
+              <Route path="/consumer" component={Consumer}/>
+              <Route path="/commercial" component={Commercial}/>
+              <Alert stack={true} timeout={2000}/>
             </div>
           </div>
         </HashRouter>

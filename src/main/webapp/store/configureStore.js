@@ -9,30 +9,31 @@ import rootReducer from './../reducers/rootReducer';
 
 // initial state is optional
 function configureStore(initialState) {
-    const middleware = ((env) => {
-        if (env === 'test') {
-            return applyMiddleware(thunkMiddleware);
-        }
-        return applyMiddleware(logger, thunkMiddleware);
-    })(process.env.NODE_ENV);
-
-    const createStoreWithMiddleware = compose(
-        middleware,
-        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
-    );
-
-    const store =
-        createStoreWithMiddleware(createStore)(rootReducer, initialState);
-
-    if (module.hot) {
-        module.hot
-            .accept('./../reducers/rootReducer', () => {
-                const nextRootReducer = require('./../reducers/rootReducer');
-                store.replaceReducer(nextRootReducer);
-            });
+  const middleware = ((env) => {
+    if (env === 'test') {
+      return applyMiddleware(thunkMiddleware);
     }
+    return applyMiddleware(logger, thunkMiddleware);
+  })(process.env.NODE_ENV);
 
-    return store;
+  const createStoreWithMiddleware = compose(
+      middleware,
+      window.__REDUX_DEVTOOLS_EXTENSION__
+          ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
+  );
+
+  const store =
+      createStoreWithMiddleware(createStore)(rootReducer, initialState);
+
+  if (module.hot) {
+    module.hot
+    .accept('./../reducers/rootReducer', () => {
+      const nextRootReducer = require('./../reducers/rootReducer');
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
+  return store;
 }
 
 export default configureStore;
