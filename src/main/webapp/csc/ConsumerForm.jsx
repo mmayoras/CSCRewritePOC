@@ -46,7 +46,7 @@ class ConsumerForm extends React.Component {
     }
 
     render() {
-        var inputStyle = {
+      const inputStyle = {
             paddingLeft: "0.5%",
             paddingRight: "0.5%",
             position: "relative",

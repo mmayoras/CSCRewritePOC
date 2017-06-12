@@ -8,12 +8,12 @@ class ConsumerTable extends React.Component {
     }
 
     render() {
-        var tableStyle = {
+        const tableStyle = {
             float: "left",
             width: "50%"
         };
 
-        var imageStyle = {
+        const imageStyle = {
             height: "250px",
             width: "50%",
             paddingLeft: "25px",
@@ -22,7 +22,7 @@ class ConsumerTable extends React.Component {
             paddingBottom: "25px"
         };
 
-        var consumerApplications = this.props.consumerApplications.map(consumerApplication =>
+        let consumerApplications = this.props.consumerApplications.map(consumerApplication =>
             <ConsumerApplication key={consumerApplication._links.self.href} consumerApplication={consumerApplication} deleteConsumerApplication={this.props.deleteConsumerApplication} />);
 
         return (

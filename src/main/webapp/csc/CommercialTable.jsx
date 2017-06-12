@@ -8,12 +8,12 @@ class CommercialTable extends React.Component {
     }
 
     render() {
-        var tableStyle = {
+      const tableStyle = {
             float: "right",
             width: "50%"
         };
 
-        var imageStyle = {
+        const imageStyle = {
             height: "250px",
             width: "50%",
             paddingLeft: "25px",
@@ -22,7 +22,7 @@ class CommercialTable extends React.Component {
             paddingBottom: "25px"
         };
 
-        var commercialApplications = this.props.commercialApplications.map(commercialApplication =>
+        let commercialApplications = this.props.commercialApplications.map(commercialApplication =>
             <CommercialApplication key={commercialApplication._links.self.href} commercialApplication={commercialApplication} deleteCommercialApplication={this.props.deleteCommercialApplication} />);
 
         return (
