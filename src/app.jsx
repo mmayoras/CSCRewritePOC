@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter, Route, Link} from 'react-router-dom'
-import Commercial from './main/webapp/csc/Commercial.jsx';
-import Consumer from './main/webapp/csc/Consumer.jsx';
-import Home from './main/webapp/csc/Home.jsx';
+import Commercial from './main/webapp/commercial/Commercial.jsx';
+import Consumer from './main/webapp/consumer/Consumer.jsx';
+import Home from './main/webapp/Home.jsx';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
