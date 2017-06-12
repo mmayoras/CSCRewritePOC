@@ -72,9 +72,7 @@ class Commercial extends React.Component {
   render() {
 
     return (
-        <div>
-          <CommercialTable createCommercial={this.createCommercial} deleteCommercialApplication={this.deleteCommercialApplication} commercialApplications={this.state.commercialApplications} />
-        </div>
+        <CommercialTable createCommercial={this.createCommercial} deleteCommercialApplication={this.deleteCommercialApplication} commercialApplications={this.state.commercialApplications} />
     );
   }
 }

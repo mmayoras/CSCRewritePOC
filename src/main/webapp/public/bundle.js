@@ -26808,11 +26808,7 @@ var Commercial = function (_React$Component) {
     key: 'render',
     value: function render() {
 
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_CommercialTable2.default, { createCommercial: this.createCommercial, deleteCommercialApplication: this.deleteCommercialApplication, commercialApplications: this.state.commercialApplications })
-      );
+      return _react2.default.createElement(_CommercialTable2.default, { createCommercial: this.createCommercial, deleteCommercialApplication: this.deleteCommercialApplication, commercialApplications: this.state.commercialApplications });
     }
   }]);
 
@@ -26945,7 +26941,7 @@ exports.default = CommercialApplication;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26969,163 +26965,202 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CommercialForm = function (_React$Component) {
-    _inherits(CommercialForm, _React$Component);
+  _inherits(CommercialForm, _React$Component);
 
-    function CommercialForm(props) {
-        _classCallCheck(this, CommercialForm);
+  function CommercialForm(props) {
+    _classCallCheck(this, CommercialForm);
 
-        var _this = _possibleConstructorReturn(this, (CommercialForm.__proto__ || Object.getPrototypeOf(CommercialForm)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (CommercialForm.__proto__ || Object.getPrototypeOf(CommercialForm)).call(this, props));
 
-        _this.state = { firstName: '', middleInitial: '', lastName: '', strNumber: '', date: new Date(), addressLine1: '', addressLine2: '', city: '', state: '' };
-        _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.handleChange = _this.handleChange.bind(_this);
-        _this.createCommercial = _this.createCommercial.bind(_this);
-        return _this;
+    _this.state = {
+      firstName: '',
+      middleInitial: '',
+      lastName: '',
+      strNumber: '',
+      date: new Date(),
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      state: ''
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.createCommercial = _this.createCommercial.bind(_this);
+    return _this;
+  }
+
+  _createClass(CommercialForm, [{
+    key: 'handleChange',
+    value: function handleChange(event) {
+      console.log("NAME: " + event.target.name + " VALUE: " + event.target.value);
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      event.preventDefault();
 
-    _createClass(CommercialForm, [{
-        key: 'handleChange',
-        value: function handleChange(event) {
-            console.log("NAME: " + event.target.name + " VALUE: " + event.target.value);
-            this.setState(_defineProperty({}, event.target.name, event.target.value));
-        }
-    }, {
-        key: 'handleSubmit',
-        value: function handleSubmit(event) {
-            event.preventDefault();
+      var newCommercial = {
+        id: 0,
+        firstName: this.state.firstName,
+        middleInitial: this.state.middleInitial,
+        lastName: this.state.lastName,
+        strNumber: this.state.strNumber,
+        date: this.state.date,
+        addressLine1: this.state.addressLine1,
+        addressLine2: this.state.addressLine2,
+        city: this.state.city,
+        state: this.state.state
+      };
 
-            var newCommercial = { id: 0, firstName: this.state.firstName, middleInitial: this.state.middleInitial,
-                lastName: this.state.lastName, strNumber: this.state.strNumber, date: this.state.date, addressLine1: this.state.addressLine1,
-                addressLine2: this.state.addressLine2, city: this.state.city, state: this.state.state };
+      this.createCommercial(newCommercial);
 
-            this.createCommercial(newCommercial);
+      this.setState({
+        firstName: '',
+        middleInitial: '',
+        lastName: '',
+        strNumber: '',
+        date: new Date(),
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        state: ''
+      });
 
-            this.setState({
-                firstName: '',
-                middleInitial: '',
-                lastName: '',
-                strNumber: '',
-                date: new Date(),
-                addressLine1: '',
-                addressLine2: '',
-                city: '',
-                state: ''
-            });
+      this.refs.simpleDialog.hide();
+    }
+  }, {
+    key: 'createCommercial',
+    value: function createCommercial(commercialApplication) {
+      this.props.createCommercial(commercialApplication);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
 
-            this.refs.simpleDialog.hide();
-        }
-    }, {
-        key: 'createCommercial',
-        value: function createCommercial(commercialApplication) {
-            this.props.createCommercial(commercialApplication);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
+      var inputStyle = {
+        paddingLeft: "0.5%",
+        paddingRight: "0.5%",
+        position: "relative",
+        float: "left",
+        minHeight: "1px"
+      };
 
-            var inputStyle = {
-                paddingLeft: "0.5%",
-                paddingRight: "0.5%",
-                position: "relative",
-                float: "left",
-                minHeight: "1px"
-            };
-
-            return _react2.default.createElement(
-                'div',
-                null,
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _reactSkylight2.default,
+          { hideOnOverlayClicked: true, ref: 'simpleDialog' },
+          _react2.default.createElement(
+            'div',
+            { className: 'panel panel-default' },
+            _react2.default.createElement(
+              'div',
+              { className: 'panel-heading' },
+              'Start Commercial Application'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'panel-body' },
+              _react2.default.createElement(
+                'form',
+                { className: 'form-inline' },
                 _react2.default.createElement(
-                    _reactSkylight2.default,
-                    { hideOnOverlayClicked: true, ref: 'simpleDialog' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'panel panel-default' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'panel-heading' },
-                            'Start Commercial Application'
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'panel-body' },
-                            _react2.default.createElement(
-                                'form',
-                                { className: 'form-inline' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'First Name', className: 'form-control', name: 'firstName', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Middle Initial', className: 'form-control', name: 'middleInitial', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Last Name', className: 'form-control', name: 'lastName', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Store Number', className: 'form-control', name: 'strNumber', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Date', className: 'form-control', name: 'date', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Address Line 1', className: 'form-control', name: 'addressLine1', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Address Line 2', className: 'form-control', name: 'addressLine2', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'City', className: 'form-control', name: 'city', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'State', className: 'form-control', name: 'state', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement(
-                                        'button',
-                                        { className: 'btn btn-success', onClick: this.handleSubmit },
-                                        'Save'
-                                    )
-                                )
-                            )
-                        )
-                    )
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'First Name',
+                    className: 'form-control', name: 'firstName',
+                    onChange: this.handleChange })
                 ),
                 _react2.default.createElement(
-                    'div',
-                    { style: { paddingBottom: "10px", textAlign: "center" } },
-                    _react2.default.createElement(
-                        'button',
-                        { className: 'btn btn-primary', onClick: function onClick() {
-                                return _this2.refs.simpleDialog.show();
-                            } },
-                        'New Commercial Application'
-                    )
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Middle Initial',
+                    className: 'form-control', name: 'middleInitial',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Last Name',
+                    className: 'form-control', name: 'lastName',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Store Number',
+                    className: 'form-control', name: 'strNumber',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Date',
+                    className: 'form-control', name: 'date',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Address Line 1',
+                    className: 'form-control', name: 'addressLine1',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Address Line 2',
+                    className: 'form-control', name: 'addressLine2',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'City',
+                    className: 'form-control', name: 'city',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'State',
+                    className: 'form-control', name: 'state',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement(
+                    'button',
+                    { className: 'btn btn-success',
+                      onClick: this.handleSubmit },
+                    'Save'
+                  )
                 )
-            );
-        }
-    }]);
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: { paddingBottom: "10px", textAlign: "center" } },
+          _react2.default.createElement(
+            'button',
+            { className: 'btn btn-primary',
+              onClick: function onClick() {
+                return _this2.refs.simpleDialog.show();
+              } },
+            'New Commercial Application'
+          )
+        )
+      );
+    }
+  }]);
 
-    return CommercialForm;
+  return CommercialForm;
 }(_react2.default.Component);
 
 exports.default = CommercialForm;
@@ -27416,11 +27451,7 @@ var Consumer = function (_React$Component) {
     key: 'render',
     value: function render() {
 
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_ConsumerTable2.default, { createConsumer: this.createConsumer, deleteConsumerApplication: this.deleteConsumerApplication, consumerApplications: this.state.consumerApplications })
-      );
+      return _react2.default.createElement(_ConsumerTable2.default, { createConsumer: this.createConsumer, deleteConsumerApplication: this.deleteConsumerApplication, consumerApplications: this.state.consumerApplications });
     }
   }]);
 
@@ -27553,7 +27584,7 @@ exports.default = ConsumerApplication;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -27577,163 +27608,202 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ConsumerForm = function (_React$Component) {
-    _inherits(ConsumerForm, _React$Component);
+  _inherits(ConsumerForm, _React$Component);
 
-    function ConsumerForm(props) {
-        _classCallCheck(this, ConsumerForm);
+  function ConsumerForm(props) {
+    _classCallCheck(this, ConsumerForm);
 
-        var _this = _possibleConstructorReturn(this, (ConsumerForm.__proto__ || Object.getPrototypeOf(ConsumerForm)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ConsumerForm.__proto__ || Object.getPrototypeOf(ConsumerForm)).call(this, props));
 
-        _this.state = { firstName: '', middleInitial: '', lastName: '', strNumber: '', date: new Date(), addressLine1: '', addressLine2: '', city: '', state: '' };
-        _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.handleChange = _this.handleChange.bind(_this);
-        _this.createConsumer = _this.createConsumer.bind(_this);
-        return _this;
+    _this.state = {
+      firstName: '',
+      middleInitial: '',
+      lastName: '',
+      strNumber: '',
+      date: new Date(),
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      state: ''
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.createConsumer = _this.createConsumer.bind(_this);
+    return _this;
+  }
+
+  _createClass(ConsumerForm, [{
+    key: 'handleChange',
+    value: function handleChange(event) {
+      console.log("NAME: " + event.target.name + " VALUE: " + event.target.value);
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      event.preventDefault();
 
-    _createClass(ConsumerForm, [{
-        key: 'handleChange',
-        value: function handleChange(event) {
-            console.log("NAME: " + event.target.name + " VALUE: " + event.target.value);
-            this.setState(_defineProperty({}, event.target.name, event.target.value));
-        }
-    }, {
-        key: 'handleSubmit',
-        value: function handleSubmit(event) {
-            event.preventDefault();
+      var newConsumer = {
+        id: 0,
+        firstName: this.state.firstName,
+        middleInitial: this.state.middleInitial,
+        lastName: this.state.lastName,
+        strNumber: this.state.strNumber,
+        date: this.state.date,
+        addressLine1: this.state.addressLine1,
+        addressLine2: this.state.addressLine2,
+        city: this.state.city,
+        state: this.state.state
+      };
 
-            var newConsumer = { id: 0, firstName: this.state.firstName, middleInitial: this.state.middleInitial,
-                lastName: this.state.lastName, strNumber: this.state.strNumber, date: this.state.date, addressLine1: this.state.addressLine1,
-                addressLine2: this.state.addressLine2, city: this.state.city, state: this.state.state };
+      this.createConsumer(newConsumer);
 
-            this.createConsumer(newConsumer);
+      this.setState({
+        firstName: '',
+        middleInitial: '',
+        lastName: '',
+        strNumber: '',
+        date: new Date(),
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        state: ''
+      });
 
-            this.setState({
-                firstName: '',
-                middleInitial: '',
-                lastName: '',
-                strNumber: '',
-                date: new Date(),
-                addressLine1: '',
-                addressLine2: '',
-                city: '',
-                state: ''
-            });
+      this.refs.simpleDialog.hide();
+    }
+  }, {
+    key: 'createConsumer',
+    value: function createConsumer(consumerApplication) {
+      this.props.createConsumer(consumerApplication);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
 
-            this.refs.simpleDialog.hide();
-        }
-    }, {
-        key: 'createConsumer',
-        value: function createConsumer(consumerApplication) {
-            this.props.createConsumer(consumerApplication);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
+      var inputStyle = {
+        paddingLeft: "0.5%",
+        paddingRight: "0.5%",
+        position: "relative",
+        float: "left",
+        minHeight: "1px"
+      };
 
-            var inputStyle = {
-                paddingLeft: "0.5%",
-                paddingRight: "0.5%",
-                position: "relative",
-                float: "left",
-                minHeight: "1px"
-            };
-
-            return _react2.default.createElement(
-                'div',
-                null,
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _reactSkylight2.default,
+          { hideOnOverlayClicked: true, ref: 'simpleDialog' },
+          _react2.default.createElement(
+            'div',
+            { className: 'panel panel-default' },
+            _react2.default.createElement(
+              'div',
+              { className: 'panel-heading' },
+              'Start Consumer Application'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'panel-body' },
+              _react2.default.createElement(
+                'form',
+                { className: 'form-inline' },
                 _react2.default.createElement(
-                    _reactSkylight2.default,
-                    { hideOnOverlayClicked: true, ref: 'simpleDialog' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'panel panel-default' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'panel-heading' },
-                            'Start Consumer Application'
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'panel-body' },
-                            _react2.default.createElement(
-                                'form',
-                                { className: 'form-inline' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'First Name', className: 'form-control', name: 'firstName', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Middle Initial', className: 'form-control', name: 'middleInitial', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Last Name', className: 'form-control', name: 'lastName', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Store Number', className: 'form-control', name: 'strNumber', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Date', className: 'form-control', name: 'date', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Address Line 1', className: 'form-control', name: 'addressLine1', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Address Line 2', className: 'form-control', name: 'addressLine2', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'City', className: 'form-control', name: 'city', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement('input', { type: 'text', placeholder: 'State', className: 'form-control', name: 'state', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    { style: inputStyle },
-                                    _react2.default.createElement(
-                                        'button',
-                                        { className: 'btn btn-success', onClick: this.handleSubmit },
-                                        'Save'
-                                    )
-                                )
-                            )
-                        )
-                    )
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'First Name',
+                    className: 'form-control', name: 'firstName',
+                    onChange: this.handleChange })
                 ),
                 _react2.default.createElement(
-                    'div',
-                    { style: { paddingBottom: "10px", textAlign: "center" } },
-                    _react2.default.createElement(
-                        'button',
-                        { className: 'btn btn-primary', onClick: function onClick() {
-                                return _this2.refs.simpleDialog.show();
-                            } },
-                        'New Consumer Application'
-                    )
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Middle Initial',
+                    className: 'form-control', name: 'middleInitial',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Last Name',
+                    className: 'form-control', name: 'lastName',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Store Number',
+                    className: 'form-control', name: 'strNumber',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Date',
+                    className: 'form-control', name: 'date',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Address Line 1',
+                    className: 'form-control', name: 'addressLine1',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'Address Line 2',
+                    className: 'form-control', name: 'addressLine2',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'City',
+                    className: 'form-control', name: 'city',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement('input', { type: 'text', placeholder: 'State',
+                    className: 'form-control', name: 'state',
+                    onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: inputStyle },
+                  _react2.default.createElement(
+                    'button',
+                    { className: 'btn btn-success',
+                      onClick: this.handleSubmit },
+                    'Save'
+                  )
                 )
-            );
-        }
-    }]);
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: { paddingBottom: "10px", textAlign: "center" } },
+          _react2.default.createElement(
+            'button',
+            { className: 'btn btn-primary',
+              onClick: function onClick() {
+                return _this2.refs.simpleDialog.show();
+              } },
+            'New Consumer Application'
+          )
+        )
+      );
+    }
+  }]);
 
-    return ConsumerForm;
+  return ConsumerForm;
 }(_react2.default.Component);
 
 exports.default = ConsumerForm;

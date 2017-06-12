@@ -72,9 +72,7 @@ class Consumer extends React.Component {
   render() {
 
     return (
-        <div>
-          <ConsumerTable createConsumer={this.createConsumer} deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
-        </div>
+        <ConsumerTable createConsumer={this.createConsumer} deleteConsumerApplication={this.deleteConsumerApplication} consumerApplications={this.state.consumerApplications} />
     );
   }
 }
