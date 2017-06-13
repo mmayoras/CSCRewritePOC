@@ -30,7 +30,7 @@ class CommercialForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    var newCommercial = {
+    let newCommercial = {
       id: 0,
       firstName: this.state.firstName,
       middleInitial: this.state.middleInitial,

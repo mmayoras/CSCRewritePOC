@@ -1,9 +1,11 @@
+/**
+ * Created by MXM6930 on 6/13/2017.
+ */
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import {HashRouter, Route, Link} from 'react-router-dom'
-import Commercial from './main/webapp/commercial/Commercial.jsx';
-import Consumer from './main/webapp/consumer/Consumer.jsx';
-import Home from './main/webapp/Home.jsx';
+import Commercial from './commercial/Commercial';
+import Consumer from './consumer/Consumer.js';
+import Home from './Home.js';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
@@ -41,4 +43,4 @@ class CSC extends Component {
   }
 }
 
-ReactDOM.render(<CSC/>, document.getElementById('csc'));
+export default CSC;
