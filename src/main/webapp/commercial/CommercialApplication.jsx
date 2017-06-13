@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class CommercialApplication extends React.Component {
+class CommercialApplication extends Component {
   constructor(props) {
     super(props);
     this.deleteCommercialApplication = this.deleteCommercialApplication.bind(

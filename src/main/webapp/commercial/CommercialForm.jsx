@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import SkyLight from "react-skylight";
 
-class CommercialForm extends React.Component {
+class CommercialForm extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import SkyLight from "react-skylight";
 
-class ConsumerForm extends React.Component {
+class ConsumerForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +30,7 @@ class ConsumerForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    var newConsumer = {
+    let newConsumer = {
       id: 0,
       firstName: this.state.firstName,
       middleInitial: this.state.middleInitial,

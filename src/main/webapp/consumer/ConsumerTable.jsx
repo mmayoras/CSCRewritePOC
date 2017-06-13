@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ConsumerApplication from './ConsumerApplication.jsx';
 import ConsumerForm from "./ConsumerForm.jsx";
 
-class ConsumerTable extends React.Component {
+class ConsumerTable extends Component {
   constructor(props) {
     super(props);
   }

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import CommercialApplication from './CommercialApplication.jsx';
 import CommercialForm from "./CommercialForm.jsx";
 
-class CommercialTable extends React.Component {
+class CommercialTable extends Component {
   constructor(props) {
     super(props);
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter, Route, Link} from 'react-router-dom'
 import Commercial from './main/webapp/commercial/Commercial.jsx';
@@ -8,7 +8,7 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
-class CSC extends React.Component {
+class CSC extends Component {
   constructor(props) {
     super(props);
   }
