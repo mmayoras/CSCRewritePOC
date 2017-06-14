@@ -1,0 +1,11 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+#Intellij generated files
+.idea/
+*.iml
+
+#Build directory files
+build/
+.gradle/
+.gitignore
+node_modules/
