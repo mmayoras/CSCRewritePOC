@@ -7,5 +7,4 @@
 #Build directory files
 build/
 .gradle/
-.gitignore
 node_modules/
