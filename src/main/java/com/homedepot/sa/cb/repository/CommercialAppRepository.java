@@ -1,6 +1,6 @@
-package com.homdepot.sa.cb.repository;
+package com.homedepot.sa.cb.repository;
 
-import com.homdepot.sa.cb.model.CommercialApplication;
+import com.homedepot.sa.cb.model.CommercialApplication;
 import org.springframework.data.repository.CrudRepository;
 
 /**

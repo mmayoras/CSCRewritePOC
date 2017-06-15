@@ -1,4 +1,4 @@
-package com.homdepot.sa.cb.controller;
+package com.homedepot.sa.cb.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

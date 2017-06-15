@@ -1,9 +1,9 @@
-package com.homdepot.sa.cb.commandLineRunner;
+package com.homedepot.sa.cb.commandLineRunner;
 
-import com.homdepot.sa.cb.model.CommercialApplication;
-import com.homdepot.sa.cb.model.ConsumerApplication;
-import com.homdepot.sa.cb.repository.CommercialAppRepository;
-import com.homdepot.sa.cb.repository.ConsumerAppRepository;
+import com.homedepot.sa.cb.model.CommercialApplication;
+import com.homedepot.sa.cb.model.ConsumerApplication;
+import com.homedepot.sa.cb.repository.CommercialAppRepository;
+import com.homedepot.sa.cb.repository.ConsumerAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

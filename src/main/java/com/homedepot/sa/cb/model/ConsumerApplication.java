@@ -1,4 +1,4 @@
-package com.homdepot.sa.cb.model;
+package com.homedepot.sa.cb.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

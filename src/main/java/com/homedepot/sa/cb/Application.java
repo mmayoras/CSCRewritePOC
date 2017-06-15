@@ -1,4 +1,4 @@
-package com.homdepot.sa.cb;
+package com.homedepot.sa.cb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
