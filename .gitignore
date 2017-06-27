@@ -8,4 +8,4 @@
 build/
 .gradle/
 node_modules/
-bundle.js
+src/main/webapp/public/bundle.js
