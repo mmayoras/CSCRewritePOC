@@ -4,21 +4,22 @@ import ConsumerForm from './ConsumerForm';
 
 class ConsumerTable extends Component {
   render() {
+    console.log("Render Consumer Table Component");
     const imageStyle = {
       height: '200px',
       width: '300px',
       paddingLeft: '25px',
       paddingRight: '25px',
       paddingTop: '10px',
-      paddingBottom: '25px',
+      paddingBottom: '25px'
     };
 
     let consumerApplications = this.props.consumerApplications.map(
         consumerApplication =>
-            <ConsumerApplication key={consumerApplication._links.self.href}
+            <ConsumerApplication key={consumerApplication.id}
                                  consumerApplication={consumerApplication}
                                  deleteConsumerApplication={this.props.deleteConsumerApplication}
-            />,
+            />
     );
 
     return (
@@ -27,7 +28,7 @@ class ConsumerTable extends Component {
             textAlign: 'center',
             marginTop: '20px',
             marginBottom: '0px',
-            fontSize: '2em',
+            fontSize: '2em'
           }}>Consumer Accounts</p></b>
           <p style={{textAlign: 'center', fontSize: '1.5em', color: 'grey'}}>for
             your home</p>

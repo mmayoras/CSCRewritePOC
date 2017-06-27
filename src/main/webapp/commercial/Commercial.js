@@ -20,7 +20,7 @@ class Commercial extends Component {
     fetch(endpointUrl).then(response => response.json()).then(responseData => {
       console.log(responseData);
       this.setState({
-        commercialApplications: responseData._embedded.commercialApplications,
+        commercialApplications: responseData._embedded.commercialApplications
       });
     });
   };
@@ -28,7 +28,7 @@ class Commercial extends Component {
   // Create new commercialApplication
   createCommercial = (commercialApplication) => {
     this.setState({
-      comId: this.state.comId + 1,
+      comId: this.state.comId + 1
     });
 
     commercialApplication.id = this.state.comId;
@@ -38,26 +38,26 @@ class Commercial extends Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(commercialApplication),
+      body: JSON.stringify(commercialApplication)
     }).then(
-        res => this.loadCommercialApplicationsFromServer(),
+        res => this.loadCommercialApplicationsFromServer()
     ).catch(err => console.error(err));
   };
 
   deleteCommercialApplication = (commercialApplication) => {
     if (commercialApplication.id === (this.state.comId - 1)) {
       this.setState({
-        comId: this.state.comId - 1,
+        comId: this.state.comId - 1
       });
     }
 
     fetch(commercialApplication._links.self.href,
         {method: 'DELETE',}).then(
-        res => this.loadCommercialApplicationsFromServer(),
+        res => this.loadCommercialApplicationsFromServer()
     ).then(() => {
       Alert.success('Commercial Application Deleted', {
         position: 'bottom-left',
-        effect: 'slide',
+        effect: 'slide'
       });
     }).catch(err => console.error(err));
   };
