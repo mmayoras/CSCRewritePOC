@@ -1,15 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 class ConsumerApplication extends Component {
-  constructor(props) {
-    super(props);
-    this.deleteConsumerApplication = this.deleteConsumerApplication.bind(this);
-  }
-
-  deleteConsumerApplication() {
-    this.props.deleteConsumerApplication(this.props.consumerApplication);
-  }
-
   render() {
     return (
         <tr>
@@ -25,7 +16,8 @@ class ConsumerApplication extends Component {
           <td>{this.props.consumerApplication.state}</td>
           <td>
             <button className="btn btn-danger"
-                    onClick={this.deleteConsumerApplication}>Delete
+                    onClick={this.props.deleteConsumerApplication(
+                        this.props.consumerApplication)}>Delete
             </button>
           </td>
         </tr>

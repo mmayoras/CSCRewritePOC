@@ -1,46 +1,46 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ConsumerApplication from './ConsumerApplication';
-import ConsumerForm from "./ConsumerForm";
+import ConsumerForm from './ConsumerForm';
 
 class ConsumerTable extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const imageStyle = {
-      height: "200px",
-      width: "300px",
-      paddingLeft: "25px",
-      paddingRight: "25px",
-      paddingTop: "10px",
-      paddingBottom: "25px"
+      height: '200px',
+      width: '300px',
+      paddingLeft: '25px',
+      paddingRight: '25px',
+      paddingTop: '10px',
+      paddingBottom: '25px',
     };
 
     let consumerApplications = this.props.consumerApplications.map(
         consumerApplication =>
             <ConsumerApplication key={consumerApplication._links.self.href}
                                  consumerApplication={consumerApplication}
-                                 deleteConsumerApplication={this.props.deleteConsumerApplication}/>);
+                                 deleteConsumerApplication={this.props.deleteConsumerApplication}
+            />,
+    );
 
     return (
         <div className="container" name="ConsumerApplication">
           <b><p style={{
-            textAlign: "center",
-            marginTop: "20px",
-            marginBottom: "0px",
-            fontSize: "2em"
+            textAlign: 'center',
+            marginTop: '20px',
+            marginBottom: '0px',
+            fontSize: '2em',
           }}>Consumer Accounts</p></b>
-          <p style={{textAlign: "center", fontSize: "1.5em", color: "grey"}}>for
+          <p style={{textAlign: 'center', fontSize: '1.5em', color: 'grey'}}>for
             your home</p>
-          <div style={{display: "table", width: "100%"}}>
-            <div style={{width: "50%", float: "left"}}>
-              <div style={{float: "right"}}>
-                <img src="images/rpl.gif" style={imageStyle}/>
+          <div style={{display: 'table', width: '100%'}}>
+            <div style={{width: '50%', float: 'left'}}>
+              <div style={{float: 'right'}}>
+                <img src='/images/rpl.gif' alt="consumer card"
+                     style={imageStyle}/>
               </div>
             </div>
-            <div style={{width: "50%", float: "right"}}>
-              <img src="images/projectloanNew02APR2014.gif" style={imageStyle}/>
+            <div style={{width: '50%', float: 'right'}}>
+              <img src='/images/projectloanNew02APR2014.gif'
+                   alt="consumer card" style={imageStyle}/>
             </div>
           </div>
           <ConsumerForm createConsumer={this.props.createConsumer}/>

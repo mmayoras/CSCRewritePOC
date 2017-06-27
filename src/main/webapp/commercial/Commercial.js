@@ -6,28 +6,29 @@ import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
 class Commercial extends Component {
-  constructor(props) {
-    super(props);
-    this.createCommercial = this.createCommercial.bind(this);
-    this.deleteCommercialApplication = this.deleteCommercialApplication.bind(
-        this);
+  constructor() {
+    super();
+
+    // Set state data
     this.state = {commercialApplications: [], comId: 2};
   }
 
-  loadCommercialApplicationsFromServer() {
-    fetch('http://localhost:8080/api/commercialApplications')
-    .then((response) => response.json())
-    .then((responseData) => {
+  loadCommercialApplicationsFromServer = () => {
+    // let endpointUrl = 'http://jsonplaceholder.typicode.com/posts/1';
+    let endpointUrl = 'http://localhost:8080/api/commercialApplications';
+
+    fetch(endpointUrl).then(response => response.json()).then(responseData => {
+      console.log(responseData);
       this.setState({
         commercialApplications: responseData._embedded.commercialApplications,
       });
     });
-  }
+  };
 
   // Create new commercialApplication
-  createCommercial(commercialApplication) {
+  createCommercial = (commercialApplication) => {
     this.setState({
-      comId: this.state.comId + 1
+      comId: this.state.comId + 1,
     });
 
     commercialApplication.id = this.state.comId;
@@ -37,41 +38,35 @@ class Commercial extends Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(commercialApplication)
-    })
-    .then(
-        res => this.loadCommercialApplicationsFromServer()
-    )
-    .catch(err => console.error(err))
-  }
+      body: JSON.stringify(commercialApplication),
+    }).then(
+        res => this.loadCommercialApplicationsFromServer(),
+    ).catch(err => console.error(err));
+  };
 
-  deleteCommercialApplication(commercialApplication) {
+  deleteCommercialApplication = (commercialApplication) => {
     if (commercialApplication.id === (this.state.comId - 1)) {
       this.setState({
-        comId: this.state.comId - 1
+        comId: this.state.comId - 1,
       });
     }
 
     fetch(commercialApplication._links.self.href,
-        {method: 'DELETE',})
-    .then(
-        res => this.loadCommercialApplicationsFromServer()
-    )
-    .then(() => {
+        {method: 'DELETE',}).then(
+        res => this.loadCommercialApplicationsFromServer(),
+    ).then(() => {
       Alert.success('Commercial Application Deleted', {
         position: 'bottom-left',
-        effect: 'slide'
+        effect: 'slide',
       });
-    })
-    .catch(err => console.error(err))
-  }
+    }).catch(err => console.error(err));
+  };
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.loadCommercialApplicationsFromServer();
-  }
+  };
 
   render() {
-
     return (
         <div>
           <CommercialTable createCommercial={this.createCommercial}

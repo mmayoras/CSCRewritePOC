@@ -13,21 +13,18 @@ class CommercialForm extends Component {
       addressLine1: '',
       addressLine2: '',
       city: '',
-      state: ''
+      state: '',
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.createCommercial = this.createCommercial.bind(this);
   }
 
-  handleChange(event) {
-    console.log("NAME: " + event.target.name + " VALUE: " + event.target.value)
+  handleChange = (event) => {
+    console.log('NAME: ' + event.target.name + ' VALUE: ' + event.target.value);
     this.setState(
-        {[event.target.name]: event.target.value}
+        {[event.target.name]: event.target.value},
     );
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     let newCommercial = {
@@ -40,10 +37,10 @@ class CommercialForm extends Component {
       addressLine1: this.state.addressLine1,
       addressLine2: this.state.addressLine2,
       city: this.state.city,
-      state: this.state.state
+      state: this.state.state,
     };
 
-    this.createCommercial(newCommercial);
+    this.props.createCommercial(newCommercial);
 
     this.setState({
       firstName: '',
@@ -54,23 +51,19 @@ class CommercialForm extends Component {
       addressLine1: '',
       addressLine2: '',
       city: '',
-      state: ''
+      state: '',
     });
 
     this.refs.simpleDialog.hide();
-  }
-
-  createCommercial(commercialApplication) {
-    this.props.createCommercial(commercialApplication);
-  }
+  };
 
   render() {
     const inputStyle = {
-      paddingLeft: "0.5%",
-      paddingRight: "0.5%",
-      position: "relative",
-      float: "left",
-      minHeight: "1px"
+      paddingLeft: '0.5%',
+      paddingRight: '0.5%',
+      position: 'relative',
+      float: 'left',
+      minHeight: '1px',
     };
 
     return (
@@ -134,7 +127,7 @@ class CommercialForm extends Component {
               </div>
             </div>
           </SkyLight>
-          <div style={{paddingBottom: "10px", textAlign: "center"}}>
+          <div style={{paddingBottom: '10px', textAlign: 'center'}}>
             <button className="btn btn-primary"
                     onClick={() => this.refs.simpleDialog.show()}>New Commercial
               Application

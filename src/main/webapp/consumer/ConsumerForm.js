@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import SkyLight from "react-skylight";
 
 class ConsumerForm extends Component {
@@ -15,19 +15,16 @@ class ConsumerForm extends Component {
       city: '',
       state: ''
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.createConsumer = this.createConsumer.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     console.log("NAME: " + event.target.name + " VALUE: " + event.target.value)
     this.setState(
         {[event.target.name]: event.target.value}
     );
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     let newConsumer = {
@@ -43,7 +40,7 @@ class ConsumerForm extends Component {
       state: this.state.state
     };
 
-    this.createConsumer(newConsumer);
+    this.props.createConsumer(newConsumer);
 
     this.setState({
       firstName: '',
@@ -58,11 +55,7 @@ class ConsumerForm extends Component {
     });
 
     this.refs.simpleDialog.hide();
-  }
-
-  createConsumer(consumerApplication) {
-    this.props.createConsumer(consumerApplication);
-  }
+  };
 
   render() {
     const inputStyle = {

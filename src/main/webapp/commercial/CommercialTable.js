@@ -3,44 +3,44 @@ import CommercialApplication from './CommercialApplication';
 import CommercialForm from "./CommercialForm";
 
 class CommercialTable extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const imageStyle = {
-      height: "200px",
-      width: "300px",
-      paddingLeft: "25px",
-      paddingRight: "25px",
-      paddingTop: "10px",
-      paddingBottom: "25px"
+      height: '200px',
+      width: '300px',
+      paddingLeft: '25px',
+      paddingRight: '25px',
+      paddingTop: '10px',
+      paddingBottom: '25px',
     };
 
     let commercialApplications = this.props.commercialApplications.map(
         commercialApplication =>
             <CommercialApplication key={commercialApplication._links.self.href}
                                    commercialApplication={commercialApplication}
-                                   deleteCommercialApplication={this.props.deleteCommercialApplication}/>);
+                                   deleteCommercialApplication={this.props.deleteCommercialApplication}
+            />,
+    );
 
     return (
         <div className="container" name="CommercialApplication">
           <b><p style={{
-            textAlign: "center",
-            marginTop: "20px",
-            marginBottom: "0px",
-            fontSize: "2em"
+            textAlign: 'center',
+            marginTop: '20px',
+            marginBottom: '0px',
+            fontSize: '2em',
           }}>Commercial Accounts</p></b>
-          <p style={{textAlign: "center", fontSize: "1.5em", color: "grey"}}>for
+          <p style={{textAlign: 'center', fontSize: '1.5em', color: 'grey'}}>for
             your business</p>
-          <div style={{display: "table", width: "100%"}}>
-            <div style={{width: "50%", float: "left"}}>
-              <div style={{float: "right"}}>
-                <img src="images/crcNew02APR2014.gif" style={imageStyle}/>
+          <div style={{display: 'table', width: '100%'}}>
+            <div style={{width: '50%', float: 'left'}}>
+              <div style={{float: 'right'}}>
+                <img src='/images/crcNew02APR2014.gif'
+                     alt="commercial card" style={imageStyle}/>
               </div>
             </div>
-            <div style={{width: "50%", float: "right"}}>
-              <img src="images/proxNew02APR2014.gif" style={imageStyle}/>
+            <div style={{width: '50%', float: 'right'}}>
+              <img src='/images/proxNew02APR2014.gif'
+                   alt="commercial card" style={imageStyle}/>
             </div>
           </div>
           <CommercialForm createCommercial={this.props.createCommercial}/>

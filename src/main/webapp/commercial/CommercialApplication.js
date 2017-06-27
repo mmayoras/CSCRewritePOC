@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 
 class CommercialApplication extends Component {
-  constructor(props) {
-    super(props);
-    this.deleteCommercialApplication = this.deleteCommercialApplication.bind(
-        this);
-  }
-
-  deleteCommercialApplication() {
-    this.props.deleteCommercialApplication(this.props.commercialApplication);
-  }
-
   render() {
     return (
         <tr>
@@ -26,7 +16,8 @@ class CommercialApplication extends Component {
           <td>{this.props.commercialApplication.state}</td>
           <td>
             <button className="btn btn-danger"
-                    onClick={this.deleteCommercialApplication}>Delete
+                    onClick={this.props.deleteCommercialApplication(
+                        this.props.commercialApplication)}>Delete
             </button>
           </td>
         </tr>
