@@ -4,7 +4,6 @@ import ConsumerForm from './ConsumerForm';
 
 class ConsumerTable extends Component {
   render() {
-    console.log("Render Consumer Table Component");
     const imageStyle = {
       height: '200px',
       width: '300px',

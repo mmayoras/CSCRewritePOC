@@ -17,17 +17,14 @@ class Consumer extends Component {
     fetch('http://localhost:8080/api/consumerApplications').
     then((response) => response.json()).
     then((responseData) => {
-      console.log("Loading consumers from server");
       this.setState({
         consumerApplications: responseData._embedded.consumerApplications
       });
-      console.log(this.state.consumerApplications);
     });
   };
 
   // Create new consumerApplication
   createConsumer = (consumerApplication) => {
-    console.log("Inside create consumer method");
     this.setState({
       conId: this.state.conId + 1
     });
@@ -46,7 +43,6 @@ class Consumer extends Component {
   };
 
   deleteConsumerApplication = (consumerApplication) => {
-    console.log("Inside delete consumer method");
     if (consumerApplication.id === (this.state.conId - 1)) {
       this.setState({
         conId: this.state.conId - 1
@@ -65,12 +61,10 @@ class Consumer extends Component {
   };
 
   componentDidMount = () => {
-    console.log("Calling load method from componentDidMount");
     this.loadConsumerApplicationsFromServer();
   };
 
   render() {
-    console.log("Render Consumer Component");
     return (
         <div>
           <ConsumerTable createConsumer={this.createConsumer}

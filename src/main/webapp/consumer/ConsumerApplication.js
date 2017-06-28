@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 class ConsumerApplication extends Component {
   render() {
-    console.log("Render Consumer Application Component");
     return (
         <tr>
           <td>{this.props.consumerApplication.id}</td>
@@ -17,9 +16,8 @@ class ConsumerApplication extends Component {
           <td>{this.props.consumerApplication.state}</td>
           <td>
             <button className="btn btn-danger"
-                    // onClick={this.props.deleteConsumerApplication(
-                    //     this.props.consumerApplication)}
-            >Delete
+                    onClick={() => this.props.deleteConsumerApplication(
+                        this.props.consumerApplication)}>Delete
             </button>
           </td>
         </tr>
