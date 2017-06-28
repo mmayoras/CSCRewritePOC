@@ -1,5 +1,3 @@
-/* global PIE, ProtectPANandCVV */
-/* eslint-disable new-cap,no-console,max-len, no-shadow */
 import $ from 'jquery';
 import {browserHistory} from 'react-router';
 import {getState} from './dispatchIndex';

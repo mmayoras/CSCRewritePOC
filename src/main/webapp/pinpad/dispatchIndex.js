@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension, import/no-extraneous-dependencies, global-require, import/prefer-default-export */
 import React from 'react';
 import configureStore from '../store/configureStore';
 

@@ -18,7 +18,6 @@ class Commercial extends Component {
     let endpointUrl = 'http://localhost:8080/api/commercialApplications';
 
     fetch(endpointUrl).then(response => response.json()).then(responseData => {
-      console.log(responseData);
       this.setState({
         commercialApplications: responseData._embedded.commercialApplications
       });

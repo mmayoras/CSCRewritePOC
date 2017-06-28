@@ -1,4 +1,3 @@
-/* eslint-disable max-len,no-console,new-cap */
 import {Map} from 'core-js/es6';
 
 export function welcomeRequest(sessionId) {

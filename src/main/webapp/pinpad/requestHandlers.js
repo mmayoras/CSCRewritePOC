@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import {dispatch} from './dispatchIndex';
 import {updatePinPadRequestType} from './../reducers/pinpad/actionCreators';
 import {sendToPinPad} from './index';

@@ -1,28 +1,22 @@
-/* eslint-disable no-console */
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, {Component} from 'react';
 
 import {dispatch, getState} from './dispatchIndex';
 import {isOpen} from '../socket';
 import {pinPadPostalCodeManualEntry, sendWelcome} from './requestHandlers';
 import {resetPinPadData} from '../reducers/pinpad/actionCreators';
 
-class ConnectToPinpadStarter extends React.Component {
-  constructor(props) {
-    super(props);
+class ConnectToPinpadStarter extends Component {
+  constructor() {
+    super();
 
     this.state = {
       pinPadConnected: false,
       updatePinPadConnected: false,
       localZipCode: "12345"
     };
-
-    this.getZipCode = this.getZipCode.bind(this);
-    this.updateZipCode = this.updateZipCode.bind(this);
-    this.sendWelcomeMessage = this.sendWelcomeMessage.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     const setup = setInterval(() => {
       if (isOpen()) {
         clearInterval(setup);
@@ -41,23 +35,23 @@ class ConnectToPinpadStarter extends React.Component {
     }, 50);
 
     dispatch(resetPinPadData());
-  }
+  };
 
-  sendWelcomeMessage() {
+  sendWelcomeMessage = () => {
     sendWelcome();
-  }
+  };
 
-  getZipCode() {
+  getZipCode = () => {
     pinPadPostalCodeManualEntry();
-  }
+  };
 
-  updateZipCode() {
+  updateZipCode = () => {
     const ret = getState().pinpadCardDetails.zipCode;
 
     this.setState({
       localZipCode: ret
     });
-  }
+  };
 
   render() {
     const pinPadConnected = this.state.pinPadConnected;

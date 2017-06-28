@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import {
   UPDATE_PIN_PAD_REQUEST,
   UPDATE_ENTRY_METHOD,

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {connect, sendMessage} from '../socket';
 import {dispatch, getState} from './dispatchIndex';
 import responseHandlers from './responseHandlers';

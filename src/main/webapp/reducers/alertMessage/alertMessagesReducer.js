@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import R from 'ramda';
 
 import {

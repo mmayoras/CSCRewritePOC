@@ -1,4 +1,3 @@
-/* eslint-disable global-require, no-underscore-dangle */
 import thunkMiddleware from 'redux-thunk';
 import applyMiddleware from 'redux/lib/applyMiddleware';
 import createStore from 'redux/lib/createStore';
