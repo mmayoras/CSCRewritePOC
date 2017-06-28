@@ -54,15 +54,15 @@ class ConnectToPinpadStarter extends Component {
   };
 
   render() {
-    const pinPadConnected = this.state.pinPadConnected;
-    const zipCode = this.state.localZipCode;
+    let pinPadConnected = this.state.pinPadConnected;
+    let zipCode = this.state.localZipCode;
 
-    var divButtonStyle = {
+    const divButtonStyle = {
       padding: "10px",
       textAlign: "center"
     };
 
-    var buttonStyle = {
+    const buttonStyle = {
       padding: "5px"
     };
 

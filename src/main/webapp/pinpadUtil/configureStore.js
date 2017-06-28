@@ -8,10 +8,7 @@ import rootReducer from '../redux/rootReducer';
 
 // initial state is optional
 function configureStore(initialState) {
-  const middleware = ((env) => {
-    if (env === 'test') {
-      return applyMiddleware(thunkMiddleware);
-    }
+  const middleware = (() => {
     return applyMiddleware(logger, thunkMiddleware);
   })(process.env.NODE_ENV);
 
@@ -21,12 +18,11 @@ function configureStore(initialState) {
           ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
   );
 
-  const store =
-      createStoreWithMiddleware(createStore)(rootReducer, initialState);
+  const store = createStoreWithMiddleware(createStore)(rootReducer,
+      initialState);
 
   if (module.hot) {
-    module.hot
-    .accept('./../reducers/rootReducer', () => {
+    module.hot.accept('../redux/rootReducer', () => {
       const nextRootReducer = require('../redux/rootReducer');
       store.replaceReducer(nextRootReducer);
     });
