@@ -1,7 +1,7 @@
 import {dispatch} from './dispatchIndex';
-import {updatePinPadRequestType} from './../reducers/pinpad/actionCreators';
+import {updatePinPadRequestType} from '../redux/pinpad/actionCreators';
 import {sendToPinPad} from './index';
-import {sessionId} from './../socket';
+import {sessionId} from './socket';
 import {
   processingMsrRequest,
   // invalidCardMessage,

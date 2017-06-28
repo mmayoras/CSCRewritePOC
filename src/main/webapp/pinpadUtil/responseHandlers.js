@@ -2,17 +2,17 @@ import $ from 'jquery';
 import {browserHistory} from 'react-router';
 import {getState} from './dispatchIndex';
 
-import * as pinPadActionCreators from './../reducers/pinpad/actionCreators';
-import * as pinPadCardActionCreators from '../reducers/pinpadCardDetails/actionCreators';
+import * as pinPadActionCreators from '../redux/pinpad/actionCreators';
+import * as pinPadCardActionCreators from '../redux/pinpadCardDetails/actionCreators';
 import {
   setCardTypeCredit,
   setCardTypeDebit,
-} from './../reducers/cardType/actionCreators';
+} from '../redux/cardType/actionCreators';
 import {
   setCardApprovalStatusDeclined,
   clearCardApprovalStatus,
-} from './../reducers/cardApprovalStatus/actionCreators';
-import {setProxOnlyFalse} from '../reducers/proxOnly/actionCreators';
+} from '../redux/cardApprovalStatus/actionCreators';
+import {setProxOnlyFalse} from '../redux/proxOnly/actionCreators';
 import {
   processingMsrScreen,
   sendEMVFinalize,
@@ -28,18 +28,18 @@ import {
   addAlertInfo,
   addAlertError,
   removeAllAlerts,
-} from './../reducers/alertMessage/actionCreators';
+} from '../redux/alertMessage/actionCreators';
 
 import {
   displayBuyerIdModal,
   // displayPurchaseOrderModal,
-} from './../reducers/modal/actionCreators';
+} from '../redux/modal/actionCreators';
 
 import {
   isDebitOnlyCard,
   validateYearAndMonth,
   switchMonthYear,
-} from './../utils/util';
+} from '../utils/util';
 
 let rootPath;
 

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import {dispatch, getState} from './dispatchIndex';
-import {isOpen} from '../socket';
-import {pinPadPostalCodeManualEntry, sendWelcome} from './requestHandlers';
-import {resetPinPadData} from '../reducers/pinpad/actionCreators';
+import {dispatch, getState} from '../../pinpadUtil/dispatchIndex';
+import {isOpen} from '../../pinpadUtil/socket';
+import {pinPadPostalCodeManualEntry, sendWelcome} from '../../pinpadUtil/requestHandlers';
+import {resetPinPadData} from '../../redux/pinpad/actionCreators';
 
 class ConnectToPinpadStarter extends Component {
   constructor() {

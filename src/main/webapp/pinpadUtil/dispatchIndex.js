@@ -1,5 +1,5 @@
 import React from 'react';
-import configureStore from '../store/configureStore';
+import configureStore from './configureStore';
 
 const store = configureStore();
 

@@ -8,4 +8,4 @@
 build/
 .gradle/
 node_modules/
-src/main/webapp/public/
+src/main/resources/static/public/

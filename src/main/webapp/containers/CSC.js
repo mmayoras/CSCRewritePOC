@@ -3,10 +3,10 @@
  */
 import React, {Component} from 'react';
 import {HashRouter, Route} from 'react-router-dom';
-import Menu from './menu';
+import Menu from '../components/menu';
 import Commercial from './commercial/Commercial';
 import Consumer from './consumer/Consumer.js';
-import Home from './Home.js';
+import Home from '../components/Home.js';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';

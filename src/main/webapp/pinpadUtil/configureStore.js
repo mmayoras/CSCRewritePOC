@@ -4,7 +4,7 @@ import createStore from 'redux/lib/createStore';
 import compose from 'redux/lib/compose';
 import logger from 'redux-logger';
 
-import rootReducer from './../reducers/rootReducer';
+import rootReducer from '../redux/rootReducer';
 
 // initial state is optional
 function configureStore(initialState) {
@@ -27,7 +27,7 @@ function configureStore(initialState) {
   if (module.hot) {
     module.hot
     .accept('./../reducers/rootReducer', () => {
-      const nextRootReducer = require('./../reducers/rootReducer');
+      const nextRootReducer = require('../redux/rootReducer');
       store.replaceReducer(nextRootReducer);
     });
   }

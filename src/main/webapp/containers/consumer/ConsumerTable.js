@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import ConsumerApplication from './ConsumerApplication';
-import ConsumerForm from './ConsumerForm';
+import ConsumerApplication from '../../components/consumer/ConsumerApplication';
+import ConsumerForm from '../../components/consumer/ConsumerForm';
 
 class ConsumerTable extends Component {
   render() {

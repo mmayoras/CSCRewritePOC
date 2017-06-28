@@ -9,7 +9,7 @@ class Menu extends Component {
     super(props);
   }
 
-  changeActive(event) {
+  changeActive = (event) => {
     // Find parent element for list of links
     let parent = document.getElementById('menu');
 
