@@ -60,9 +60,8 @@ class ConnectToPinpadStarter extends Component {
     let pinPadConnected = this.state.pinPadConnected;
 
     const pinpadHeaderStyle = {
-      padding: '10px',
+      padding: '5px',
       fontSize: '1.5em',
-      textAlign: 'center',
     };
 
     const pinpadDataDivStyle = {
@@ -71,42 +70,41 @@ class ConnectToPinpadStarter extends Component {
     };
 
     return (
-        <div>
+        <div style={{textAlign: 'center'}}>
           <p style={pinpadHeaderStyle}>PIN Pad Data</p>
-          <div>
-            <div style={pinpadDataDivStyle}>
-              <button className="btn btn-info"
-                      disabled={pinPadConnected ? null : true}
-                      onClick={this.sendWelcomeMessage}>
-                Home
-              </button>
-            </div>
-            <div style={pinpadDataDivStyle}>
-              <button className="btn btn-info"
-                      disabled={pinPadConnected ? null : true}
-                      onClick={this.getZipCode}
-              >
-                Zip Code
-              </button>
-            </div>
-            <div style={pinpadDataDivStyle}>
+          <div style={pinpadDataDivStyle}>
             <button className="btn btn-info"
                     disabled={pinPadConnected ? null : true}
-                    // onClick={this.getZipCode}
+                    onClick={this.sendWelcomeMessage}>
+              Home
+            </button>
+          </div>
+          <div style={pinpadDataDivStyle}>
+            <button className="btn btn-info"
+                    disabled={pinPadConnected ? null : true}
+                    onClick={this.getZipCode}
+            >
+              Zip Code
+            </button>
+          </div>
+          <div style={pinpadDataDivStyle}>
+            <button className="btn btn-info"
+                    disabled={pinPadConnected ? null : true}
+                // onClick={this.getZipCode}
             >
               Date Of Birth
             </button>
           </div>
-            <div style={pinpadDataDivStyle}>
-              <button className="btn btn-info"
-                      disabled={pinPadConnected ? null : true}
-                      onClick={this.updateZipCode}
-              >
-                Refresh Data
-              </button>
-            </div>
+          <div style={pinpadDataDivStyle}>
+            <button className="btn btn-info"
+                    disabled={pinPadConnected ? null : true}
+                    onClick={this.updateZipCode}
+            >
+              Refresh Data
+            </button>
           </div>
-          <p style={{padding: '5px'}}>Current Data: {this.state.localZipCode}</p>
+          <p style={{padding: '5px'}}>Current
+            Data: {this.state.localZipCode}</p>
         </div>
     );
   }
