@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import {
   UPDATE_PRIMARY_ACCOUNT_NUMBER,
   UPDATE_SECURITY_CODE,
