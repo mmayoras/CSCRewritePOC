@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import {HashRouter, Route} from 'react-router-dom';
-import Menu from '../components/menu';
+import Menu from '../components/Menu';
 import Commercial from './commercial/Commercial';
 import Consumer from './consumer/Consumer.js';
 import Home from '../components/Home.js';

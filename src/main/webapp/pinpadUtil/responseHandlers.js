@@ -1,17 +1,10 @@
 import $ from 'jquery';
 import {browserHistory} from 'react-router';
 import {getState} from './dispatchIndex';
-
 import * as pinPadActionCreators from '../redux/pinpad/actionCreators';
 import * as pinPadCardActionCreators from '../redux/pinpadCardDetails/actionCreators';
-import {
-  setCardTypeCredit,
-  setCardTypeDebit,
-} from '../redux/cardType/actionCreators';
-import {
-  setCardApprovalStatusDeclined,
-  clearCardApprovalStatus,
-} from '../redux/cardApprovalStatus/actionCreators';
+import {setCardTypeCredit, setCardTypeDebit} from '../redux/cardType/actionCreators';
+import {setCardApprovalStatusDeclined, clearCardApprovalStatus} from '../redux/cardApprovalStatus/actionCreators';
 import {setProxOnlyFalse} from '../redux/proxOnly/actionCreators';
 import {
   processingMsrScreen,
@@ -23,18 +16,8 @@ import {
   pinPadCVV2ManualEntry,
   pinPadPostalCodeManualEntry,
 } from './requestHandlers';
-
-import {
-  addAlertInfo,
-  addAlertError,
-  removeAllAlerts,
-} from '../redux/alertMessage/actionCreators';
-
-import {
-  displayBuyerIdModal,
-  // displayPurchaseOrderModal,
-} from '../redux/modal/actionCreators';
-
+import {addAlertInfo, addAlertError, removeAllAlerts} from '../redux/alertMessage/actionCreators';
+import {displayBuyerIdModal} from '../redux/modal/actionCreators';
 import {
   isDebitOnlyCard,
   validateYearAndMonth,
@@ -43,6 +26,9 @@ import {
 
 let rootPath;
 
+/**
+ * Jquery function to parse data out of xml from Pinpad
+ */
 function parseXml(data) {
   const xmlDoc = $.parseXML(data);
   return $(xmlDoc);

@@ -1,6 +1,3 @@
-/* global PIE, ProtectPANandCVV, ValidatePANChecksum */
-/* eslint-disable no-console, import/prefer-default-export */
-
 import {
   UPDATE_BUYER_ID,
   UPDATE_EXPIRY_DATE,
