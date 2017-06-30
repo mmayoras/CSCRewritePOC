@@ -14,6 +14,7 @@ import {
   pinPadZipPostalCodeManualEntry,
   // displayTerms,
   welcomeRequest,
+  pinPadDOBManualEntry,
 } from './requests';
 
 export function sendWelcome() {
@@ -62,4 +63,9 @@ export function pinPadCVV2ManualEntry() {
 export function pinPadPostalCodeManualEntry() {
   dispatch(updatePinPadRequestType('GetPostalCode'));
   sendToPinPad(pinPadZipPostalCodeManualEntry(sessionId));
+}
+
+export function pinPadDOBHandlerManualEntry() {
+  dispatch(updatePinPadRequestType('DOBKeyPad'));
+  sendToPinPad(pinPadDOBManualEntry(sessionId));
 }

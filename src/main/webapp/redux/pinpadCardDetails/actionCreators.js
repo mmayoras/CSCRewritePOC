@@ -4,6 +4,7 @@ import {
   UPDATE_PRIMARY_ACCOUNT_NUMBER,
   UPDATE_SECURITY_CODE,
   UPDATE_ZIP_CODE,
+  UPDATE_DOB,
   UPDATE_ENCRYPTED_PIN,
   UPDATE_DUKPT_SMID,
   UPDATE_POS_ENTRY_MODE,
@@ -62,6 +63,13 @@ export function updateZipCode(zipCode) {
   return {
     type: UPDATE_ZIP_CODE,
     zipCode,
+  };
+}
+
+export function updateDOB(dob) {
+  return {
+    type: UPDATE_DOB,
+    dob,
   };
 }
 

@@ -2,6 +2,7 @@ import {
   UPDATE_PRIMARY_ACCOUNT_NUMBER,
   UPDATE_SECURITY_CODE,
   UPDATE_ZIP_CODE,
+  UPDATE_DOB,
   UPDATE_BUYER_ID,
   UPDATE_EXPIRY_DATE,
   UPDATE_ENCRYPTED_PIN,
@@ -32,6 +33,7 @@ const defaultState = {
   primaryAccountNumber: '',
   securityCode: '',
   zipCode: '',
+  dob: '',
   paymtMethCode: '',
   rptPaymtMethCode: '',
   xref: '',
@@ -60,6 +62,8 @@ export function pinpadCardDetailsReducer(state = defaultState, action) {
       return Object.assign({}, state, { buyerId: action.buyerId });
     case UPDATE_ZIP_CODE:
       return Object.assign({}, state, { zipCode: action.zipCode });
+    case UPDATE_DOB:
+      return Object.assign({}, state, { dob: action.dob });
     case UPDATE_ENCRYPTED_PIN:
       return Object.assign({}, state, { encryptedPin: action.encryptedPin });
     case UPDATE_DUKPT_SMID:

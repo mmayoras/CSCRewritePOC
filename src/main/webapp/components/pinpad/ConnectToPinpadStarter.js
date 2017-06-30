@@ -4,6 +4,7 @@ import {dispatch, getState} from '../../pinpadUtil/dispatchIndex';
 import {isOpen} from '../../pinpadUtil/socket';
 import {
   pinPadPostalCodeManualEntry,
+  pinPadDOBHandlerManualEntry,
   sendWelcome,
 } from '../../pinpadUtil/requestHandlers';
 import {resetPinPadData} from '../../redux/pinpad/actionCreators';
@@ -15,7 +16,8 @@ class ConnectToPinpadStarter extends Component {
     this.state = {
       pinPadConnected: false,
       updatePinPadConnected: false,
-      localZipCode: '12345',
+      localZipCode: '',
+      localDOB: '',
     };
   }
 
@@ -48,11 +50,17 @@ class ConnectToPinpadStarter extends Component {
     pinPadPostalCodeManualEntry();
   };
 
-  updateZipCode = () => {
-    const ret = getState().pinpadCardDetails.zipCode;
+  getDOB = () => {
+    pinPadDOBHandlerManualEntry();
+  };
+
+  refreshData = () => {
+    const zipCode = getState().pinpadCardDetails.zipCode;
+    const dob = getState().pinpadCardDetails.dob;
 
     this.setState({
-      localZipCode: ret,
+      localZipCode: zipCode,
+      localDOB: dob,
     });
   };
 
@@ -90,7 +98,7 @@ class ConnectToPinpadStarter extends Component {
           <div style={pinpadDataDivStyle}>
             <button className="btn btn-info"
                     disabled={pinPadConnected ? null : true}
-                // onClick={this.getZipCode}
+                    onClick={this.getDOB}
             >
               Date Of Birth
             </button>
@@ -98,13 +106,13 @@ class ConnectToPinpadStarter extends Component {
           <div style={pinpadDataDivStyle}>
             <button className="btn btn-info"
                     disabled={pinPadConnected ? null : true}
-                    onClick={this.updateZipCode}
+                    onClick={this.refreshData}
             >
               Refresh Data
             </button>
           </div>
           <p style={{padding: '5px'}}>Current
-            Data: {this.state.localZipCode}</p>
+            Data: {this.state.localZipCode} {this.state.localDOB}</p>
         </div>
     );
   }
