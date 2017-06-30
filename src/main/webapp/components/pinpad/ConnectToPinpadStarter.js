@@ -112,7 +112,7 @@ class ConnectToPinpadStarter extends Component {
             </button>
           </div>
           <p style={{padding: '5px'}}>Current
-            Data: {this.state.localZipCode} {this.state.localDOB}</p>
+            Data: {this.state.localZipCode}, {this.state.localDOB}</p>
         </div>
     );
   }
