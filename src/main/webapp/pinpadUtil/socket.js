@@ -4,15 +4,10 @@ import 'rxjs/operator/share';
 export const sessionId = Date.now();
 
 let socket;
-const CONNECTING = 0;
 const OPEN = 1;
 
 export function isOpen() {
   return socket.readyState === OPEN;
-}
-
-export function isConnecting() {
-  return socket.readyState === CONNECTING;
 }
 
 export const connect = Observable.create((observer) => {

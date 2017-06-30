@@ -1,7 +1,6 @@
 import {connect, sendMessage} from './socket';
 import {dispatch, getState} from './dispatchIndex';
 import responseHandlers from './responseHandlers';
-
 import {addAlertError} from '../redux/alertMessage/actionCreators';
 
 export const pinpad = connect.subscribe(({data}) => {
