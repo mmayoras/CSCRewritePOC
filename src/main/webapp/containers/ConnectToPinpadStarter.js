@@ -77,8 +77,8 @@ class ConnectToPinpadStarter extends Component {
           <Refresh pinpadConnected={pinPadConnected}
                    divStyle={pinpadDataDivStyle}
                    refreshData={this.refreshData}/>
-          <p style={{padding: '5px'}}>Current
-            Data: {this.state.localZipCode} {this.state.localDOB} {this.state.localSSN}</p>
+          <p style={{padding: '5px'}}><b>Zip Code:</b> {this.state.localZipCode} <b>Date
+            of Birth:</b> {this.state.localDOB} <b>SSN:</b> {this.state.localSSN}</p>
         </div>
     );
   }
