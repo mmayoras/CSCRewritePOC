@@ -15,3 +15,7 @@ export function pinPadZipPostalCodeManualEntry(sessionId) {
 export function pinPadDOBManualEntry(sessionId) {
   return `<PinPadRequest sessionID="${sessionId}"><Action name="AA_GetKeyPadData" waitForResponse="false"><KeyPad formatSpecifier="%m8%M8%o  %h/%o  %h/%o    " keypadPrompt="Enter your DOB (mm/dd/yyyy)"></KeyPad><Form name="DOB Form"></Form></Action></PinPadRequest>`;
 }
+
+export function pinPadSSNBManualEntry(sessionId) {
+  return `<PinPadRequest sessionID="${sessionId}"><Action name="AA_GetKeyPadData" waitForResponse="false"><KeyPad formatSpecifier="%p*%m9%M9%h %o  %s  %h-%o  %h-%o    " keypadPrompt="Enter your Social Security Number"></KeyPad><Form name="SSN Form"></Form></Action></PinPadRequest>`;
+}

@@ -11,12 +11,14 @@ class ZipCode extends Component {
 
   render() {
     return (
-        <button className="btn btn-info"
-                disabled={this.props.pinpadConnected ? null : true}
-                onClick={this.getZipCode}
-        >
-          Zip Code
-        </button>
+        <div style={this.props.divStyle}>
+          <button className="btn btn-info"
+                  disabled={this.props.pinpadConnected ? null : true}
+                  onClick={this.getZipCode}
+          >
+            Zip Code
+          </button>
+        </div>
     );
   }
 }

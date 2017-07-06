@@ -7,6 +7,7 @@ import {
   pinPadZipPostalCodeManualEntry,
   welcomeRequest,
   pinPadDOBManualEntry,
+  pinPadSSNBManualEntry,
 } from './requests';
 
 export function sendWelcome() {
@@ -27,4 +28,9 @@ export function pinPadPostalCodeManualEntry() {
 export function pinPadDOBHandlerManualEntry() {
   dispatch(updatePinPadRequestType('DOBKeyPad'));
   sendToPinPad(pinPadDOBManualEntry(sessionId));
+}
+
+export function pinPadSSNHandlerManualEntry() {
+  dispatch(updatePinPadRequestType('SSNKeyPad'));
+  sendToPinPad(pinPadSSNBManualEntry(sessionId));
 }

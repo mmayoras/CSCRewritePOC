@@ -2,11 +2,11 @@
  * Created by MXM6930 on 7/6/2017.
  */
 import React, {Component} from 'react';
-import {pinPadDOBHandlerManualEntry} from '../../pinpadUtil/requestHandlers';
+import {pinPadSSNHandlerManualEntry} from '../../pinpadUtil/requestHandlers';
 
-class DOB extends Component {
-  getDOB = () => {
-    pinPadDOBHandlerManualEntry();
+class SSN extends Component {
+  getSSN = () => {
+    pinPadSSNHandlerManualEntry();
   };
 
   render() {
@@ -14,13 +14,12 @@ class DOB extends Component {
         <div style={this.props.divStyle}>
           <button className="btn btn-info"
                   disabled={this.props.pinpadConnected ? null : true}
-                  onClick={this.getDOB}
-          >
-            Date Of Birth
+                  onClick={this.getSSN}>
+            SSN
           </button>
         </div>
     );
   }
 }
 
-export default DOB;
+export default SSN;

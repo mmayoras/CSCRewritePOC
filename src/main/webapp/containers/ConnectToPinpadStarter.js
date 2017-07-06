@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import ZipCode from '../components/pinpadData/ZipCode';
 import DOB from '../components/pinpadData/DOB';
+import Welcome from '../components/pinpadData/Welcome';
+import SSN from '../components/pinpadData/SSN';
+import Refresh from '../components/pinpadData/Refresh';
 import {dispatch, getState} from '../pinpadUtil/dispatchIndex';
 import {isOpen} from '../pinpadUtil/socket';
-import {sendWelcome} from '../pinpadUtil/requestHandlers';
 import {resetPinPadData} from '../redux/pinpad/actionCreators';
 
 class ConnectToPinpadStarter extends Component {
@@ -15,8 +17,21 @@ class ConnectToPinpadStarter extends Component {
       updatePinPadConnected: false,
       localZipCode: '',
       localDOB: '',
+      localSSN: '',
     };
   }
+
+  refreshData = () => {
+    const zipCode = getState().pinpadCardDetails.zipCode;
+    const dob = getState().pinpadCardDetails.dob;
+    const ssn = getState().pinpadCardDetails.ssn;
+
+    this.setState({
+      localZipCode: zipCode,
+      localDOB: dob,
+      localSSN: ssn,
+    });
+  };
 
   componentDidMount = () => {
     const setup = setInterval(() => {
@@ -39,28 +54,12 @@ class ConnectToPinpadStarter extends Component {
     dispatch(resetPinPadData());
   };
 
-  sendWelcomeMessage = () => {
-    sendWelcome();
-  };
-
-  refreshData = () => {
-    const zipCode = getState().pinpadCardDetails.zipCode;
-    const dob = getState().pinpadCardDetails.dob;
-
-    this.setState({
-      localZipCode: zipCode,
-      localDOB: dob,
-    });
-  };
-
   render() {
     let pinPadConnected = this.state.pinPadConnected;
-
     const pinpadHeaderStyle = {
       padding: '5px',
       fontSize: '1.5em',
     };
-
     const pinpadDataDivStyle = {
       display: 'inline-block',
       padding: '5px',
@@ -69,29 +68,17 @@ class ConnectToPinpadStarter extends Component {
     return (
         <div style={{textAlign: 'center'}}>
           <p style={pinpadHeaderStyle}>PIN Pad Data</p>
-          <div style={pinpadDataDivStyle}>
-            <button className="btn btn-info"
-                    disabled={pinPadConnected ? null : true}
-                    onClick={this.sendWelcomeMessage}>
-              Home
-            </button>
-          </div>
-          <div style={pinpadDataDivStyle}>
-            <ZipCode pinpadConnected={pinPadConnected}/>
-          </div>
-          <div style={pinpadDataDivStyle}>
-            <DOB pinpadConnected={pinPadConnected}/>
-          </div>
-          <div style={pinpadDataDivStyle}>
-            <button className="btn btn-info"
-                    disabled={pinPadConnected ? null : true}
-                    onClick={this.refreshData}
-            >
-              Refresh Data
-            </button>
-          </div>
+          <Welcome pinpadConnected={pinPadConnected}
+                   divStyle={pinpadDataDivStyle}/>
+          <ZipCode pinpadConnected={pinPadConnected}
+                   divStyle={pinpadDataDivStyle}/>
+          <DOB pinpadConnected={pinPadConnected} divStyle={pinpadDataDivStyle}/>
+          <SSN pinpadConnected={pinPadConnected} divStyle={pinpadDataDivStyle}/>
+          <Refresh pinpadConnected={pinPadConnected}
+                   divStyle={pinpadDataDivStyle}
+                   refreshData={this.refreshData}/>
           <p style={{padding: '5px'}}>Current
-            Data: {this.state.localZipCode}, {this.state.localDOB}</p>
+            Data: {this.state.localZipCode} {this.state.localDOB} {this.state.localSSN}</p>
         </div>
     );
   }

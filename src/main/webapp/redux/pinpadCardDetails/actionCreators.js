@@ -1,4 +1,9 @@
-import {RESET_CARD_DETAILS, UPDATE_ZIP_CODE, UPDATE_DOB} from './actionTypes';
+import {
+  RESET_CARD_DETAILS,
+  UPDATE_ZIP_CODE,
+  UPDATE_DOB,
+  UPDATE_SSN,
+} from './actionTypes';
 
 export function resetCardDetails() {
   return {
@@ -17,5 +22,12 @@ export function updateDOB(dob) {
   return {
     type: UPDATE_DOB,
     dob,
+  };
+}
+
+export function updateSSN(ssn) {
+  return {
+    type: UPDATE_SSN,
+    ssn,
   };
 }
