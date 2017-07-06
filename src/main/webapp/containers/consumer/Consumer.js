@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ConsumerTable from './ConsumerTable';
-import ConnectToPinpadStarter from '../../components/pinpad/ConnectToPinpadStarter';
+import ConnectToPinpadStarter from '../ConnectToPinpadStarter';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';

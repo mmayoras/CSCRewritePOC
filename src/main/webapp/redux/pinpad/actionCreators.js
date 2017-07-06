@@ -1,4 +1,8 @@
-import {UPDATE_PIN_PAD_REQUEST, RESET_PINPAD_DATA} from './actionTypes';
+import {
+  UPDATE_PIN_PAD_REQUEST,
+  RESET_PINPAD_DATA,
+  RESET_CARD_ACTION_STATUS,
+} from './actionTypes';
 
 export function updatePinPadRequestType(payload) {
   return {
@@ -10,5 +14,11 @@ export function updatePinPadRequestType(payload) {
 export function resetPinPadData() {
   return {
     type: RESET_PINPAD_DATA,
+  };
+}
+
+export function resetCardActionStatus() {
+  return {
+    type: RESET_CARD_ACTION_STATUS,
   };
 }

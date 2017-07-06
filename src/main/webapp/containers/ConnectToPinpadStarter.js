@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
-
-import {dispatch, getState} from '../../pinpadUtil/dispatchIndex';
-import {isOpen} from '../../pinpadUtil/socket';
-import {
-  pinPadPostalCodeManualEntry,
-  pinPadDOBHandlerManualEntry,
-  sendWelcome,
-} from '../../pinpadUtil/requestHandlers';
-import {resetPinPadData} from '../../redux/pinpad/actionCreators';
+import ZipCode from '../components/pinpadData/ZipCode';
+import DOB from '../components/pinpadData/DOB';
+import {dispatch, getState} from '../pinpadUtil/dispatchIndex';
+import {isOpen} from '../pinpadUtil/socket';
+import {sendWelcome} from '../pinpadUtil/requestHandlers';
+import {resetPinPadData} from '../redux/pinpad/actionCreators';
 
 class ConnectToPinpadStarter extends Component {
   constructor() {
@@ -46,14 +43,6 @@ class ConnectToPinpadStarter extends Component {
     sendWelcome();
   };
 
-  getZipCode = () => {
-    pinPadPostalCodeManualEntry();
-  };
-
-  getDOB = () => {
-    pinPadDOBHandlerManualEntry();
-  };
-
   refreshData = () => {
     const zipCode = getState().pinpadCardDetails.zipCode;
     const dob = getState().pinpadCardDetails.dob;
@@ -88,20 +77,10 @@ class ConnectToPinpadStarter extends Component {
             </button>
           </div>
           <div style={pinpadDataDivStyle}>
-            <button className="btn btn-info"
-                    disabled={pinPadConnected ? null : true}
-                    onClick={this.getZipCode}
-            >
-              Zip Code
-            </button>
+            <ZipCode pinpadConnected={pinPadConnected}/>
           </div>
           <div style={pinpadDataDivStyle}>
-            <button className="btn btn-info"
-                    disabled={pinPadConnected ? null : true}
-                    onClick={this.getDOB}
-            >
-              Date Of Birth
-            </button>
+            <DOB pinpadConnected={pinPadConnected}/>
           </div>
           <div style={pinpadDataDivStyle}>
             <button className="btn btn-info"

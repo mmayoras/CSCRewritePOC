@@ -1,4 +1,8 @@
-import {updatePinPadRequestType, resetPinPadData} from './actionCreators';
+import {
+  updatePinPadRequestType,
+  resetPinPadData,
+  resetCardActionStatus,
+} from './actionCreators';
 import {pinPadReducer} from './pinpadReducer';
 
 const defaultState = {
@@ -18,7 +22,7 @@ test('an undefined state and an unmatched action returns an empty string',
       };
       const value = pinPadReducer(state, action);
       expect(value).toEqual(defaultState);
-    });
+});
 
 test('an unmatched action returns the state unchanged', () => {
   const state = {
@@ -43,11 +47,20 @@ test('update request type, returns a new state with updated request type',
         requestType: 'MSRRequest',
       };
       expect(value).toEqual(expectedState);
-    });
+});
 
 test('resetting pinpad data results in default state being set', () => {
   const state = exampleState;
   const action = resetPinPadData();
   const value = pinPadReducer(state, action);
   expect(value).toEqual(defaultState);
+});
+
+test('execute resetCardActionStatus, returns a new state',
+    () => {
+      const state = {};
+      const action = resetCardActionStatus();
+      const value = pinPadReducer(state, action);
+      const expectedState = {};
+      expect(value).toEqual(expectedState);
 });
