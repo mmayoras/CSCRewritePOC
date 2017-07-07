@@ -29,21 +29,25 @@ class Menu extends Component {
           <li><Link onClick={this.changeActive}
                     className={this.props.location.pathname === '/'
                         ? 'active'
-                        : ''} id=" " to="/">Home</Link></li>
+                        : ''} id=" " to="/" style={{textDecoration: 'none'}}>Home</Link>
+          </li>
           <li><Link onClick={this.changeActive}
                     className={this.props.location.pathname === '/consumer'
                         ? 'active'
-                        : ''} id="consumer" to="/consumer">Consumer Credit
+                        : ''} id="consumer" to="/consumer"
+                    style={{textDecoration: 'none'}}>Consumer Credit
             App</Link></li>
           <li><Link onClick={this.changeActive}
                     className={this.props.location.pathname === '/commercial'
                         ? 'active'
-                        : ''} id="commercial" to="/commercial">Commercial
+                        : ''} id="commercial" to="/commercial"
+                    style={{textDecoration: 'none'}}>Commercial
             Credit App</Link></li>
           <li><Link onClick={this.changeActive}
                     className={this.props.location.pathname === '/about'
                         ? 'active'
-                        : ''} id="about" to="/about">About</Link></li>
+                        : ''} id="about" to="/about"
+                    style={{textDecoration: 'none'}}>About</Link></li>
         </ul>
     );
   }
