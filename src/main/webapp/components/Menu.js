@@ -25,11 +25,25 @@ class Menu extends Component {
 
   render() {
     return (
-        <ul role="nav" id="menu">
-          <li><Link onClick={this.changeActive} className={this.props.location.pathname === '/' ? 'active' : ''} id=" " to="/">Home</Link></li>
-          <li><Link onClick={this.changeActive} className={this.props.location.pathname === '/consumer' ? 'active' : ''} id="consumer" to="/consumer">Consumer Credit App</Link></li>
-          <li><Link onClick={this.changeActive} className={this.props.location.pathname === '/commercial' ? 'active' : ''} id="commercial" to="/commercial">Commercial Credit App</Link></li>
-          <li><Link onClick={this.changeActive} className={this.props.location.pathname === '/about' ? 'active' : ''} id="about" to="/about">About</Link></li>
+        <ul id="menu">
+          <li><Link onClick={this.changeActive}
+                    className={this.props.location.pathname === '/'
+                        ? 'active'
+                        : ''} id=" " to="/">Home</Link></li>
+          <li><Link onClick={this.changeActive}
+                    className={this.props.location.pathname === '/consumer'
+                        ? 'active'
+                        : ''} id="consumer" to="/consumer">Consumer Credit
+            App</Link></li>
+          <li><Link onClick={this.changeActive}
+                    className={this.props.location.pathname === '/commercial'
+                        ? 'active'
+                        : ''} id="commercial" to="/commercial">Commercial
+            Credit App</Link></li>
+          <li><Link onClick={this.changeActive}
+                    className={this.props.location.pathname === '/about'
+                        ? 'active'
+                        : ''} id="about" to="/about">About</Link></li>
         </ul>
     );
   }

@@ -1,20 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 class Home extends Component {
 
   render() {
     const imageStyle = {
-      paddingLeft: "20px",
-      paddingRight: "20px",
-      height: "60px",
-      float: "left"
+      paddingLeft: '20px',
+      paddingRight: '20px',
+      float: 'left',
     };
 
     const divHeaderStyle = {
-      verticalAlign: "middle",
-      fontSize: "3.5em",
-      position: "relative",
-      height: "84px"
+      fontSize: '5.0em',
     };
 
     return (

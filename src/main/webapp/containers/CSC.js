@@ -14,16 +14,12 @@ import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
 class CSC extends Component {
   render() {
-    const divMainStyle = {
-      marginLeft: '20%',
-      paddingTop: '1px'
-    };
-
     return (
         <HashRouter>
           <div>
             <Menu/>
-            <div style={divMainStyle}>
+            /*marginTop: '48 due to height of fixed nav bar*/
+            <div style={{marginTop: '48px'}}>
               {/* add the routes here */}
               <Route exact path="/" component={Home}/>
               <Route path="/consumer" component={Consumer}/>

@@ -25,8 +25,6 @@ class ConsumerTable extends Component {
         <div className="container" name="ConsumerApplication">
           <b><p style={{
             textAlign: 'center',
-            marginTop: '20px',
-            marginBottom: '0px',
             fontSize: '2em'
           }}>Consumer Accounts</p></b>
           <p style={{textAlign: 'center', fontSize: '1.5em', color: 'grey'}}>for
