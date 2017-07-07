@@ -7,7 +7,8 @@ import {
   pinPadZipPostalCodeManualEntry,
   welcomeRequest,
   pinPadDOBManualEntry,
-  pinPadSSNBManualEntry,
+  pinPadSSNManualEntry,
+  pinPadPhoneNumberManualEntry,
 } from './requests';
 
 export function sendWelcome() {
@@ -32,5 +33,10 @@ export function pinPadDOBHandlerManualEntry() {
 
 export function pinPadSSNHandlerManualEntry() {
   dispatch(updatePinPadRequestType('SSNKeyPad'));
-  sendToPinPad(pinPadSSNBManualEntry(sessionId));
+  sendToPinPad(pinPadSSNManualEntry(sessionId));
+}
+
+export function pinPadPhoneNumberHandlerManualEntry() {
+  dispatch(updatePinPadRequestType('HomePhoneKeyPad'));
+  sendToPinPad(pinPadPhoneNumberManualEntry(sessionId));
 }

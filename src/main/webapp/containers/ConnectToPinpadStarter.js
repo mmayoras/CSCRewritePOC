@@ -7,6 +7,7 @@ import Refresh from '../components/pinpadData/Refresh';
 import {dispatch, getState} from '../pinpadUtil/dispatchIndex';
 import {isOpen} from '../pinpadUtil/socket';
 import {resetPinPadData} from '../redux/pinpad/actionCreators';
+import PhoneNumber from '../components/pinpadData/PhoneNumber';
 
 class ConnectToPinpadStarter extends Component {
   constructor() {
@@ -18,18 +19,21 @@ class ConnectToPinpadStarter extends Component {
       localZipCode: '',
       localDOB: '',
       localSSN: '',
+      localPhone: '',
     };
   }
 
   refreshData = () => {
-    const zipCode = getState().pinpadCardDetails.zipCode;
-    const dob = getState().pinpadCardDetails.dob;
-    const ssn = getState().pinpadCardDetails.ssn;
+    let zipCode = getState().pinpadCardDetails.zipCode;
+    let dob = getState().pinpadCardDetails.dob;
+    let ssn = getState().pinpadCardDetails.ssn;
+    let phoneNumber = getState().pinpadCardDetails.phoneNumber;
 
     this.setState({
       localZipCode: zipCode,
       localDOB: dob,
       localSSN: ssn,
+      localPhone: phoneNumber,
     });
   };
 
@@ -74,11 +78,15 @@ class ConnectToPinpadStarter extends Component {
                    divStyle={pinpadDataDivStyle}/>
           <DOB pinpadConnected={pinPadConnected} divStyle={pinpadDataDivStyle}/>
           <SSN pinpadConnected={pinPadConnected} divStyle={pinpadDataDivStyle}/>
+          <PhoneNumber pinpadConnected={pinPadConnected}
+                       divStyle={pinpadDataDivStyle}/>
           <Refresh pinpadConnected={pinPadConnected}
                    divStyle={pinpadDataDivStyle}
                    refreshData={this.refreshData}/>
-          <p style={{padding: '5px'}}><b>Zip Code:</b> {this.state.localZipCode} <b>Date
-            of Birth:</b> {this.state.localDOB} <b>SSN:</b> {this.state.localSSN}</p>
+          <p style={{padding: '5px'}}><b>Zip Code:</b> {this.state.localZipCode}
+            <b> Date of Birth:</b> {this.state.localDOB}
+            <b> SSN:</b> {this.state.localSSN}<b> Phone
+              Number:</b> {this.state.localPhone}</p>
         </div>
     );
   }

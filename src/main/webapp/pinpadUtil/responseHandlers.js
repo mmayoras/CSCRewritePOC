@@ -85,9 +85,33 @@ export function processSSNResponse({data, dispatch}) {
   return;
 }
 
+export function processPhoneNumberResponse({data, dispatch}) {
+  console.log('processPhoneNumberResponse');
+  const $xml = parseXml(data);
+  const keyedResponse = $xml.find('KeyPad');
+  processingMsrScreen();
+  // If an MSR element was not returned, we will not process the response
+  // This is being done because the MSRListener will sometimes fire an extra event
+  // that we do not want to process, or it breaks the pinpad flow.
+  if (keyedResponse.length === 0) {
+    return;
+  }
+  const keyedData = keyedResponse.attr('keyedData') || null;
+  dispatch(pinPadCardActionCreators.updatePhoneNumber(keyedData));
+
+  if (keyedResponse.attr('buttonPressed') === '2') {
+    console.log('Customer pressed cancel while keying ssn');
+    dispatch(pinPadCardActionCreators.resetCardDetails());
+    dispatch(pinPadActionCreators.resetCardActionStatus());
+  }
+
+  return;
+}
+
 export default {
   MSRProcessing: processProcessingScreenResponse,
   GetPostalCode: processPostalCodeResponse,
   DOBKeyPad: processDOBResponse,
   SSNKeyPad: processSSNResponse,
+  HomePhoneKeyPad: processPhoneNumberResponse,
 };
