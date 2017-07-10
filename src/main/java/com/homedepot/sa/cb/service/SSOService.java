@@ -1,14 +1,21 @@
 package com.homedepot.sa.cb.service;
 
+import com.homedepot.sa.cb.constants.Constants;
 import com.homedepot.sa.cb.model.AppInfo;
 import com.homedepot.sa.cb.model.ServiceResponseStatus;
 import com.homedepot.sa.cb.model.sso.LoginRequest;
 import com.homedepot.sa.cb.model.sso.LoginResponse;
+import com.homedepot.sa.cb.model.sso.SessionValidResponse;
+import com.homedepot.sa.cb.model.sso.User;
+import com.homedepot.sa.cb.model.sso.UserProfileResponse;
+import com.homedepot.sa.cb.model.sso.UserSession;
 import com.homedepot.sa.cb.util.GeneralUtils;
+import com.homedepot.sa.cb.util.XMLUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -85,6 +92,134 @@ public class SSOService {
     }
     LOG.info("END: SSOService login request");
     return loginResponse;
+  }
+
+  /**
+   * Given a thdsso cookie, retrieve the user information
+   * @param thdSSOCookie
+   * @param callingPrgm
+   * @return
+   */
+  public UserProfileResponse getUserProfile(String thdSSOCookie, String callingPrgm){
+    LOG.info("STARTED: SSOService getUserProfile request");
+    String getUserProfileURL = appInfo.getThdGetUserProfile()+ "?callingProgram="+callingPrgm.trim()+"&thdsso="+ thdSSOCookie.trim();
+    UserProfileResponse userProfileResponse = new UserProfileResponse();
+    ServiceResponseStatus serviceResponseStatus = new ServiceResponseStatus();
+    try{
+      ResponseEntity<String> responseEntity = restTemplate.exchange(getUserProfileURL, HttpMethod.GET,null,String.class);
+      if(responseEntity != null && !StringUtils.isEmpty(responseEntity.getBody())){
+        switch (responseEntity.getBody()){
+          case Constants.CALLING_PRGM_NOT_SUPPLIED:
+            serviceResponseStatus.setSuccess(false);
+            serviceResponseStatus.setMessage(Constants.CALLING_PRGM_NOT_SUPPLIED);
+            userProfileResponse.setUser(null);
+            userProfileResponse.setServiceResponseStatus(serviceResponseStatus);
+            break;
+          case Constants.INTERNAL_SERVER_ERROR:
+            serviceResponseStatus.setSuccess(false);
+            serviceResponseStatus.setMessage(Constants.INTERNAL_SERVER_ERROR);
+            userProfileResponse.setUser(null);
+            userProfileResponse.setServiceResponseStatus(serviceResponseStatus);
+            break;
+          case Constants.INVALID_TOKEN:
+            serviceResponseStatus.setSuccess(false);
+            serviceResponseStatus.setMessage(Constants.INVALID_TOKEN);
+            userProfileResponse.setUser(null);
+            userProfileResponse.setServiceResponseStatus(serviceResponseStatus);
+            break;
+          default:
+            User user = XMLUtils.unmarshalToUser(responseEntity.getBody());
+            serviceResponseStatus.setSuccess(true);
+            serviceResponseStatus.setMessage("success");
+            userProfileResponse.setUser(user);
+            userProfileResponse.setServiceResponseStatus(serviceResponseStatus);
+            break;
+        }
+      } else {
+        serviceResponseStatus.setSuccess(false);
+        serviceResponseStatus.setMessage("response from MYTHDPassport for /getUserProfile is either null or empty");
+        userProfileResponse.setUser(null);
+        userProfileResponse.setServiceResponseStatus(serviceResponseStatus);
+      }
+    } catch (RestClientException rce){
+      serviceResponseStatus.setSuccess(false);
+      serviceResponseStatus.setMessage("rest client exception, " + rce.getMessage());
+      userProfileResponse.setUser(null);
+      userProfileResponse.setServiceResponseStatus(serviceResponseStatus);
+      LOG.error("RESTCLIENTEXCEPTION: SSOService getUserProfile ==> " + rce.toString());
+    } catch (Exception e) {
+      serviceResponseStatus.setSuccess(false);
+      serviceResponseStatus.setMessage("exception, " + e.getMessage());
+      userProfileResponse.setUser(null);
+      userProfileResponse.setServiceResponseStatus(serviceResponseStatus);
+      LOG.error("EXCEPTION: SSOService getUserProfile ==> " + e.toString());
+    }
+    LOG.info("END: SSOService getUserProfile");
+    return userProfileResponse;
+  }
+
+  /**
+   * Given a thdsso cookie, verify if the user still has a valid session
+   * @param callingPrgm
+   * @param thdSSOCookie
+   * @return
+   */
+  public SessionValidResponse isSessionValid(String callingPrgm, String thdSSOCookie){
+    LOG.info("STARTED: isSessionValid request");
+    String isSessionValidURL = appInfo.getThdIsSessionValid() + "?callingProgram="+callingPrgm+"&thdsso=" + thdSSOCookie;
+    SessionValidResponse sessionValidResponse = new SessionValidResponse();
+    ServiceResponseStatus serviceResponseStatus = new ServiceResponseStatus();
+    try {
+      ResponseEntity<String> responseEntity = restTemplate.exchange(isSessionValidURL, HttpMethod.GET, null, String.class);
+      if(responseEntity == null || StringUtils.isEmpty(responseEntity.getBody())){
+        serviceResponseStatus.setMessage("user session is null");
+        serviceResponseStatus.setSuccess(false);
+        sessionValidResponse.setServiceResponseStatus(serviceResponseStatus);
+        sessionValidResponse.setUserSession(null);
+      } else {
+        switch (responseEntity.getBody()){
+          case Constants.CALLING_PRGM_NOT_SUPPLIED:
+            serviceResponseStatus.setMessage(Constants.CALLING_PRGM_NOT_SUPPLIED);
+            serviceResponseStatus.setSuccess(false);
+            sessionValidResponse.setServiceResponseStatus(serviceResponseStatus);
+            sessionValidResponse.setUserSession(null);
+            break;
+          case Constants.INTERNAL_SERVER_ERROR:
+            serviceResponseStatus.setMessage(Constants.INTERNAL_SERVER_ERROR);
+            serviceResponseStatus.setSuccess(false);
+            sessionValidResponse.setServiceResponseStatus(serviceResponseStatus);
+            sessionValidResponse.setUserSession(null);
+            break;
+          case Constants.INVALID_TOKEN:
+            serviceResponseStatus.setMessage(Constants.INTERNAL_SERVER_ERROR);
+            serviceResponseStatus.setSuccess(false);
+            sessionValidResponse.setServiceResponseStatus(serviceResponseStatus);
+            sessionValidResponse.setUserSession(null);
+            break;
+          default:
+            UserSession userSession = XMLUtils.unmarshalToUserSession(responseEntity.getBody());
+            serviceResponseStatus.setMessage("user session is available");
+            serviceResponseStatus.setSuccess(true);
+            sessionValidResponse.setServiceResponseStatus(serviceResponseStatus);
+            sessionValidResponse.setUserSession(userSession);
+            break;
+        }
+      }
+    } catch (RestClientException rce){
+      serviceResponseStatus.setMessage("exception, " + rce.getMessage());
+      serviceResponseStatus.setSuccess(false);
+      sessionValidResponse.setServiceResponseStatus(serviceResponseStatus);
+      sessionValidResponse.setUserSession(null);
+      LOG.error("RESTCLIENTEXCEPTION: SSOService isSessionValid ==> " + rce.toString());
+    } catch (Exception e){
+      serviceResponseStatus.setMessage("exception, " + e.getMessage());
+      serviceResponseStatus.setSuccess(false);
+      sessionValidResponse.setServiceResponseStatus(serviceResponseStatus);
+      sessionValidResponse.setUserSession(null);
+      LOG.error("EXCEPTION: SSOService isSessionValid ==> " + e.toString());
+    }
+    LOG.info("END: isSessionValid request");
+    return sessionValidResponse;
   }
 
   public HttpHeaders buildHeader(){
