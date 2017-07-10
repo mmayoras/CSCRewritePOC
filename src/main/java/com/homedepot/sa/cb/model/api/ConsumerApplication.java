@@ -1,4 +1,4 @@
-package com.homedepot.sa.cb.model;
+package com.homedepot.sa.cb.model.api;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by MXM6930 on 5/5/2017.
  */
 @Entity
-public class CommercialApplication
+public class ConsumerApplication
 {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -29,9 +29,9 @@ public class CommercialApplication
     private String driverLicense;
     private String email;
 
-    private CommercialApplication() {}
+    private ConsumerApplication() {}
 
-    public CommercialApplication(Long id, String firstName, String middleInitial,
+    public ConsumerApplication(Long id, String firstName, String middleInitial,
         String lastName, String strNumber, Date date, String city, String state,
         String addressLine1, String addressLine2, String driverLicense, String email) {
       this.id = id;
@@ -48,49 +48,9 @@ public class CommercialApplication
       this.email = email;
     }
 
-    public Long getAppId() {
-          return appId;
-      }
-
-    public void setAppId(Long appId) {
-        this.appId = appId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getStrNumber() {
-        return strNumber;
-    }
-
-    public void setStrNumber(String strNumber) {
-        this.strNumber = strNumber;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public String getMiddleInitial() {
-      return middleInitial;
-    }
+        return middleInitial;
+      }
 
     public void setMiddleInitial(String middleInitial) {
       this.middleInitial = middleInitial;
@@ -144,6 +104,46 @@ public class CommercialApplication
       this.email = email;
     }
 
+    public Long getAppId() {
+          return appId;
+      }
+
+    public void setAppId(Long appId) {
+        this.appId = appId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getStrNumber() {
+        return strNumber;
+    }
+
+    public void setStrNumber(String strNumber) {
+        this.strNumber = strNumber;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public Long getId() {
         return id;
     }
@@ -152,22 +152,22 @@ public class CommercialApplication
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-      return "CommercialApplication{" +
-          "appId=" + appId +
-          ", id=" + id +
-          ", firstName='" + firstName + '\'' +
-          ", middleInitial='" + middleInitial + '\'' +
-          ", lastName='" + lastName + '\'' +
-          ", strNumber='" + strNumber + '\'' +
-          ", date=" + date +
-          ", city='" + city + '\'' +
-          ", state='" + state + '\'' +
-          ", addressLine1='" + addressLine1 + '\'' +
-          ", addressLine2='" + addressLine2 + '\'' +
-          ", driverLicense='" + driverLicense + '\'' +
-          ", email='" + email + '\'' +
-          '}';
-    }
+  @Override
+  public String toString() {
+    return "ConsumerApplication{" +
+        "appId=" + appId +
+        ", id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", middleInitial='" + middleInitial + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", strNumber='" + strNumber + '\'' +
+        ", date=" + date +
+        ", city='" + city + '\'' +
+        ", state='" + state + '\'' +
+        ", addressLine1='" + addressLine1 + '\'' +
+        ", addressLine2='" + addressLine2 + '\'' +
+        ", driverLicense='" + driverLicense + '\'' +
+        ", email='" + email + '\'' +
+        '}';
+  }
 }

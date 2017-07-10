@@ -1,0 +1,35 @@
+# Local Dev
+---
+spring.profiles: default
+lifecycle: default
+#THD SSO RESOURCES
+thdLoginURL: https://webapps-qa.homedepot.com/MYTHDPassport/rs/identity/thdLogin
+thdGetUserProfile: https://webapps-qa.homedepot.com/MYTHDPassport/rs/identity/getUserProfile
+thdIsSessionValid: https://webapps-qa.homedepot.com/MYTHDPassport/rs/identity/isSessionValid
+
+# Development
+---
+spring.profiles: development
+lifecycle: development
+#THD SSO RESOURCES
+thdLoginURL: https://webapps-qa.homedepot.com/MYTHDPassport/rs/identity/thdLogin
+thdGetUserProfile: https://webapps-qa.homedepot.com/MYTHDPassport/rs/identity/getUserProfile
+thdIsSessionValid: https://webapps-qa.homedepot.com/MYTHDPassport/rs/identity/isSessionValid
+
+# QA
+---
+spring.profiles: qa
+lifecycle: qa
+#THD SSO RESOURCES
+thdLoginURL: https://webapps-qa.homedepot.com/MYTHDPassport/rs/identity/thdLogin
+thdGetUserProfile: https://webapps-qa.homedepot.com/MYTHDPassport/rs/identity/getUserProfile
+thdIsSessionValid: https://webapps-qa.homedepot.com/MYTHDPassport/rs/identity/isSessionValid
+
+# PROD
+---
+spring.profiles: production
+lifecycle: production
+#THD SSO RESOURCES
+thdLoginURL: https://webapps.homedepot.com/MYTHDPassport/rs/identity/thdLogin
+thdGetUserProfile: https://webapps.homedepot.com/MYTHDPassport/rs/identity/getUserProfile
+thdIsSessionValid: https://webapps.homedepot.com/MYTHDPassport/rs/identity/isSessionValid

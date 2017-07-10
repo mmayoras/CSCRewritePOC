@@ -1,7 +1,7 @@
 package com.homedepot.sa.cb.commandLineRunner;
 
-import com.homedepot.sa.cb.model.CommercialApplication;
-import com.homedepot.sa.cb.model.ConsumerApplication;
+import com.homedepot.sa.cb.model.api.CommercialApplication;
+import com.homedepot.sa.cb.model.api.ConsumerApplication;
 import com.homedepot.sa.cb.repository.CommercialAppRepository;
 import com.homedepot.sa.cb.repository.ConsumerAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
