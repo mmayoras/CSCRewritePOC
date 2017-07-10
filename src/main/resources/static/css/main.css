@@ -29,3 +29,11 @@ li a:hover:not(.active) {
 .active {
   background-color: #4CAF50;
 }
+
+li a:hover {
+  color: white;
+}
+
+li a:focus {
+  color: white;
+}
