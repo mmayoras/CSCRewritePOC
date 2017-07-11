@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Header from '../../components/header';
-import * as LoginActions from '../../actions/loginActions';
+import * as LoginActions from '../../redux/login/actionCreators';
 import Cookies from 'universal-cookie';
 
 let classNames = require('classnames');

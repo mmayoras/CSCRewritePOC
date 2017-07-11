@@ -1,36 +1,66 @@
 /**
- * Created by MXM6930 on 6/13/2017.
+ * Created by MXM6930 on 7/11/2017.
  */
+import 'babel-polyfill';
 import React, {Component} from 'react';
-import {HashRouter, Route} from 'react-router-dom';
-import Menu from '../components/Menu';
-import Commercial from './commercial/Commercial';
-import Consumer from './consumer/Consumer';
-import Home from '../components/Home';
-import About from '../components/About';
-import Alert from 'react-s-alert';
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+import PropTypes from 'prop-types';
+import {orange500, deepOrange500} from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Authentication from '../utils/authHelper';
+import {Router, Route, Switch} from 'react-router-dom';
+import Login from '../containers/login/Login';
+import CSCMain from '../containers/CSCMain';
 
+const muiTheme = getMuiTheme({
+  palette: {
+    primaryColor: orange500,
+    accent2Color: deepOrange500
+  }
+});
+
+// This is a class-based component because the current
+// version of hot reloading won't hot reload a stateless
+// component at the top-level.
 class CSC extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.store = context.store;
+
+    let useLogin = this.store.getState().login.useLogin;
+    if (useLogin === true) {
+      Authentication.isAuthenticated()
+      .then((authenticated) => {
+        if (!authenticated) {
+          this.props.history.push('/login');
+        }
+      });
+    } else {
+      this.props.history.push('/');
+    }
+  }
+
   render() {
     return (
-        <HashRouter>
-          <div>
-            <Menu/>
-            /*marginTop: '48 due to height of fixed nav bar*/
-            <div style={{marginTop: '48px'}}>
-              {/* add the routes here */}
-              <Route exact path="/" component={Home}/>
-              <Route path="/consumer" component={Consumer}/>
-              <Route path="/commercial" component={Commercial}/>
-              <Route path="/about" component={About}/>
-              <Alert stack={true} timeout={2000}/>
-            </div>
-          </div>
-        </HashRouter>
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <Router history={this.props.history}>
+            {/*<div className="progress-linear indeterminate global-loader" />*/}
+            <Switch>
+              <Route path="/login" component={Login}/>
+              <Route path="/" component={CSCMain}/>
+            </Switch>
+          </Router>
+        </MuiThemeProvider>
     );
   }
 }
+
+CSC.contextTypes = {
+  store: PropTypes.object
+};
+
+CSC.propTypes = {
+  history: PropTypes.object
+};
 
 export default CSC;
