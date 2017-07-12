@@ -25,6 +25,10 @@ module.exports = {
         include: /(s-alert-default.css|s-alert-css-effects|normalize.css)/,
         loader: 'style-loader!css-loader?sourceMap',
       },
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+      },
     ],
   },
 };

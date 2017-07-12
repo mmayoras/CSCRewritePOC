@@ -4,6 +4,7 @@ import CSC from './main/webapp/containers/CSC';
 import {Provider} from 'react-redux';
 import {createHashHistory} from 'history';
 import configureStore from './main/webapp/pinpadUtil/configureStore';
+import './main/webapp/styles/base.scss';
 
 const history = createHashHistory();
 const store = configureStore();
@@ -13,4 +14,3 @@ render(
       <CSC history={history}/>
     </Provider>, document.getElementById('csc'),
 );
-// ReactDOM.render(<CSC/>, document.getElementById('csc'));

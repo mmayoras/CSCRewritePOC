@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie';
 import {CONFIG} from '../../envconfig/globals';
 
 export const loginUser = (storeNumber, username, password) => {
-  const appName = 'ps-giftcard-ui';
+  const appName = 'cscrewritepoc';
   const loginUrl = CONFIG.loginUrl;
   return dispatch => {
     return fetch(loginUrl + '/api/login', {
@@ -51,7 +51,7 @@ export const getUserProfile = (data) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'thdSSOCookie': data.thdSSOCookie,
-        'callingPrgm': 'ps-giftcard-ui',
+        'callingPrgm': 'cscrewritepoc',
       },
     }).then(response => response.json()).then((json) => {
       return dispatch({
