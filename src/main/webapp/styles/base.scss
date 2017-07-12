@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* APP STYLES */
-@import "app";
+@import "_app.scss";
 
 /* UX DEFAULTS */
 /*@import url("https://pages.github.homedepot.com/ux/ux-styleguide/dist/ux-styleguide.min.css");*/
@@ -10,8 +10,8 @@
 @import "_colors.scss";
 
 /* COMPONENTS */
-@import "../components/Menu";
+@import "../components/Menu.scss";
 
 /* CONTAINERS */
-@import "../containers/login/login";
-@import "../containers/CSCMain";
+@import "../containers/login/login.scss";
+@import "../containers/CSCMain.scss";
