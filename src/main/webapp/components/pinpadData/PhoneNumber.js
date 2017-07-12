@@ -12,7 +12,7 @@ class PhoneNumber extends Component {
   render() {
     return (
         <div style={this.props.divStyle}>
-          <button className="btn btn-info"
+          <button className="button primary small"
                   disabled={this.props.pinpadConnected ? null : true}
                   onClick={this.getPhoneNumber}>
             Phone Number

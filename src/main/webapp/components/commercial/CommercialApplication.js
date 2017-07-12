@@ -15,7 +15,7 @@ class CommercialApplication extends Component {
           <td>{this.props.commercialApplication.city}</td>
           <td>{this.props.commercialApplication.state}</td>
           <td>
-            <button className="btn btn-danger"
+            <button className="button secondary small"
                     onClick={() => this.props.deleteCommercialApplication(
                         this.props.commercialApplication)}>Delete
             </button>

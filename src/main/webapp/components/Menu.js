@@ -25,7 +25,7 @@ class Menu extends Component {
 
   render() {
     return (
-        <div className="sidenav scrollable">
+        <div className="sidenav">
           <ul className="nav" id="menu">
             <li><Link onClick={this.changeActive}
                       className={this.props.location.pathname === '/'

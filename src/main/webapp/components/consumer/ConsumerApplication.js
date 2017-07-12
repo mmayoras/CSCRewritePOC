@@ -15,7 +15,7 @@ class ConsumerApplication extends Component {
           <td>{this.props.consumerApplication.city}</td>
           <td>{this.props.consumerApplication.state}</td>
           <td>
-            <button className="btn btn-danger"
+            <button className="button secondary small"
                     onClick={() => this.props.deleteConsumerApplication(
                         this.props.consumerApplication)}>Delete
             </button>

@@ -10,7 +10,7 @@ class ConsumerTable extends Component {
       paddingLeft: '25px',
       paddingRight: '25px',
       paddingTop: '10px',
-      paddingBottom: '25px'
+      paddingBottom: '25px',
     };
 
     let consumerApplications = this.props.consumerApplications.map(
@@ -18,17 +18,18 @@ class ConsumerTable extends Component {
             <ConsumerApplication key={consumerApplication.id}
                                  consumerApplication={consumerApplication}
                                  deleteConsumerApplication={this.props.deleteConsumerApplication}
-            />
+            />,
     );
 
     return (
-        <div className="container" name="ConsumerApplication">
-          <b><p style={{
+        <div name="ConsumerApplication">
+          <h1 style={{textAlign: 'center', margin: '0'}}>Consumer Accounts</h1>
+          <h2 style={{
             textAlign: 'center',
-            fontSize: '2em'
-          }}>Consumer Accounts</p></b>
-          <p style={{textAlign: 'center', fontSize: '1.5em', color: 'grey'}}>for
-            your home</p>
+            color: 'grey',
+            margin: '0',
+            padding: '10px',
+          }}>for your home</h2>
           <div style={{display: 'table', width: '100%'}}>
             <div style={{width: '50%', float: 'left'}}>
               <div style={{float: 'right'}}>

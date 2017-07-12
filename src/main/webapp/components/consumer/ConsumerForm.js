@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SkyLight from "react-skylight";
+import SkyLight from 'react-skylight';
 
 class ConsumerForm extends Component {
   constructor(props) {
@@ -13,14 +13,14 @@ class ConsumerForm extends Component {
       addressLine1: '',
       addressLine2: '',
       city: '',
-      state: ''
+      state: '',
     };
   }
 
   handleChange = (event) => {
-    console.log("NAME: " + event.target.name + " VALUE: " + event.target.value)
+    console.log('NAME: ' + event.target.name + ' VALUE: ' + event.target.value);
     this.setState(
-        {[event.target.name]: event.target.value}
+        {[event.target.name]: event.target.value},
     );
   };
 
@@ -37,7 +37,7 @@ class ConsumerForm extends Component {
       addressLine1: this.state.addressLine1,
       addressLine2: this.state.addressLine2,
       city: this.state.city,
-      state: this.state.state
+      state: this.state.state,
     };
 
     this.props.createConsumer(newConsumer);
@@ -51,7 +51,7 @@ class ConsumerForm extends Component {
       addressLine1: '',
       addressLine2: '',
       city: '',
-      state: ''
+      state: '',
     });
 
     this.refs.simpleDialog.hide();
@@ -59,76 +59,75 @@ class ConsumerForm extends Component {
 
   render() {
     const inputStyle = {
-      paddingLeft: "0.5%",
-      paddingRight: "0.5%",
-      position: "relative",
-      float: "left",
-      minHeight: "1px"
+      margin: '0',
+    };
+
+    const inputDivStyle = {
+      margin: '0',
+      padding: '5px',
     };
 
     return (
         <div>
           <SkyLight hideOnOverlayClicked ref="simpleDialog">
-            <div className="panel panel-default">
-              <div className="panel-heading">Start Consumer Application</div>
-              <div className="panel-body">
-                <form className="form-inline">
-                  <div style={inputStyle}>
-                    <input type="text" placeholder="First Name"
-                           className="form-control" name="firstName"
-                           onChange={this.handleChange}/>
-                  </div>
-                  <div style={inputStyle}>
-                    <input type="text" placeholder="Middle Initial"
-                           className="form-control" name="middleInitial"
-                           onChange={this.handleChange}/>
-                  </div>
-                  <div style={inputStyle}>
-                    <input type="text" placeholder="Last Name"
-                           className="form-control" name="lastName"
-                           onChange={this.handleChange}/>
-                  </div>
-                  <div style={inputStyle}>
-                    <input type="text" placeholder="Store Number"
-                           className="form-control" name="strNumber"
-                           onChange={this.handleChange}/>
-                  </div>
-                  <div style={inputStyle}>
-                    <input type="text" placeholder="Date"
-                           className="form-control" name="date"
-                           onChange={this.handleChange}/>
-                  </div>
-                  <div style={inputStyle}>
-                    <input type="text" placeholder="Address Line 1"
-                           className="form-control" name="addressLine1"
-                           onChange={this.handleChange}/>
-                  </div>
-                  <div style={inputStyle}>
-                    <input type="text" placeholder="Address Line 2"
-                           className="form-control" name="addressLine2"
-                           onChange={this.handleChange}/>
-                  </div>
-                  <div style={inputStyle}>
-                    <input type="text" placeholder="City"
-                           className="form-control" name="city"
-                           onChange={this.handleChange}/>
-                  </div>
-                  <div style={inputStyle}>
-                    <input type="text" placeholder="State"
-                           className="form-control" name="state"
-                           onChange={this.handleChange}/>
-                  </div>
-                  <div style={inputStyle}>
-                    <button className="btn btn-success"
-                            onClick={this.handleSubmit}>Save
-                    </button>
-                  </div>
-                </form>
+            <h2>Start Consumer Application</h2>
+            <form>
+              <div style={inputDivStyle} className="text-input-container">
+                <input style={inputStyle} type="text" placeholder="First Name"
+                       name="firstName"
+                       onChange={this.handleChange}/>
               </div>
-            </div>
+              <div style={inputDivStyle} className="text-input-container">
+                <input style={inputStyle} type="text"
+                       placeholder="Middle Initial"
+                       name="middleInitial"
+                       onChange={this.handleChange}/>
+              </div>
+              <div style={inputDivStyle} className="text-input-container">
+                <input style={inputStyle} type="text" placeholder="Last Name"
+                       name="lastName"
+                       onChange={this.handleChange}/>
+              </div>
+              <div style={inputDivStyle} className="text-input-container">
+                <input style={inputStyle} type="text"
+                       placeholder="Store Number"
+                       name="strNumber"
+                       onChange={this.handleChange}/>
+              </div>
+              <div style={inputDivStyle} className="text-input-container">
+                <input style={inputStyle} type="text" placeholder="Date"
+                       name="date"
+                       onChange={this.handleChange}/>
+              </div>
+              <div style={inputDivStyle} className="text-input-container">
+                <input style={inputStyle} type="text"
+                       placeholder="Address Line 1"
+                       name="addressLine1"
+                       onChange={this.handleChange}/>
+              </div>
+              <div style={inputDivStyle} className="text-input-container">
+                <input style={inputStyle} type="text"
+                       placeholder="Address Line 2"
+                       name="addressLine2"
+                       onChange={this.handleChange}/>
+              </div>
+              <div style={inputDivStyle} className="text-input-container">
+                <input style={inputStyle} type="text" placeholder="City"
+                       name="city"
+                       onChange={this.handleChange}/>
+              </div>
+              <div style={inputDivStyle} className="text-input-container">
+                <input style={inputStyle} type="text" placeholder="State"
+                       name="state"
+                       onChange={this.handleChange}/>
+              </div>
+              <button className="button primary small"
+                      onClick={this.handleSubmit}>Save
+              </button>
+            </form>
           </SkyLight>
-          <div style={{paddingBottom: "10px", textAlign: "center"}}>
-            <button className="btn btn-primary"
+          <div style={{textAlign: 'center'}}>
+            <button className="button primary medium"
                     onClick={() => this.refs.simpleDialog.show()}>New Consumer
               Application
             </button>

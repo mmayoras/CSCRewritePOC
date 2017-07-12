@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import CommercialApplication from '../../components/commercial/CommercialApplication';
-import CommercialForm from "../../components/commercial/CommercialForm";
+import CommercialForm from '../../components/commercial/CommercialForm';
 
 class CommercialTable extends Component {
   render() {
@@ -22,13 +22,15 @@ class CommercialTable extends Component {
     );
 
     return (
-        <div className="container" name="CommercialApplication">
-          <b><p style={{
+        <div name="CommercialApplication">
+          <h1 style={{textAlign: 'center', margin: '0'}}>Commercial
+            Accounts</h1>
+          <h2 style={{
             textAlign: 'center',
-            fontSize: '2em',
-          }}>Commercial Accounts</p></b>
-          <p style={{textAlign: 'center', fontSize: '1.5em', color: 'grey'}}>for
-            your business</p>
+            color: 'grey',
+            margin: '0',
+            padding: '10px',
+          }}>for your business</h2>
           <div style={{display: 'table', width: '100%'}}>
             <div style={{width: '50%', float: 'left'}}>
               <div style={{float: 'right'}}>
@@ -42,7 +44,7 @@ class CommercialTable extends Component {
             </div>
           </div>
           <CommercialForm createCommercial={this.props.createCommercial}/>
-          <table className="table table-striped">
+          <table className="standard-table">
             <thead>
             <tr>
               <th>ID</th>
