@@ -25,30 +25,29 @@ class Menu extends Component {
 
   render() {
     return (
-        <ul id="menu">
-          <li><Link onClick={this.changeActive}
-                    className={this.props.location.pathname === '/'
-                        ? 'active'
-                        : ''} id=" " to="/" style={{textDecoration: 'none'}}>Home</Link>
-          </li>
-          <li><Link onClick={this.changeActive}
-                    className={this.props.location.pathname === '/consumer'
-                        ? 'active'
-                        : ''} id="consumer" to="/consumer"
-                    style={{textDecoration: 'none'}}>Consumer Credit
-            App</Link></li>
-          <li><Link onClick={this.changeActive}
-                    className={this.props.location.pathname === '/commercial'
-                        ? 'active'
-                        : ''} id="commercial" to="/commercial"
-                    style={{textDecoration: 'none'}}>Commercial
-            Credit App</Link></li>
-          <li><Link onClick={this.changeActive}
-                    className={this.props.location.pathname === '/about'
-                        ? 'active'
-                        : ''} id="about" to="/about"
-                    style={{textDecoration: 'none'}}>About</Link></li>
-        </ul>
+        <div className="sidenav scrollable">
+          <ul className="nav" id="menu">
+            <li><Link onClick={this.changeActive}
+                      className={this.props.location.pathname === '/'
+                          ? 'active'
+                          : ''} id=" " to="/">Home</Link>
+            </li>
+            <li><Link onClick={this.changeActive}
+                      className={this.props.location.pathname === '/consumer'
+                          ? 'active'
+                          : ''} id="consumer" to="/consumer">Consumer Credit
+              App</Link></li>
+            <li><Link onClick={this.changeActive}
+                      className={this.props.location.pathname === '/commercial'
+                          ? 'active'
+                          : ''} id="commercial" to="/commercial">Commercial
+              Credit App</Link></li>
+            <li><Link onClick={this.changeActive}
+                      className={this.props.location.pathname === '/about'
+                          ? 'active'
+                          : ''} id="about" to="/about">About</Link></li>
+          </ul>
+        </div>
     );
   }
 }

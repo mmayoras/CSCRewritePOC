@@ -4,15 +4,11 @@
 import React, { Component } from 'react';
 
 class About extends Component {
-  render() {
-    const padLeft = {
-      paddingLeft: "20px"
-    };
-
+  render = () => {
     return (
         <div>
-          <h2 style={padLeft}>About Us</h2>
-          <p style={padLeft}>Home Depot's CSC Web Application Rewritten in React + Spring Boot by Marques Mayoras</p>
+          <h2>About Us</h2>
+          <p>Home Depot's CSC Web Application Rewritten in React + Spring Boot by Marques Mayoras</p>
         </div>
     );
   }

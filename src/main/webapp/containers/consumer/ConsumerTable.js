@@ -42,7 +42,7 @@ class ConsumerTable extends Component {
             </div>
           </div>
           <ConsumerForm createConsumer={this.props.createConsumer}/>
-          <table className="table table-striped">
+          <table className="standard-table">
             <thead>
             <tr>
               <th>ID</th>

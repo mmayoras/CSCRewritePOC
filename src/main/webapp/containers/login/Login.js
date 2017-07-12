@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import Header from '../../components/header';
+import Header from '../../components/Header';
 import * as LoginActions from '../../redux/login/actionCreators';
 import Cookies from 'universal-cookie';
 
