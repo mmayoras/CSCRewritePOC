@@ -1,5 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 import CSC from './main/webapp/containers/CSC';
+import {Provider} from 'react-redux';
+import {createHashHistory} from 'history';
+import configureStore from './main/webapp/pinpadUtil/configureStore';
 
-ReactDOM.render(<CSC/>, document.getElementById('csc'));
+const history = createHashHistory();
+const store = configureStore();
+
+render(
+    <Provider store={store}>
+      <CSC history={history}/>
+    </Provider>, document.getElementById('csc'),
+);
+// ReactDOM.render(<CSC/>, document.getElementById('csc'));

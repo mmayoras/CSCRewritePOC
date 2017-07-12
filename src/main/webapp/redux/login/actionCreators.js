@@ -10,7 +10,7 @@ export const loginUser = (storeNumber, username, password) => {
   const appName = 'ps-giftcard-ui';
   const loginUrl = CONFIG.loginUrl;
   return dispatch => {
-    return fetch(loginUrl + '/login', {
+    return fetch(loginUrl + '/api/login', {
       credentials: 'include',
       method: 'POST',
       headers: {
@@ -46,7 +46,7 @@ export const loginUser = (storeNumber, username, password) => {
 export const getUserProfile = (data) => {
   const getUserProfileUrl = CONFIG.getUserProfileUrl;
   return dispatch => {
-    return fetch(getUserProfileUrl + '/getUserProfile', {
+    return fetch(getUserProfileUrl + '/api/getUserProfile', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
