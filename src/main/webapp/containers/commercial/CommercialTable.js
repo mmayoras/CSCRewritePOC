@@ -12,6 +12,9 @@ class CommercialTable extends Component {
       paddingTop: '10px',
       paddingBottom: '25px',
     };
+    const tableHead = {
+      textAlign: 'center',
+    };
 
     let commercialApplications = this.props.commercialApplications.map(
         commercialApplication =>
@@ -44,23 +47,25 @@ class CommercialTable extends Component {
             </div>
           </div>
           <CommercialForm createCommercial={this.props.createCommercial}/>
-          <table className="standard-table">
-            <thead>
-            <tr>
-              <th>ID</th>
-              <th>FirstName</th>
-              <th>Middle Initial</th>
-              <th>LastName</th>
-              <th>StoreNumber</th>
-              <th>Date</th>
-              <th>Address Line 1</th>
-              <th>Address Line 2</th>
-              <th>City</th>
-              <th>State</th>
-            </tr>
-            </thead>
-            <tbody>{commercialApplications}</tbody>
-          </table>
+          <div style={{overflowX: 'auto'}}>
+            <table className="standard-table">
+              <thead>
+              <tr>
+                <th style={tableHead}>ID</th>
+                <th style={tableHead}>FirstName</th>
+                <th style={tableHead}>Middle Initial</th>
+                <th style={tableHead}>LastName</th>
+                <th style={tableHead}>StoreNumber</th>
+                <th style={tableHead}>Date</th>
+                <th style={tableHead}>Address Line 1</th>
+                <th style={tableHead}>Address Line 2</th>
+                <th style={tableHead}>City</th>
+                <th style={tableHead}>State</th>
+              </tr>
+              </thead>
+              <tbody>{commercialApplications}</tbody>
+            </table>
+          </div>
         </div>);
   }
 }
